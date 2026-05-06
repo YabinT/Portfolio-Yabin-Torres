@@ -13,7 +13,7 @@
   <style>
     /* ── TOKENS ──────────────────────────────────────────── */
     :root {
-      --color-bg:       #101010;
+      --color-bg:       #181818;
       --color-surface:  #191919;
       --color-border:   #2e2e2e;
       --color-text:     #F0EFEB;
@@ -26,10 +26,11 @@
       --font-sans:  'DM Sans', system-ui, sans-serif;
       --font-mono:  'IBM Plex Mono', 'Courier New', monospace;
 
-      --text-display: 30px;
+      --text-display: 60px;
       --text-h1:      56px;
       --text-h2:      36px;
-      --text-h3:      22px;
+      --text-h3:      20px;
+      --text-h4:      16px;
       --text-body:    17px;
       --text-label:   13px;
       --text-micro:   11px;
@@ -65,20 +66,20 @@
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      height: 72px;
+      height: 96px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 var(--pad-x);
-      background: var(--color-bg);
-      border-bottom: 1px solid rgba(46,46,46,0.4);
+      background: linear-gradient(180deg, #000 0%, rgba(0,0,0,0.78) 48%, rgba(0,0,0,0) 100%);
+      border-bottom: none;
       z-index: 100;
     }
 
     .nav-logo {
-      font-family: var(--font-mono);
+      font-family: var(--font-sans);
       font-weight: 500;
-      font-size: var(--text-label);
+      font-size: 39px;
       color: var(--color-text);
       display: flex;
       align-items: center;
@@ -101,7 +102,7 @@
 
     .nav-links a {
       font-family: var(--font-sans);
-      font-size: var(--text-label);
+      font-size: 39px;
       color: var(--color-muted);
       transition: color 0.2s;
     }
@@ -110,54 +111,28 @@
 
     /* ── HERO ─────────────────────────────────────────────── */
     .hero {
-      padding-top: calc(72px + var(--space-3xl));
+      min-height: 100vh;
+      min-height: 100svh;
+      padding-top: calc(96px + var(--space-3xl));
       padding-left: var(--pad-x);
-      padding-right: var(--pad-x);
+      padding-right: 32px;
       padding-bottom: var(--space-xl);
     }
 
     .hero-intro {
       font-family: var(--font-serif);
-      font-style: italic;
+      font-style: normal;
       font-size: var(--text-display);
       line-height: 1.4;
       color: var(--color-text);
-      max-width: 920px;
+      max-width: 1280px;
       opacity: 0;
       transform: translateY(20px);
       animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
     }
 
-    .hero-datum {
-      width: 100vw;
-      margin-left: calc(-1 * var(--pad-x));
-      height: 1px;
-      background: var(--color-mint);
-      opacity: 0.5;
-      margin-top: var(--space-xl);
-      opacity: 0;
-      animation: fadeIn 0.6s ease 0.7s forwards;
-    }
-
-    .hero-scroll {
-      margin-top: var(--space-lg);
-      font-family: var(--font-mono);
-      font-size: var(--text-micro);
-      color: var(--color-dim);
-      opacity: 0;
-      animation: fadeIn 0.6s ease 0.9s forwards;
-    }
-
     @keyframes fadeUp {
       to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeIn {
-      to { opacity: 0.5; }
-    }
-    /* datum line needs full opacity */
-    .hero-datum { animation: fadeInFull 0.6s ease 0.7s forwards; opacity: 0; }
-    @keyframes fadeInFull {
-      to { opacity: 0.5; }
     }
 
     /* ── WORKS SECTION ────────────────────────────────────── */
@@ -168,13 +143,13 @@
     .works-header {
       display: flex;
       align-items: baseline;
-      justify-content: space-between;
-      margin-bottom: var(--space-lg);
+      justify-content: center;
+      margin-bottom: var(--space-xl);
     }
 
     .works-label {
-      font-family: var(--font-mono);
-      font-size: var(--text-micro);
+      font-family: var(--font-serif);
+      font-size: var(--text-h2);
       color: var(--color-muted);
     }
 
@@ -239,14 +214,14 @@
 
     .project-year {
       font-family: var(--font-mono);
-      font-size: var(--text-micro);
+      font-size: var(--text-h3);
       color: var(--color-muted);
     }
 
     .project-title {
       font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 38px;
+      font-style: normal;
+      font-size: var(--text-h3);
       color: var(--color-text);
       line-height: 1.2;
       transition: color 0.2s;
@@ -255,14 +230,14 @@
     .project-item:hover .project-title { color: var(--color-mint); }
 
     .project-cat {
-      font-family: var(--font-sans);
-      font-size: 12px;
+      font-family: var(--font-mono);
+      font-size: var(--text-h3);
       color: var(--color-muted);
     }
 
     .project-tags {
       font-family: var(--font-mono);
-      font-size: var(--text-micro);
+      font-size: var(--text-h3);
       color: var(--color-muted);
     }
 
@@ -322,7 +297,7 @@
     @media (max-width: 900px) {
       :root { --pad-x: 24px; }
 
-      .hero-intro { font-size: 22px; }
+      .hero-intro { font-size: 44px; }
 
       .project-item {
         grid-template-columns: 48px 1fr;
@@ -335,7 +310,7 @@
       .project-tags,
       .project-thumb { display: none; }
 
-      .project-title { font-size: 28px; }
+      .project-title { font-size: var(--text-h3); }
 
       .filter-bar { gap: var(--space-lg); flex-wrap: wrap; justify-content: flex-start; }
 
@@ -349,7 +324,7 @@
   <!-- NAV -->
   <nav>
     <a href="/" class="nav-logo">
-      <span>[ Tu nombre ]</span>
+      <span>Yabin Torres</span>
       <span class="nav-logo-dot"></span>
     </a>
     <ul class="nav-links">
@@ -364,8 +339,6 @@
     <p class="hero-intro">
       I work across the boundary between physical and digital — designing objects you can hold and systems you can use. My practice is built on a single conviction: that the best solutions don't look designed. They feel discovered.
     </p>
-    <div class="hero-datum"></div>
-    <p class="hero-scroll">↓&nbsp;&nbsp;scroll to work</p>
   </section>
 
   <!-- WORKS -->
@@ -389,10 +362,10 @@
     <!-- PROJECT LIST -->
     <ul class="project-list" id="project-list">
 
-      <li class="project-item" data-category="product">
-        <span class="project-year">2024</span>
-        <span class="project-title">[ Proyecto 01 ]</span>
-        <span class="project-cat">[ Categoría ]</span>
+      <li class="project-item" data-category="product" onclick="location.href='cases/resilienciaenuncaja.html'">
+        <span class="project-year">2026</span>
+        <span class="project-title">Resliencia en una Caja</span>
+        <span class="project-cat">UX/UI Design</span>
         <span class="project-tags">[ Tags ]</span>
         <div class="project-thumb"><span>imagen</span></div>
       </li>
