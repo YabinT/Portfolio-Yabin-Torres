@@ -112,6 +112,7 @@
     var cursor = document.createElement('span');
     cursor.className = 'typewriter-cursor';
     el.appendChild(cursor);
+    document.documentElement.classList.add('intro-active');
 
     var index = 0;
 
@@ -119,7 +120,7 @@
       if (index < fullText.length) {
         el.insertBefore(document.createTextNode(fullText[index]), cursor);
         index++;
-        window.setTimeout(typeChar, 45);
+        window.setTimeout(typeChar, 70);
         return;
       }
 
@@ -127,17 +128,17 @@
       revealNav();
       storageSet(storageKey, '1');
       document.documentElement.classList.remove('intro-pending');
+      document.documentElement.classList.remove('intro-active');
     }
 
     function revealNav() {
-      nav.style.transform = 'translateY(-8px)';
+      nav.style.transform = 'translateY(0)';
       nav.style.transition = 'none';
       nav.offsetHeight;
-      nav.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      nav.style.transition = 'opacity 1.8s ease';
       nav.style.opacity = '1';
-      nav.style.transform = 'translateY(0)';
     }
 
-    window.setTimeout(typeChar, 800);
+    window.setTimeout(typeChar, 1000);
   }
 }());

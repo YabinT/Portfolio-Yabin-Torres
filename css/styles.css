@@ -287,8 +287,12 @@ html.intro-pending nav {
 
 html.intro-pending .hero-intro {
   animation: none;
-  opacity: 1;
+  opacity: 0;
   transform: none;
+}
+
+html.intro-active .hero-intro {
+  opacity: 1;
 }
 
 .typewriter-cursor {
