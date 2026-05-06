@@ -3,385 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Resiliencia en una Caja — Oscar Torres</title>
+  <title>Resiliencia en una Caja — Yabin Torres</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:ital,wght@0,600;1,400;1,600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
-
-  <style>
-    /* ── TOKENS ────────────────────────────────────────────────── */
-    :root {
-      --bg:           #F5F4F0;
-      --surface:      #ECECEA;
-      --border:       rgba(200, 199, 195, 0.4);
-      --border-sec:   rgba(200, 199, 195, 0.3);
-      --text:         #1A1A18;
-      --muted:        #6B6B68;
-      --dim:          #525250;
-      --mint:         #0A7A50;
-      --mint-line:    rgba(175, 239, 206, 0.55);
-
-      --font-serif:   'IBM Plex Serif', Georgia, serif;
-      --font-sans:    'DM Sans', system-ui, sans-serif;
-      --font-mono:    'IBM Plex Mono', 'Courier New', monospace;
-
-      --pad:          64px;
-      --max:          1440px;
-      --col:          1312px;
-    }
-
-    /* ── RESET ─────────────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font-sans);
-      font-size: 16px;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* ── LAYOUT ────────────────────────────────────────────────── */
-    .wrap {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 0 var(--pad);
-    }
-
-    /* ── NAV ───────────────────────────────────────────────────── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: 96px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 var(--pad);
-      background: linear-gradient(180deg, #000 0%, rgba(0,0,0,0.78) 48%, rgba(0,0,0,0) 100%);
-      border-bottom: none;
-      z-index: 100;
-    }
-
-    .nav-logo {
-      font-family: var(--font-sans);
-      font-weight: 500;
-      font-size: 39px;
-      color: #F0EFEB;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .nav-logo-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: #AFEECE;
-      flex-shrink: 0;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 64px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-family: var(--font-sans);
-      font-size: 39px;
-      color: #6B6B67;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: #F0EFEB; }
-
-    .nav-inner {
-      max-width: var(--max);
-      width: 100%;
-      margin: 0 auto;
-      padding: 0 var(--pad);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    /* ── HERO ──────────────────────────────────────────────────── */
-    .hero {
-      padding-top: 120px;
-      padding-bottom: 0;
-    }
-
-    .hero-meta {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--mint);
-      letter-spacing: 0.04em;
-      margin-bottom: 16px;
-    }
-
-    .hero-datum {
-      width: 100vw;
-      position: relative;
-      left: 50%;
-      transform: translateX(-50%);
-      height: 1px;
-      background: var(--mint-line);
-      margin-bottom: 0;
-    }
-
-    .hero-title {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-weight: 600;
-      font-size: clamp(40px, 5.5vw, 80px);
-      line-height: 1.05;
-      color: var(--text);
-      margin: 28px 0 32px;
-      max-width: 900px;
-    }
-
-    .hero-subtitle {
-      font-family: var(--font-sans);
-      font-size: 18px;
-      color: var(--muted);
-      line-height: 1.55;
-      max-width: 720px;
-      margin-bottom: 60px;
-    }
-
-    /* ── COVER IMAGE ───────────────────────────────────────────── */
-    .cover-image {
-      width: 100%;
-      aspect-ratio: 16 / 7;
-      background: var(--surface);
-      border-radius: 2px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      margin-bottom: 0;
-    }
-
-    .cover-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .cover-image .placeholder-label {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--dim);
-    }
-
-    /* ── META ROW ──────────────────────────────────────────────── */
-    .meta-row {
-      border-top: 1px solid var(--border-sec);
-      padding: 28px 0 64px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
-      margin-top: 0;
-    }
-
-    .meta-item {}
-
-    .meta-label {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--muted);
-      margin-bottom: 6px;
-      display: block;
-    }
-
-    .meta-value {
-      font-family: var(--font-sans);
-      font-weight: 500;
-      font-size: 14px;
-      color: var(--text);
-    }
-
-    /* ── SECTIONS ──────────────────────────────────────────────── */
-    .section {
-      border-top: 1px solid var(--border-sec);
-      padding: 64px 0 80px;
-    }
-
-    .section-label {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--mint);
-      letter-spacing: 0.04em;
-      margin-bottom: 28px;
-      display: block;
-    }
-
-    .section-split {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: start;
-    }
-
-    .section-heading {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: clamp(24px, 2.5vw, 36px);
-      line-height: 1.2;
-      color: var(--text);
-      font-weight: 400;
-    }
-
-    .section-heading.full {
-      max-width: 700px;
-      margin-bottom: 32px;
-    }
-
-    .section-body {
-      font-family: var(--font-sans);
-      font-size: 15px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    /* ── IMAGE PLACEHOLDERS ────────────────────────────────────── */
-    .img-placeholder {
-      background: var(--surface);
-      border-radius: 2px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .img-placeholder img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .img-placeholder .placeholder-label {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--dim);
-      position: absolute;
-    }
-
-    .img-full {
-      width: 100%;
-    }
-
-    .img-half {
-      width: 100%;
-    }
-
-    .img-pair {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      margin-top: 48px;
-    }
-
-    /* ── SPECIFIC SECTION HEIGHTS ──────────────────────────────── */
-    .cover-image        { min-height: 400px; }
-    .h-homepage         { min-height: 420px; }
-    .h-form-pair        { min-height: 320px; }
-    .h-diagram          { min-height: 180px; }
-    .h-score            { min-height: 380px; }
-    .h-modules          { min-height: 260px; }
-    .h-outcomes         { min-height: 320px; }
-    .h-brand-pair       { min-height: 280px; }
-
-    /* ── NEXT PROJECT ──────────────────────────────────────────── */
-    .next-project {
-      border-top: 1px solid var(--border-sec);
-      padding: 48px 0 80px;
-    }
-
-    .next-label {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--muted);
-      margin-bottom: 16px;
-      display: block;
-    }
-
-    .next-title {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: clamp(36px, 4.5vw, 60px);
-      line-height: 1.1;
-      color: var(--text);
-      text-decoration: none;
-      display: inline-block;
-      transition: opacity 0.2s;
-    }
-
-    .next-title:hover { opacity: 0.6; }
-
-    /* ── FOOTER ────────────────────────────────────────────────── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 28px 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .footer-name,
-    .footer-links {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .footer-links a {
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover { color: var(--text); }
-
-    /* ── FADE IN ON SCROLL ─────────────────────────────────────── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.55s ease, transform 0.55s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    /* ── RESPONSIVE ────────────────────────────────────────────── */
-    @media (max-width: 900px) {
-      :root { --pad: 28px; }
-
-      .meta-row { grid-template-columns: 1fr 1fr; }
-      .section-split { grid-template-columns: 1fr; gap: 32px; }
-      .img-pair { grid-template-columns: 1fr; gap: 24px; }
-    }
-
-    @media (max-width: 560px) {
-      :root { --pad: 20px; }
-      .meta-row { grid-template-columns: 1fr 1fr; gap: 16px; }
-      .hero-title { font-size: 32px; }
-    }
-  </style>
+  <link rel="stylesheet" href="../css/resiliencia.css" />
 </head>
 
 <body>
 
-  <!-- ── NAV ──────────────────────────────────────────────────── -->
+  <!-- -- NAV ---------------------------------------------------- -->
   <nav>
     <a href="../index.html" class="nav-logo">
       <span>Yabin Torres</span>
@@ -394,7 +25,7 @@
     </ul>
   </nav>
 
-  <!-- ── HERO ─────────────────────────────────────────────────── -->
+  <!-- -- HERO --------------------------------------------------- -->
   <section class="hero wrap">
     <p class="hero-meta reveal">UX/UI Design &nbsp;·&nbsp; 2024 &nbsp;·&nbsp; LATAM</p>
     <div class="hero-datum"></div>
@@ -405,7 +36,7 @@
     </p>
   </section>
 
-  <!-- ── COVER IMAGE ───────────────────────────────────────────── -->
+  <!-- -- COVER IMAGE --------------------------------------------- -->
   <div class="wrap reveal">
     <div class="cover-image img-placeholder">
       <!-- REPLACE: swap the comment below with an <img> tag when ready -->
@@ -414,7 +45,7 @@
     </div>
   </div>
 
-  <!-- ── META ROW ─────────────────────────────────────────────── -->
+  <!-- -- META ROW ----------------------------------------------- -->
   <div class="wrap reveal">
     <div class="meta-row">
       <div class="meta-item">
@@ -436,22 +67,24 @@
     </div>
   </div>
 
-  <!-- ── 01 CONTEXT ───────────────────────────────────────────── -->
+  <!-- -- 01 CONTEXT --------------------------------------------- -->
   <section class="section wrap reveal">
     <span class="section-label">01 / Context</span>
     <div class="section-split">
       <h2 class="section-heading">
-        [ The problem this project solves. ]
+        No design holding it together.
       </h2>
       <div class="section-body">
-        <p>[ Brief — what existed before, what wasn't working. MVP without identity, no clear journey, no visual system. ]</p>
+        <p>When a disaster hits — a flood, a fire, a supply chain collapse — most small and medium businesses in Latin America don't recover. Not because the knowledge to survive doesn't exist, but because it never reaches them in a usable form. Resiliencia en una Caja was built to change that: a structured learning platform, backed by CENACED, the ARISE Mx working group, and The UPS Foundation, offering ten modules designed to help SMEs prepare before the crisis arrives.</p>
         <br />
-        <p>[ Your entry point: what you found, what decisions you made first. ]</p>
+        <p>I joined the project after a first version had already launched. WordPress, Tutor LMS, an acquired theme customised through Elementor, video content produced by an external agency. The content was solid. What it didn't have was design — no visual identity, no clear user journey, no way to make a first-time visitor understand what the platform was or why they should trust it. My role was to build that layer from scratch.</p>
+        <br />
+        <p>My first two weeks were diagnostic. I installed Google Analytics, mapped the existing site structure, and ran through the self-diagnosis flow as a user. What I found: a few hundred visits, roughly ten completed self-assessments, zero coupon redemptions. The funnel existed on paper. In practice, no one was moving through it.</p>
       </div>
     </div>
   </section>
 
-  <!-- ── 02 BRAND & VISUAL IDENTITY ───────────────────────────── -->
+  <!-- -- 02 BRAND & VISUAL IDENTITY ----------------------------- -->
   <section class="section wrap reveal">
     <span class="section-label">02 / Brand &amp; Visual Identity</span>
     <div class="section-split">
@@ -474,7 +107,7 @@
     </div>
   </section>
 
-  <!-- ── 03 HOMEPAGE REDESIGN ──────────────────────────────────── -->
+  <!-- -- 03 HOMEPAGE REDESIGN ------------------------------------ -->
   <section class="section wrap reveal">
     <span class="section-label">03 / Homepage Redesign</span>
     <div class="section-split">
@@ -485,13 +118,13 @@
         <p>[ The homepage had one job: take a small business owner from "what is this?" to "I want to start." ]</p>
       </div>
     </div>
-    <div class="img-placeholder img-full h-homepage" style="margin-top: 48px;">
+    <div class="img-placeholder img-full h-homepage media-spaced">
       <!-- <img src="assets/homepage-annotated.jpg" alt="Homepage final — annotated" /> -->
       <span class="placeholder-label">[ Homepage final — annotated ]</span>
     </div>
   </section>
 
-  <!-- ── 04 SELF-ASSESSMENT ────────────────────────────────────── -->
+  <!-- -- 04 SELF-ASSESSMENT -------------------------------------- -->
   <section class="section wrap reveal">
     <span class="section-label">04 / Self-Assessment</span>
     <div class="section-split">
@@ -512,13 +145,13 @@
         <span class="placeholder-label">[ V2 — Fluent Forms redesign ]</span>
       </div>
     </div>
-    <div class="img-placeholder img-full h-diagram" style="margin-top: 40px;">
+    <div class="img-placeholder img-full h-diagram diagram-spaced">
       <!-- <img src="assets/flow-diagram.jpg" alt="Self-Assessment → Score Page → Learning Path" /> -->
       <span class="placeholder-label">[ Diagram: Self-Assessment → Score Page → Learning Path ]</span>
     </div>
   </section>
 
-  <!-- ── 05 SCORE PAGE ────────────────────────────────────────── -->
+  <!-- -- 05 SCORE PAGE ------------------------------------------ -->
   <section class="section wrap reveal">
     <span class="section-label">05 / Score Page — The Anchor</span>
     <div class="section-split">
@@ -529,13 +162,13 @@
         <p>[ Why the score page anchors the entire experience. How you designed the 3 outputs: score, tier, and personalised module recommendations. ]</p>
       </div>
     </div>
-    <div class="img-placeholder img-full h-score" style="margin-top: 48px;">
+    <div class="img-placeholder img-full h-score media-spaced">
       <!-- <img src="assets/score-page-annotated.jpg" alt="Score page — annotated" /> -->
       <span class="placeholder-label">[ Score page — annotated ]</span>
     </div>
   </section>
 
-  <!-- ── 06 LEARNING PATH ──────────────────────────────────────── -->
+  <!-- -- 06 LEARNING PATH ---------------------------------------- -->
   <section class="section wrap reveal">
     <span class="section-label">06 / Learning Path</span>
     <div class="section-split">
@@ -546,13 +179,13 @@
         <p>[ How the score drives module sequencing. Content architecture across the 3 learning pillars. ]</p>
       </div>
     </div>
-    <div class="img-placeholder img-full h-modules" style="margin-top: 48px;">
+    <div class="img-placeholder img-full h-modules media-spaced">
       <!-- <img src="assets/module-map.jpg" alt="Module map — 3 pillars × 10 modules" /> -->
       <span class="placeholder-label">[ Diagram: module map — 3 pillars × 10 modules ]</span>
     </div>
   </section>
 
-  <!-- ── 07 OUTCOMES & REFLECTION ─────────────────────────────── -->
+  <!-- -- 07 OUTCOMES & REFLECTION ------------------------------- -->
   <section class="section wrap reveal">
     <span class="section-label">07 / Outcomes &amp; Reflection</span>
     <div class="section-split">
@@ -563,13 +196,13 @@
         <p>[ Live platform. What you're proud of. What you'd do differently with more time or budget. ]</p>
       </div>
     </div>
-    <div class="img-placeholder img-full h-outcomes" style="margin-top: 48px;">
+    <div class="img-placeholder img-full h-outcomes media-spaced">
       <!-- <img src="assets/live-platform-screenshots.jpg" alt="Live platform — final screenshots" /> -->
       <span class="placeholder-label">[ Live platform — final screenshots ]</span>
     </div>
   </section>
 
-  <!-- ── NEXT PROJECT ──────────────────────────────────────────── -->
+  <!-- -- NEXT PROJECT -------------------------------------------- -->
   <div class="wrap reveal">
     <div class="next-project">
       <span class="next-label">Next project</span>
@@ -577,10 +210,10 @@
     </div>
   </div>
 
-  <!-- ── FOOTER ────────────────────────────────────────────────── -->
+  <!-- -- FOOTER -------------------------------------------------- -->
   <footer>
     <div class="nav-inner">
-      <span class="footer-name">Oscar Torres — 2025</span>
+      <span class="footer-name">Yabin Torres — 2025</span>
       <span class="footer-links">
         <a href="#">LinkedIn</a> &nbsp;·&nbsp;
         <a href="#">Behance</a> &nbsp;·&nbsp;
@@ -589,19 +222,7 @@
     </div>
   </footer>
 
-  <!-- ── SCROLL REVEAL ─────────────────────────────────────────── -->
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          observer.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.08 });
-
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  </script>
+  <script src="../js/case-study.js"></script>
 
 </body>
 </html>
