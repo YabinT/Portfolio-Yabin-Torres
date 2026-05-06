@@ -293,6 +293,36 @@
 
     .footer-links a:hover { color: var(--color-text); }
 
+    /* ── INTRO ANIMATION ─────────────────────────────────── */
+    html.intro-pending nav {
+      opacity: 0;
+    }
+
+    html.intro-pending .hero-intro {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    .typewriter-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 0.85em;
+      background: currentColor;
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: tw-blink 0.75s step-end infinite;
+    }
+
+    @keyframes tw-blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-intro { animation: none; opacity: 1; transform: none; }
+    }
+
     /* ── RESPONSIVE ───────────────────────────────────────── */
     @media (max-width: 900px) {
       :root { --pad-x: 24px; }
@@ -317,6 +347,13 @@
       footer { flex-direction: column; gap: var(--space-md); align-items: flex-start; }
     }
   </style>
+  <script>
+    (function () {
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var done    = sessionStorage.getItem('intro-done');
+      if (!reduced && !done) document.documentElement.classList.add('intro-pending');
+    }());
+  </script>
 </head>
 
 <body>
@@ -442,6 +479,49 @@
       item.style.transition = `opacity 0.5s ease ${i * 0.08}s, transform 0.5s ease ${i * 0.08}s`;
       observer.observe(item);
     });
+  </script>
+
+  <script>
+    // ── Cinematic intro ──────────────────────────────────────
+    (function () {
+      if (!document.documentElement.classList.contains('intro-pending')) return;
+
+      var nav      = document.querySelector('nav');
+      var el       = document.querySelector('.hero-intro');
+      var fullText = el.textContent.replace(/\s+/g, ' ').trim();
+
+      el.textContent = '';
+
+      var cursor = document.createElement('span');
+      cursor.className = 'typewriter-cursor';
+      el.appendChild(cursor);
+
+      var i = 0;
+
+      function typeChar() {
+        if (i < fullText.length) {
+          el.insertBefore(document.createTextNode(fullText[i]), cursor);
+          i++;
+          setTimeout(typeChar, 45);
+        } else {
+          cursor.remove();
+          revealNav();
+          sessionStorage.setItem('intro-done', '1');
+          document.documentElement.classList.remove('intro-pending');
+        }
+      }
+
+      function revealNav() {
+        nav.style.transform  = 'translateY(-8px)';
+        nav.style.transition = 'none';
+        nav.offsetHeight;
+        nav.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        nav.style.opacity    = '1';
+        nav.style.transform  = 'translateY(0)';
+      }
+
+      setTimeout(typeChar, 800);
+    }());
   </script>
 
 </body>
