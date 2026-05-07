@@ -1,13 +1,13 @@
 /* -- TOKENS -------------------------------------------- */
 :root {
-  --color-bg:       #181818;
-  --color-surface:  #191919;
-  --color-border:   #2e2e2e;
-  --color-text:     #F0EFEB;
-  --color-muted:    #6B6B67;
-  --color-dim:      #474745;
-  --color-mint:     #AFEECE;
-  --color-blue:     #6194D0;
+  --color-bg:       #F8F7F4;
+  --color-surface:  #EEECEA;
+  --color-border:   #D4D3CF;
+  --color-text:     #1C1C1A;
+  --color-muted:    #888884;
+  --color-dim:      #BBBBB7;
+  --color-mint:     #1A9E6A;
+  --color-blue:     #3C6FB5;
 
   --font-serif: 'IBM Plex Serif', Georgia, serif;
   --font-sans:  'DM Sans', system-ui, sans-serif;
@@ -58,7 +58,7 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 0 var(--pad-x);
-  background: linear-gradient(180deg, #000 0%, rgba(0,0,0,0.78) 48%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(180deg, var(--color-bg) 0%, rgba(248,247,244,0.88) 52%, rgba(248,247,244,0) 100%);
   border-bottom: none;
   z-index: 100;
 }
@@ -94,7 +94,7 @@ nav {
   transition: color 0.2s;
 }
 
-.nav-links a:hover { color: var(--color-text); }
+.nav-links a:hover { color: var(--color-mint); }
 
 /* -- HERO ----------------------------------------------- */
 .hero {
@@ -146,14 +146,14 @@ nav {
   justify-content: center;
   gap: var(--space-2xl);
   padding-bottom: var(--space-lg);
-  border-bottom: 1px solid rgba(46,46,46,0.45);
+  border-bottom: 1px solid rgba(26,26,24,0.15);
   margin-bottom: 0;
 }
 
 .filter-btn {
   font-family: var(--font-mono);
   font-size: var(--text-label);
-  color: var(--color-blue);
+  color: var(--color-mint);
   cursor: pointer;
   background: none;
   border: none;
@@ -172,7 +172,7 @@ nav {
 /* -- PROJECT LIST --------------------------------------- */
 .project-list {
   list-style: none;
-  border-top: 1px solid rgba(46,46,46,0.4);
+  border-top: 1px solid rgba(26,26,24,0.15);
 }
 
 .project-item {
@@ -180,7 +180,7 @@ nav {
   grid-template-columns: 80px 1fr 200px 320px 200px;
   align-items: center;
   padding: var(--space-lg) 0;
-  border-bottom: 1px solid rgba(46,46,46,0.25);
+  border-bottom: 1px solid rgba(26,26,24,0.1);
   position: relative;
   cursor: pointer;
   transition: background 0.2s;
@@ -253,7 +253,7 @@ nav {
 /* -- FOOTER --------------------------------------------- */
 footer {
   padding: var(--space-lg) var(--pad-x) var(--space-2xl);
-  border-top: 1px solid rgba(46,46,46,0.4);
+  border-top: 1px solid rgba(26,26,24,0.15);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -281,6 +281,10 @@ footer {
 .footer-links a:hover { color: var(--color-text); }
 
 /* -- INTRO ANIMATION ----------------------------------- */
+html.intro-pending body {
+  background: var(--color-bg);
+}
+
 html.intro-pending nav {
   opacity: 0;
 }

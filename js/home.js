@@ -1,46 +1,16 @@
 (function () {
-  var storageKey = 'intro-done';
-
-  function storageGet(key) {
-    try {
-      return window.sessionStorage.getItem(key);
-    } catch (error) {
-      return null;
-    }
-  }
-
-  function storageSet(key, value) {
-    try {
-      window.sessionStorage.setItem(key, value);
-    } catch (error) {
-      // Ignore storage restrictions; the intro can safely replay.
-    }
-  }
-
-  function storageRemove(key) {
-    try {
-      window.sessionStorage.removeItem(key);
-    } catch (error) {
-      // Ignore storage restrictions; the intro can safely replay.
-    }
-  }
-
-  function shouldReplayIntro() {
+  function shouldSkipIntro() {
     var params = new URLSearchParams(window.location.search);
     var intro = params.get('intro');
-    return intro === '1' || intro === 'replay';
+    return intro === 'skip';
   }
 
   function prefersReducedMotion() {
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
-  if (shouldReplayIntro()) {
-    storageRemove(storageKey);
-  }
-
-  if (!prefersReducedMotion() && !storageGet(storageKey)) {
-    document.documentElement.classList.add('intro-pending');
+  if (prefersReducedMotion() || shouldSkipIntro()) {
+    document.documentElement.classList.remove('intro-pending');
   }
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -116,29 +86,38 @@
 
     var index = 0;
 
+    function nextTypeDelay(char) {
+      if (char === ' ') return 45;
+      if (char === '.' || char === ':' || char === ';') return 520;
+      if (char === ',' || char === '—') return 340;
+      return 105;
+    }
+
     function typeChar() {
       if (index < fullText.length) {
-        el.insertBefore(document.createTextNode(fullText[index]), cursor);
+        var char = fullText[index];
+        el.insertBefore(document.createTextNode(char), cursor);
         index++;
-        window.setTimeout(typeChar, 70);
+        window.setTimeout(typeChar, nextTypeDelay(char));
         return;
       }
 
       cursor.remove();
-      revealNav();
-      storageSet(storageKey, '1');
-      document.documentElement.classList.remove('intro-pending');
-      document.documentElement.classList.remove('intro-active');
+      window.setTimeout(function () {
+        revealNav();
+        document.documentElement.classList.remove('intro-pending');
+        document.documentElement.classList.remove('intro-active');
+      }, 900);
     }
 
     function revealNav() {
       nav.style.transform = 'translateY(0)';
       nav.style.transition = 'none';
       nav.offsetHeight;
-      nav.style.transition = 'opacity 1.8s ease';
+      nav.style.transition = 'opacity 2.8s ease';
       nav.style.opacity = '1';
     }
 
-    window.setTimeout(typeChar, 1000);
+    window.setTimeout(typeChar, 1700);
   }
 }());
