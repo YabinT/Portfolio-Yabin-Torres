@@ -289,6 +289,74 @@ nav {
   margin-top: 40px;
 }
 
+/* -- BROWSER MOCKUP ------------------------------------------ */
+.browser-mockup {
+  max-width: var(--col);
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid #2E2E2E;
+  border-radius: 8px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+  overflow: hidden;
+}
+
+.browser-chrome {
+  background: #1C1C1C;
+  border-radius: 8px 8px 0 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.browser-dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.dot-red    { background: #FF5F57; }
+.dot-yellow { background: #FFBD2E; }
+.dot-green  { background: #28C840; }
+
+.browser-url {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #6B6B6B;
+  background: #2A2A2A;
+  padding: 4px 16px;
+  border-radius: 4px;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.browser-viewport {
+  height: 540px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.browser-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.browser-viewport img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* -- SPECIFIC SECTION HEIGHTS -------------------------------- */
 .cover-image        { min-height: 400px; }
 .h-homepage         { min-height: 420px; }
