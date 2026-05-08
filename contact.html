@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Yabin Torres</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css?v=2" />
+
+  <style>
+    /* ---- Contact page ---------------------------------------- */
+    .contact-section {
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 96px var(--pad-x) var(--space-xl);
+    }
+
+    .contact-label {
+      font-family: 'IBM Plex Mono', 'Courier New', monospace;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #1A9E6A;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: ct-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+    }
+
+    .contact-name {
+      font-family: 'IBM Plex Serif', Georgia, serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: clamp(52px, 8vw, 96px);
+      line-height: 1.05;
+      color: #1C1C1A;
+      margin-bottom: 56px;
+      opacity: 0;
+      animation: ct-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'IBM Plex Mono', 'Courier New', monospace;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      color: #F8F7F4;
+      background: #1C1C1A;
+      padding: 16px 32px;
+      border-radius: 2px;
+      text-decoration: none;
+      width: fit-content;
+      transition: background 0.2s;
+      opacity: 0;
+      animation: ct-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
+    }
+
+    .contact-btn:hover { background: #1A9E6A; }
+
+    @keyframes ct-rise {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .contact-label,
+      .contact-name,
+      .contact-btn {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .contact-name { margin-bottom: 40px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">
+      <span>Yabin Torres</span>
+      <span class="nav-logo-dot"></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#work">Work</a></li>
+      <li><a href="/#about">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- CONTACT -->
+  <section class="contact-section">
+    <span class="contact-label">Get in touch</span>
+    <h1 class="contact-name">Yabin Torres</h1>
+    <a href="mailto:tu@email.com" class="contact-btn">Contact me</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-name">Yabin Torres — 2025</span>
+    <ul class="footer-links">
+      <li><a href="#">LinkedIn</a></li>
+      <li><a href="#">Behance</a></li>
+      <li><a href="mailto:tu@email.com">Email</a></li>
+    </ul>
+  </footer>
+
+</body>
+</html>
