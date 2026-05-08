@@ -10,9 +10,9 @@
   --mint:         #0A7A50;
   --mint-line:    rgba(175, 239, 206, 0.55);
 
-  --font-serif:   'IBM Plex Serif', Georgia, serif;
+  --font-serif:   'DM Sans', system-ui, sans-serif;
   --font-sans:    'DM Sans', system-ui, sans-serif;
-  --font-mono:    'IBM Plex Mono', 'Courier New', monospace;
+  --font-mono:    'DM Sans', system-ui, sans-serif;
 
   --pad:          64px;
   --max:          1440px;
@@ -111,8 +111,7 @@ nav {
 
 .hero-title {
   font-family: var(--font-serif);
-  font-style: normal;
-  font-weight: 600;
+  font-weight: 700;
   font-size: clamp(36px, 4vw, 56px);
   line-height: 1.1;
   color: var(--text);
@@ -245,11 +244,10 @@ nav {
 
 .section-heading {
   font-family: var(--font-serif);
-  font-style: italic;
+  font-weight: 700;
   font-size: 36px;
   line-height: 1.2;
   color: var(--text);
-  font-weight: 400;
 }
 
 .section-heading.full {
@@ -488,7 +486,6 @@ nav {
 
 .next-title {
   font-family: var(--font-serif);
-  font-style: italic;
   font-size: clamp(36px, 4.5vw, 60px);
   line-height: 1.1;
   color: var(--text);
