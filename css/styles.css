@@ -108,7 +108,7 @@ nav {
 
 .hero-intro {
   font-family: var(--font-serif);
-  font-weight: 700;
+  font-weight: 400;
   font-size: var(--text-display);
   line-height: 1.4;
   color: var(--color-text);
@@ -138,7 +138,7 @@ nav {
 
 .works-label {
   font-family: var(--font-serif);
-  font-weight: 700;
+  font-weight: 700; /* section title — bold */
   font-size: var(--text-h2);
   color: var(--color-muted);
 }
@@ -182,7 +182,7 @@ nav {
   display: grid;
   grid-template-columns: 80px 1fr 200px 320px 200px;
   align-items: center;
-  padding: var(--space-lg) 0;
+  padding: var(--space-lg) 0 var(--space-lg) var(--space-xl);
   border-bottom: 1px solid rgba(26,26,24,0.1);
   position: relative;
   cursor: pointer;

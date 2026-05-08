@@ -111,7 +111,7 @@ nav {
 
 .hero-title {
   font-family: var(--font-serif);
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(36px, 4vw, 56px);
   line-height: 1.1;
   color: var(--text);
@@ -239,12 +239,12 @@ nav {
 .section-left {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 8px;
 }
 
 .section-heading {
   font-family: var(--font-serif);
-  font-weight: 700;
+  font-weight: 400;
   font-size: 36px;
   line-height: 1.2;
   color: var(--text);
@@ -256,7 +256,7 @@ nav {
 
 .section-body {
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: 20px;
   color: var(--muted);
   line-height: 1.7;
 }
