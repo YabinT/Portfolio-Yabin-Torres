@@ -104,6 +104,13 @@
 
       cursor.remove();
       window.setTimeout(function () {
+        // Lock final state inline before removing classes.
+        // Without this, Chrome re-fires the base fadeUp animation the moment
+        // intro-pending is removed from the cascade (Safari suppresses the
+        // restart; Chrome does not), causing the typed text to flash invisible.
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+        el.style.animation = 'none';
         revealNav();
         document.documentElement.classList.remove('intro-pending');
         document.documentElement.classList.remove('intro-active');
@@ -111,13 +118,23 @@
     }
 
     function revealNav() {
-      nav.style.transform = 'translateY(0)';
+      // No transform reset — nav has no CSS transform, and setting one would
+      // create an unnecessary compositing layer that can interfere with the
+      // opacity transition in Chrome.
       nav.style.transition = 'none';
       nav.offsetHeight;
       nav.style.transition = 'opacity 2.8s ease';
       nav.style.opacity = '1';
     }
 
-    window.setTimeout(typeChar, 1700);
+    // Wait for BOTH the initial pause AND web fonts before typing.
+    // On Chrome/Windows, Google Fonts (display=swap) can take longer than
+    // 1700 ms, causing a mid-typing font swap (FOUT) that reflows the text.
+    // document.fonts.ready resolves once all fonts are loaded/decided.
+    var fontReady = (document.fonts && document.fonts.ready) || Promise.resolve();
+    var timerReady = new Promise(function (resolve) {
+      window.setTimeout(resolve, 1700);
+    });
+    Promise.all([fontReady, timerReady]).then(typeChar);
   }
 }());
