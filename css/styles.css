@@ -9,9 +9,9 @@
   --color-mint:     #1A9E6A;
   --color-blue:     #3C6FB5;
 
-  --font-serif: 'IBM Plex Serif', Georgia, serif;
+  --font-serif: 'DM Sans', system-ui, sans-serif;
   --font-sans:  'DM Sans', system-ui, sans-serif;
-  --font-mono:  'IBM Plex Mono', 'Courier New', monospace;
+  --font-mono:  'DM Sans', system-ui, sans-serif;
 
   --text-display: 60px;
   --text-h1:      56px;
@@ -108,7 +108,7 @@ nav {
 
 .hero-intro {
   font-family: var(--font-serif);
-  font-style: normal;
+  font-weight: 700;
   font-size: var(--text-display);
   line-height: 1.4;
   color: var(--color-text);
@@ -138,6 +138,7 @@ nav {
 
 .works-label {
   font-family: var(--font-serif);
+  font-weight: 700;
   font-size: var(--text-h2);
   color: var(--color-muted);
 }
