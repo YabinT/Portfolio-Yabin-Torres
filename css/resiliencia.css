@@ -99,21 +99,6 @@ nav {
 }
 
 /* -- HERO ---------------------------------------------------- */
-.hero {
-  padding-top: calc(96px + 48px);
-  padding-left: calc(var(--pad) + 5%);
-  padding-right: calc(var(--pad) + 5%);
-  padding-bottom: 0;
-}
-
-.hero-meta {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--mint);
-  letter-spacing: 0.04em;
-  margin-bottom: 16px;
-}
-
 .hero-datum {
   width: 100vw;
   position: relative;
@@ -146,7 +131,20 @@ nav {
   margin-top: 16px;
 }
 
-/* -- COVER IMAGE --------------------------------------------- */
+/* -- COVER IMAGE FULL WIDTH ---------------------------------- */
+.cover-image-full {
+  width: 100%;
+  margin-top: 96px;
+  overflow: hidden;
+}
+
+.cover-image-full img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* -- COVER IMAGE (constrained, used inside sections) --------- */
 .cover-image {
   width: 100%;
   border-radius: 2px;
@@ -164,6 +162,30 @@ nav {
   font-family: var(--font-mono);
   font-size: 10px;
   color: var(--dim);
+}
+
+/* -- HERO INTRO ---------------------------------------------- */
+.hero-intro {
+  padding-top: 0;
+  padding-bottom: 64px;
+}
+
+.hero-intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.hero-para {
+  font-family: var(--font-sans);
+  font-size: 36px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.hero-para p + p {
+  margin-top: 24px;
 }
 
 /* -- META ROW ------------------------------------------------ */
@@ -281,6 +303,29 @@ nav {
   margin-top: 48px;
 }
 
+.img-full-width {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+/* -- LOGO TRIO ----------------------------------------------- */
+.logo-trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  align-items: center;
+  margin-bottom: 48px;
+}
+
+.logo-trio img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
 .media-spaced {
   margin-top: 48px;
 }
@@ -301,25 +346,25 @@ nav {
 }
 
 .browser-chrome {
-  background: #1C1C1C;
+  background: #E8E8E8;
   border-radius: 8px 8px 0 0;
-  height: 40px;
+  height: 32px;
   display: flex;
   align-items: center;
-  padding: 0 16px;
+  padding: 0 13px;
   position: relative;
   flex-shrink: 0;
 }
 
 .browser-dots {
   display: flex;
-  gap: 6px;
+  gap: 5px;
   align-items: center;
 }
 
 .dot {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
 }
 
@@ -332,10 +377,10 @@ nav {
   left: 50%;
   transform: translateX(-50%);
   font-family: var(--font-mono);
-  font-size: 11px;
-  color: #6B6B6B;
-  background: #2A2A2A;
-  padding: 4px 16px;
+  font-size: 9px;
+  color: #888888;
+  background: #D4D4D4;
+  padding: 3px 13px;
   border-radius: 4px;
   letter-spacing: 0.01em;
   white-space: nowrap;
@@ -366,6 +411,66 @@ nav {
 .h-modules          { min-height: 260px; }
 .h-outcomes         { min-height: 320px; }
 .h-brand-pair       { min-height: 280px; }
+
+/* -- IMAGE TRIO ---------------------------------------------- */
+.img-trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: var(--col);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.img-trio-item {
+  height: 380px;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+}
+
+.img-trio-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .img-trio {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+/* -- BROWSER MOCKUP TRIO ------------------------------------- */
+.browser-mockup-trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: var(--col);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.browser-mockup-trio .browser-mockup {
+  max-width: 100%;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+}
+
+.browser-mockup-trio .browser-viewport {
+  height: 380px;
+}
+
+@media (max-width: 768px) {
+  .browser-mockup-trio {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .browser-mockup-trio .browser-viewport {
+    height: 320px;
+  }
+}
 
 /* -- NEXT PROJECT -------------------------------------------- */
 .next-project {
@@ -430,16 +535,8 @@ footer {
   transform: none;
 }
 
-.hero-meta.reveal {
-  transition-delay: 0.05s;
-}
-
 .hero-title.reveal {
   transition-delay: 0.16s;
-}
-
-.hero-subtitle.reveal {
-  transition-delay: 0.28s;
 }
 
 /* -- RESPONSIVE ---------------------------------------------- */
@@ -449,6 +546,7 @@ footer {
   .meta-row { grid-template-columns: 1fr 1fr; }
   .section-split { grid-template-columns: 1fr; gap: 32px; }
   .img-pair { grid-template-columns: 1fr; gap: 24px; }
+  .hero-intro-grid { grid-template-columns: 1fr; gap: 24px; }
 }
 
 @media (max-width: 560px) {
