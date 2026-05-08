@@ -18,31 +18,9 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    initProjectFilters();
     initProjectReveal();
     initCinematicIntro();
   });
-
-  function initProjectFilters() {
-    var btns = document.querySelectorAll('.filter-btn');
-    var items = document.querySelectorAll('.project-item');
-
-    btns.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        btns.forEach(function (item) {
-          item.classList.remove('active');
-        });
-
-        btn.classList.add('active');
-
-        var filter = btn.dataset.filter;
-        items.forEach(function (item) {
-          var match = filter === 'all' || item.dataset.category === filter;
-          item.style.display = match ? 'grid' : 'none';
-        });
-      });
-    });
-  }
 
   function initProjectReveal() {
     var items = document.querySelectorAll('.project-item');

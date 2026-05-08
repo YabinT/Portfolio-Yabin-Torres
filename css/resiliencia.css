@@ -520,6 +520,70 @@ footer {
 
 .footer-links a:hover { color: var(--text); }
 
+/* -- LIGHTBOX ------------------------------------------------ */
+.js-lightbox { cursor: zoom-in; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 12, 10, 0.95);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.lightbox.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.lightbox-inner {
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
+}
+
+.lightbox-img {
+  display: block;
+  max-width: 90vw;
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  border-radius: 4px;
+}
+
+.lightbox.lightbox-wide .lightbox-inner {
+  max-width: 96vw;
+}
+
+.lightbox.lightbox-wide .lightbox-img {
+  max-width: none;
+  max-height: none;
+  width: min(120vw, 1200px);
+}
+
+.lightbox-close {
+  position: fixed;
+  top: 24px;
+  right: 28px;
+  z-index: 210;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.15s;
+}
+
+.lightbox-close:hover { color: #fff; }
+
 /* -- FADE IN ON SCROLL --------------------------------------- */
 .reveal {
   opacity: 0;
