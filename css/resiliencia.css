@@ -86,7 +86,7 @@ nav {
   transition: color 0.2s;
 }
 
-.nav-links a:hover { color: var(--text); }
+.nav-links a:hover { color: var(--mint); }
 
 .nav-inner {
   max-width: var(--max);
@@ -502,9 +502,50 @@ nav {
     gap: 20px;
   }
 
-  .browser-mockup-trio .browser-viewport {
+.browser-mockup-trio .browser-viewport {
     height: 320px;
   }
+}
+
+/* -- SECTION INDEX ------------------------------------------- */
+.section-index {
+  padding-top: 16px;
+  padding-bottom: 72px;
+}
+
+.section-index-label {
+  font-family: var(--font-mono);
+  font-size: 36px;
+  color: var(--text);
+  margin-bottom: 24px;
+  display: block;
+  line-height: 1.2;
+}
+
+.section-index-list {
+  list-style: none;
+  border-top: 1px solid rgba(26,26,24,0.15);
+}
+
+.section-index-list li {
+  min-height: 56px;
+  border-bottom: 1px solid rgba(26,26,24,0.1);
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  align-items: center;
+}
+
+.section-index-list span:first-child {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  color: var(--muted);
+}
+
+.section-index-list span:last-child {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  line-height: 1.2;
+  color: var(--text);
 }
 
 /* -- NEXT PROJECT -------------------------------------------- */
@@ -664,6 +705,9 @@ footer {
   .context-section .logo-trio {
     gap: 32px;
     padding: 32px 0 0;
+  }
+  .section-index-list li {
+    grid-template-columns: 56px 1fr;
   }
   .img-pair { grid-template-columns: 1fr; gap: 24px; }
   .hero-intro-grid { grid-template-columns: 1fr; gap: 24px; }
