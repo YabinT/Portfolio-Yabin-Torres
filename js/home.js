@@ -1,4 +1,8 @@
 (function () {
+  var INTRO_DELAY = 800;
+  var FONT_WAIT_TIMEOUT = 1200;
+  var INTRO_FAILSAFE_TIMEOUT = 4000;
+
   function shouldSkipIntro() {
     var params = new URLSearchParams(window.location.search);
     var intro = params.get('intro');
@@ -9,7 +13,7 @@
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
-  if (prefersReducedMotion() || shouldSkipIntro()) {
+  if (shouldSkipIntro()) {
     document.documentElement.classList.remove('intro-pending');
   }
 
@@ -76,15 +80,21 @@
     var el = document.querySelector('.hero-intro');
     if (!nav || !el) return;
 
+    if (prefersReducedMotion()) {
+      document.documentElement.classList.remove('intro-pending');
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      nav.style.opacity = '1';
+      return;
+    }
+
     var fullText = el.textContent.replace(/\s+/g, ' ').trim();
     el.textContent = '';
 
-    var cursor = document.createElement('span');
-    cursor.className = 'typewriter-cursor';
-    el.appendChild(cursor);
-    document.documentElement.classList.add('intro-active');
-
     var index = 0;
+    var cursor = null;
+    var introFinished = false;
+    var failsafe = window.setTimeout(showFinalIntroState, INTRO_FAILSAFE_TIMEOUT);
 
     function nextTypeDelay(char) {
       if (char === ' ') return 45;
@@ -93,7 +103,17 @@
       return 105;
     }
 
+    function startTyping() {
+      if (introFinished) return;
+      cursor = document.createElement('span');
+      cursor.className = 'typewriter-cursor';
+      el.appendChild(cursor);
+      document.documentElement.classList.add('intro-active');
+      window.requestAnimationFrame(typeChar);
+    }
+
     function typeChar() {
+      if (introFinished) return;
       if (index < fullText.length) {
         var char = fullText[index];
         el.insertBefore(document.createTextNode(char), cursor);
@@ -102,6 +122,8 @@
         return;
       }
 
+      introFinished = true;
+      window.clearTimeout(failsafe);
       cursor.remove();
       window.setTimeout(function () {
         // Lock final state inline before removing classes.
@@ -117,6 +139,19 @@
       }, 900);
     }
 
+    function showFinalIntroState() {
+      if (introFinished) return;
+
+      introFinished = true;
+      el.textContent = fullText;
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+      el.style.animation = 'none';
+      revealNav();
+      document.documentElement.classList.remove('intro-pending');
+      document.documentElement.classList.remove('intro-active');
+    }
+
     function revealNav() {
       // No transform reset — nav has no CSS transform, and setting one would
       // create an unnecessary compositing layer that can interfere with the
@@ -127,14 +162,23 @@
       nav.style.opacity = '1';
     }
 
-    // Wait for BOTH the initial pause AND web fonts before typing.
-    // On Chrome/Windows, Google Fonts (display=swap) can take longer than
-    // 1700 ms, causing a mid-typing font swap (FOUT) that reflows the text.
-    // document.fonts.ready resolves once all fonts are loaded/decided.
-    var fontReady = (document.fonts && document.fonts.ready) || Promise.resolve();
+    function waitForIntroFont() {
+      if (!document.fonts || !document.fonts.ready) {
+        return Promise.resolve();
+      }
+
+      var timeout = new Promise(function (resolve) {
+        window.setTimeout(resolve, FONT_WAIT_TIMEOUT);
+      });
+
+      return Promise.race([document.fonts.ready, timeout]).catch(function () {});
+    }
+
+    // Wait for the initial pause and the exact intro font, with a timeout so
+    // Chrome cannot leave the hero blank if a Google Font request is slow.
     var timerReady = new Promise(function (resolve) {
-      window.setTimeout(resolve, 1700);
+      window.setTimeout(resolve, INTRO_DELAY);
     });
-    Promise.all([fontReady, timerReady]).then(typeChar);
+    Promise.all([waitForIntroFont(), timerReady]).then(startTyping);
   }
 }());

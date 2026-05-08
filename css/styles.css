@@ -115,10 +115,12 @@ nav {
   max-width: 1280px;
   opacity: 0;
   transform: translateY(20px);
-  animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+  animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+  animation-fill-mode: forwards;
 }
 
 @keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -295,7 +297,7 @@ html.intro-pending .hero-intro {
   transform: none;
 }
 
-html.intro-active .hero-intro {
+html.intro-pending.intro-active .hero-intro {
   opacity: 1;
 }
 
@@ -306,7 +308,7 @@ html.intro-active .hero-intro {
   background: currentColor;
   margin-left: 2px;
   vertical-align: text-bottom;
-  animation: tw-blink 0.75s step-end infinite;
+  animation: tw-blink 0.75s steps(1, end) infinite;
 }
 
 @keyframes tw-blink {
