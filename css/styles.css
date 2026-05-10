@@ -223,7 +223,7 @@ nav {
 .project-thumb {
   width: 200px;
   height: 130px;
-  background: var(--color-surface);
+  background: transparent;
   border-radius: 2px;
   opacity: 0;
   transition: opacity 0.25s;
@@ -231,6 +231,12 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.project-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .project-thumb span {
