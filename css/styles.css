@@ -1,6 +1,6 @@
 /* -- TOKENS -------------------------------------------- */
 :root {
-  --color-bg:       #F8F7F4;
+  --color-bg:       #FFFFFF;
   --color-surface:  #EEECEA;
   --color-border:   #D4D3CF;
   --color-text:     #1C1C1A;
@@ -58,7 +58,7 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 0 var(--pad-x);
-  background: linear-gradient(180deg, var(--color-bg) 0%, rgba(248,247,244,0.88) 52%, rgba(248,247,244,0) 100%);
+  background: var(--color-bg);
   border-bottom: none;
   z-index: 100;
 }

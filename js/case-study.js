@@ -1,5 +1,24 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+  /* -- Sticky panel z-index (each panel covers the one before it) */
+  document.querySelectorAll('.sections-wrapper .section-panel').forEach(function (panel, i) {
+    panel.style.zIndex = i + 1;
+  });
+
+  /* -- Hide nav on scroll down, show on scroll up ----------- */
+  var nav = document.querySelector('nav');
+  var lastScrollY = window.scrollY;
+
+  window.addEventListener('scroll', function () {
+    var currentScrollY = window.scrollY;
+    if (currentScrollY > lastScrollY && currentScrollY > 96) {
+      nav.classList.add('nav-hidden');
+    } else {
+      nav.classList.remove('nav-hidden');
+    }
+    lastScrollY = currentScrollY;
+  }, { passive: true });
+
   /* -- Scroll reveal ---------------------------------------- */
   var revealItems = document.querySelectorAll('.reveal');
 
