@@ -617,6 +617,150 @@ nav.nav-hidden {
   color: var(--bg);
 }
 
+/* -- STAKEHOLDER DIAGRAM -------------------------------------- */
+.stakeholder-diagram {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+
+.stakeholder-card {
+  min-height: 280px;
+  border: 1px solid rgba(10, 122, 80, 0.16);
+  border-radius: 8px;
+  padding: 20px;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.stakeholder-card:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -18px;
+  width: 18px;
+  height: 1px;
+  background: rgba(10, 122, 80, 0.45);
+}
+
+.stakeholder-logo {
+  min-height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.stakeholder-logo img {
+  display: block;
+  max-width: 100%;
+  max-height: 120px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.stakeholder-role {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--mint);
+  margin-bottom: 16px;
+}
+
+.stakeholder-card h3 {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 18px;
+}
+
+.stakeholder-card p {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin-top: auto;
+}
+
+.stakeholder-card--impact {
+  border-color: rgba(10, 122, 80, 0.42);
+}
+
+/* -- KPI DIAGRAM ---------------------------------------------- */
+.kpi-diagram {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.kpi-title {
+  font-family: var(--font-serif);
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text);
+  margin-left: -10%;
+  margin-bottom: 48px;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.kpi-card {
+  min-height: 260px;
+  border: 1px solid rgba(10, 122, 80, 0.16);
+  border-radius: 8px;
+  padding: 20px;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.kpi-index {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--mint);
+  margin-bottom: 40px;
+}
+
+.kpi-card strong {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.kpi-card p {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin-top: auto;
+  transition: color 0.2s ease;
+}
+
+.kpi-card:hover {
+  background: var(--mint);
+  border-color: var(--mint);
+}
+
+.kpi-card:hover .kpi-index,
+.kpi-card:hover strong,
+.kpi-card:hover p {
+  color: var(--bg);
+}
+
 /* -- LOGO TRIO ----------------------------------------------- */
 .logo-trio {
   display: grid;
@@ -746,6 +890,14 @@ nav.nav-hidden {
   width: 100%;
   height: auto;
   display: block;
+}
+
+.img-trio-figure figcaption {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--muted);
+  margin-top: 14px;
 }
 
 @media (max-width: 768px) {
@@ -992,6 +1144,36 @@ footer {
   .flow-kicker {
     margin-bottom: 24px;
   }
+  .stakeholder-diagram {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .stakeholder-card {
+    min-height: 0;
+  }
+  .stakeholder-card:not(:last-child)::after {
+    top: auto;
+    right: auto;
+    left: 28px;
+    bottom: -16px;
+    width: 1px;
+    height: 16px;
+  }
+  .stakeholder-logo {
+    justify-content: flex-start;
+    min-height: 96px;
+    margin-bottom: 28px;
+  }
+  .stakeholder-logo img {
+    max-width: 330px;
+    max-height: 120px;
+  }
+  .kpi-title {
+    margin-left: 0;
+  }
+  .kpi-grid {
+    grid-template-columns: 1fr 1fr;
+  }
   .section-index-list li {
     grid-template-columns: 56px 1fr;
   }
@@ -1007,6 +1189,9 @@ footer {
     padding-right: 0;
   }
   .brand-card-grid--three {
+    grid-template-columns: 1fr;
+  }
+  .kpi-grid {
     grid-template-columns: 1fr;
   }
   .hero-title { font-size: 32px; }
