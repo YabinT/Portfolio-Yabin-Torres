@@ -4,8 +4,8 @@
   --color-surface:  #EEECEA;
   --color-border:   #D4D3CF;
   --color-text:     #1C1C1A;
-  --color-muted:    #888884;
-  --color-dim:      #BBBBB7;
+  --color-muted:    #1C1C1A;
+  --color-dim:      #1C1C1A;
   --color-mint:     #1A9E6A;
   --color-blue:     #3C6FB5;
 
@@ -127,6 +127,7 @@ nav {
 /* -- WORKS SECTION -------------------------------------- */
 .works {
   padding: var(--space-2xl) var(--pad-x) var(--space-3xl);
+  border-top: 1px solid rgba(26,26,24,0.15);
 }
 
 .works-header {
@@ -163,14 +164,13 @@ nav {
 /* -- PROJECT LIST --------------------------------------- */
 .project-list {
   list-style: none;
-  border-top: 1px solid rgba(26,26,24,0.15);
 }
 
 .project-item {
   display: grid;
   grid-template-columns: 80px 1fr 200px 320px 200px;
   align-items: center;
-  padding: var(--space-lg) 0 var(--space-lg) var(--space-xl);
+  padding: 4px 0 4px var(--space-xl);
   border-bottom: 1px solid rgba(26,26,24,0.1);
   position: relative;
   cursor: pointer;
@@ -247,35 +247,6 @@ nav {
 
 .project-item:hover .project-thumb { opacity: 1; }
 
-/* -- FOOTER --------------------------------------------- */
-footer {
-  padding: var(--space-lg) var(--pad-x) var(--space-2xl);
-  border-top: 1px solid rgba(26,26,24,0.15);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.footer-name {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--color-muted);
-}
-
-.footer-links {
-  display: flex;
-  gap: var(--space-lg);
-  list-style: none;
-}
-
-.footer-links a {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--color-muted);
-  transition: color 0.15s;
-}
-
-.footer-links a:hover { color: var(--color-text); }
 
 /* -- INTRO ANIMATION ----------------------------------- */
 html.intro-pending body {
@@ -338,6 +309,4 @@ html.intro-pending.intro-active .hero-intro {
   .project-title { font-size: var(--text-h3); }
 
   .filter-bar { gap: var(--space-lg); flex-wrap: wrap; justify-content: flex-start; }
-
-  footer { flex-direction: column; gap: var(--space-md); align-items: flex-start; }
 }

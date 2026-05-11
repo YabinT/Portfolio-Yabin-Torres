@@ -5,8 +5,8 @@
   --border:       rgba(200, 199, 195, 0.4);
   --border-sec:   rgba(200, 199, 195, 0.3);
   --text:         #1A1A18;
-  --muted:        #6B6B68;
-  --dim:          #525250;
+  --muted:        #1A1A18;
+  --dim:          #1A1A18;
   --mint:         #0A7A50;
   --mint-line:    rgba(175, 239, 206, 0.55);
 
@@ -275,7 +275,7 @@ nav.nav-hidden {
 
 .sections-wrapper .section-panel:last-child {
   min-height: auto;
-  padding-bottom: 32px;
+  padding-bottom: 200px;
 }
 
 .section-label {
@@ -298,7 +298,6 @@ nav.nav-hidden {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  margin-left: -10%;
 }
 
 .section-heading {
@@ -323,10 +322,6 @@ nav.nav-hidden {
   margin-right: auto;
 }
 
-.context-section .section-body {
-  padding-left: 32px;
-  padding-right: 32px;
-}
 
 .section-body--two-col {
   max-width: 100%;
@@ -428,7 +423,6 @@ nav.nav-hidden {
   letter-spacing: 0;
   text-transform: none;
   color: var(--text);
-  margin-left: -10%;
   margin-bottom: 64px;
 }
 
@@ -542,12 +536,10 @@ nav.nav-hidden {
   font-weight: 400;
   line-height: 1.2;
   color: var(--text);
-  margin-left: -10%;
   margin-bottom: 28px;
 }
 
 .flow-section-label {
-  margin-left: -10%;
 }
 
 .flow-steps {
@@ -703,7 +695,6 @@ nav.nav-hidden {
   font-weight: 400;
   line-height: 1.2;
   color: var(--text);
-  margin-left: -10%;
   margin-bottom: 48px;
 }
 
@@ -950,7 +941,6 @@ nav.nav-hidden {
   font-family: var(--font-mono);
   font-size: 36px;
   color: var(--text);
-  margin-left: -10%;
   margin-bottom: 24px;
   display: block;
   line-height: 1.2;
@@ -1109,10 +1099,6 @@ footer {
   .case-info-row:last-child { border-bottom: none; }
   .section-split { gap: 16px; }
   .section-body { max-width: 100%; }
-  .context-section .section-body {
-    padding-left: 0;
-    padding-right: 0;
-  }
   .context-section .logo-trio {
     gap: 32px;
     padding: 32px 0 0;
@@ -1121,11 +1107,6 @@ footer {
     grid-template-columns: 1fr 1fr;
   }
   .brand-group-title,
-  .flow-title,
-  .flow-section-label,
-  .section-index-label {
-    margin-left: 0;
-  }
   .flow-steps {
     grid-template-columns: 1fr;
     gap: 16px;
@@ -1167,9 +1148,6 @@ footer {
   .stakeholder-logo img {
     max-width: 330px;
     max-height: 120px;
-  }
-  .kpi-title {
-    margin-left: 0;
   }
   .kpi-grid {
     grid-template-columns: 1fr 1fr;
