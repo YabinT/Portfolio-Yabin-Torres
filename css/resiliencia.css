@@ -193,6 +193,7 @@ nav.nav-hidden {
 .hero-intro {
   padding-top: 128px;
   padding-bottom: 64px;
+  background: var(--bg);
 }
 
 .hero-intro-grid {
@@ -270,6 +271,11 @@ nav.nav-hidden {
 
 .context-section {
   padding-bottom: 40px;
+}
+
+.sections-wrapper .section-panel:last-child {
+  min-height: auto;
+  padding-bottom: 32px;
 }
 
 .section-label {
@@ -393,6 +399,222 @@ nav.nav-hidden {
   height: auto;
   display: block;
   border-radius: 2px;
+}
+
+.h-form-step {
+  min-height: 0;
+  background: transparent;
+  padding: 0;
+  display: block;
+}
+
+.h-form-step img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* -- BRAND VARIANTS ------------------------------------------ */
+.brand-variants {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.brand-group-title {
+  font-family: var(--font-serif);
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text);
+  margin-left: -10%;
+  margin-bottom: 64px;
+}
+
+.brand-card-grid {
+  display: grid;
+  gap: 28px;
+}
+
+.brand-card-grid--three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.brand-card {
+  min-height: 280px;
+}
+
+.brand-card {
+  border: 1px solid rgba(10, 122, 80, 0.16);
+  border-radius: 8px;
+  padding: 20px;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.brand-card--lilac {
+  background: #EDEEFF;
+}
+
+.brand-card--blue {
+  background: #005895;
+  border-color: #005895;
+  color: #FFFFFF;
+}
+
+.brand-card--magenta {
+  background: #AA3290;
+  border-color: #AA3290;
+  color: #FFFFFF;
+}
+
+.brand-card--black {
+  background: #111719;
+  border-color: #111719;
+  color: #FFFFFF;
+}
+
+.brand-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 10px;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #005895;
+  background: rgba(0, 88, 149, 0.08);
+}
+
+.brand-chip--magenta {
+  color: #AA3290;
+  background: rgba(170, 50, 144, 0.08);
+}
+
+.brand-chip--dark {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.brand-logo {
+  min-height: 128px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0 16px;
+}
+
+.brand-logo img {
+  display: block;
+  max-width: 90%;
+  max-height: 104px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.brand-card p {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.brand-card--blue p,
+.brand-card--magenta p,
+.brand-card--black p {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* -- USER FLOW DIAGRAM ---------------------------------------- */
+.flow-diagram {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.flow-title {
+  font-family: var(--font-serif);
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text);
+  margin-left: -10%;
+  margin-bottom: 28px;
+}
+
+.flow-section-label {
+  margin-left: -10%;
+}
+
+.flow-steps {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 18px;
+  counter-reset: flow;
+}
+
+.flow-step {
+  min-height: 280px;
+  border: 1px solid rgba(10, 122, 80, 0.16);
+  border-radius: 8px;
+  padding: 20px;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.flow-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -18px;
+  width: 18px;
+  height: 1px;
+  background: rgba(10, 122, 80, 0.45);
+}
+
+.flow-kicker {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--mint);
+  margin-bottom: 40px;
+}
+
+.flow-step strong {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.flow-step p {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin-top: auto;
+  transition: color 0.2s ease;
+}
+
+.flow-step:hover {
+  background: var(--mint);
+  border-color: var(--mint);
+}
+
+.flow-step:hover .flow-kicker,
+.flow-step:hover strong,
+.flow-step:hover p {
+  color: var(--bg);
 }
 
 /* -- LOGO TRIO ----------------------------------------------- */
@@ -565,7 +787,7 @@ nav.nav-hidden {
 
 /* -- SECTION INDEX ------------------------------------------- */
 .section-index {
-  padding-top: 16px;
+  padding-top: 0;
   padding-bottom: 72px;
   position: relative;
   z-index: 20;
@@ -576,6 +798,7 @@ nav.nav-hidden {
   font-family: var(--font-mono);
   font-size: 36px;
   color: var(--text);
+  margin-left: -10%;
   margin-bottom: 24px;
   display: block;
   line-height: 1.2;
@@ -606,35 +829,6 @@ nav.nav-hidden {
   line-height: 1.2;
   color: var(--text);
 }
-
-/* -- NEXT PROJECT -------------------------------------------- */
-.next-project {
-  border-top: 1px solid var(--border-sec);
-  padding: 48px 0 80px;
-  position: relative;
-  z-index: 20;
-  background: var(--bg);
-}
-
-.next-label {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--muted);
-  margin-bottom: 16px;
-  display: block;
-}
-
-.next-title {
-  font-family: var(--font-serif);
-  font-size: clamp(36px, 4.5vw, 60px);
-  line-height: 1.1;
-  color: var(--text);
-  text-decoration: none;
-  display: inline-block;
-  transition: opacity 0.2s;
-}
-
-.next-title:hover { opacity: 0.6; }
 
 /* -- FOOTER -------------------------------------------------- */
 footer {
@@ -771,6 +965,33 @@ footer {
     gap: 32px;
     padding: 32px 0 0;
   }
+  .brand-card-grid--three {
+    grid-template-columns: 1fr 1fr;
+  }
+  .brand-group-title,
+  .flow-title,
+  .flow-section-label,
+  .section-index-label {
+    margin-left: 0;
+  }
+  .flow-steps {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .flow-step {
+    min-height: 0;
+  }
+  .flow-step:not(:last-child)::after {
+    top: auto;
+    right: auto;
+    left: 28px;
+    bottom: -16px;
+    width: 1px;
+    height: 16px;
+  }
+  .flow-kicker {
+    margin-bottom: 24px;
+  }
   .section-index-list li {
     grid-template-columns: 56px 1fr;
   }
@@ -784,6 +1005,9 @@ footer {
   .case-info-row {
     border-right: none;
     padding-right: 0;
+  }
+  .brand-card-grid--three {
+    grid-template-columns: 1fr;
   }
   .hero-title { font-size: 32px; }
 }

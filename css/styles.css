@@ -289,30 +289,33 @@ html.intro-pending nav {
 html.intro-pending .hero-intro {
   animation: none;
   opacity: 0;
-  transform: none;
+  transform: translateY(28px);
+  filter: blur(12px);
 }
 
 html.intro-pending.intro-active .hero-intro {
-  opacity: 1;
+  animation: introReveal 2.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.typewriter-cursor {
-  display: inline-block;
-  width: 2px;
-  height: 0.85em;
-  background: currentColor;
-  margin-left: 2px;
-  vertical-align: text-bottom;
-  animation: tw-blink 0.75s steps(1, end) infinite;
-}
-
-@keyframes tw-blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
+@keyframes introReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(28px);
+    filter: blur(12px);
+  }
+  45% {
+    opacity: 1;
+    filter: blur(3px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-intro { animation: none; opacity: 1; transform: none; }
+  .hero-intro { animation: none; opacity: 1; transform: none; filter: none; }
 }
 
 /* -- RESPONSIVE ----------------------------------------- */

@@ -1,7 +1,8 @@
 (function () {
   var INTRO_DELAY = 800;
   var FONT_WAIT_TIMEOUT = 1200;
-  var INTRO_FAILSAFE_TIMEOUT = 4000;
+  var INTRO_REVEAL_DURATION = 2600;
+  var INTRO_FAILSAFE_TIMEOUT = 5000;
 
   function shouldSkipIntro() {
     var params = new URLSearchParams(window.location.search);
@@ -66,64 +67,36 @@
       return;
     }
 
-    var fullText = el.textContent.replace(/\s+/g, ' ').trim();
-    el.textContent = '';
-
-    var index = 0;
-    var cursor = null;
     var introFinished = false;
     var failsafe = window.setTimeout(showFinalIntroState, INTRO_FAILSAFE_TIMEOUT);
 
-    function nextTypeDelay(char) {
-      if (char === ' ') return 45;
-      if (char === '.' || char === ':' || char === ';') return 520;
-      if (char === ',' || char === '—') return 340;
-      return 105;
-    }
-
-    function startTyping() {
+    function startIntroReveal() {
       if (introFinished) return;
-      cursor = document.createElement('span');
-      cursor.className = 'typewriter-cursor';
-      el.appendChild(cursor);
       document.documentElement.classList.add('intro-active');
-      window.requestAnimationFrame(typeChar);
+      window.setTimeout(finishIntroReveal, INTRO_REVEAL_DURATION);
     }
 
-    function typeChar() {
+    function finishIntroReveal() {
       if (introFinished) return;
-      if (index < fullText.length) {
-        var char = fullText[index];
-        el.insertBefore(document.createTextNode(char), cursor);
-        index++;
-        window.setTimeout(typeChar, nextTypeDelay(char));
-        return;
-      }
 
       introFinished = true;
       window.clearTimeout(failsafe);
-      cursor.remove();
-      window.setTimeout(function () {
-        // Lock final state inline before removing classes.
-        // Without this, Chrome re-fires the base fadeUp animation the moment
-        // intro-pending is removed from the cascade (Safari suppresses the
-        // restart; Chrome does not), causing the typed text to flash invisible.
-        el.style.opacity = '1';
-        el.style.transform = 'translateY(0)';
-        el.style.animation = 'none';
-        revealNav();
-        document.documentElement.classList.remove('intro-pending');
-        document.documentElement.classList.remove('intro-active');
-      }, 900);
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+      el.style.backgroundPosition = '0% 50%';
+      el.style.animation = 'none';
+      revealNav();
+      document.documentElement.classList.remove('intro-pending');
+      document.documentElement.classList.remove('intro-active');
     }
 
     function showFinalIntroState() {
       if (introFinished) return;
 
       introFinished = true;
-      el.textContent = fullText;
       el.style.opacity = '1';
       el.style.transform = 'translateY(0)';
+      el.style.backgroundPosition = '0% 50%';
       el.style.animation = 'none';
       revealNav();
       document.documentElement.classList.remove('intro-pending');
@@ -131,12 +104,9 @@
     }
 
     function revealNav() {
-      // No transform reset — nav has no CSS transform, and setting one would
-      // create an unnecessary compositing layer that can interfere with the
-      // opacity transition in Chrome.
       nav.style.transition = 'none';
       nav.offsetHeight;
-      nav.style.transition = 'opacity 2.8s ease';
+      nav.style.transition = 'opacity 2.2s ease';
       nav.style.opacity = '1';
     }
 
@@ -152,11 +122,9 @@
       return Promise.race([document.fonts.ready, timeout]).catch(function () {});
     }
 
-    // Wait for the initial pause and the exact intro font, with a timeout so
-    // Chrome cannot leave the hero blank if a Google Font request is slow.
     var timerReady = new Promise(function (resolve) {
       window.setTimeout(resolve, INTRO_DELAY);
     });
-    Promise.all([waitForIntroFont(), timerReady]).then(startTyping);
+    Promise.all([waitForIntroFont(), timerReady]).then(startIntroReveal);
   }
 }());
