@@ -1,134 +1,14 @@
 (function () {
-  var INTRO_DELAY = 800;
-  var FONT_WAIT_TIMEOUT = 1200;
-  var INTRO_REVEAL_DURATION = 2600;
-  var INTRO_FAILSAFE_TIMEOUT = 5000;
-
-  function shouldSkipIntro() {
-    var params = new URLSearchParams(window.location.search);
-    var intro = params.get('intro');
-    return intro === 'skip';
-  }
-
   function prefersReducedMotion() {
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
-  if (shouldSkipIntro()) {
-    document.documentElement.classList.remove('intro-pending');
-  }
-
   document.addEventListener('DOMContentLoaded', function () {
-    initProjectReveal();
-    initCinematicIntro();
     initFloatingBubbles();
     initNodeLinks();
   });
 
-  function initProjectReveal() {
-    var items = document.querySelectorAll('.project-item');
-
-    if (!('IntersectionObserver' in window)) {
-      items.forEach(function (item) {
-        item.style.opacity = '1';
-        item.style.transform = 'translateY(0)';
-      });
-      return;
-    }
-
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    items.forEach(function (item, index) {
-      item.style.opacity = '0';
-      item.style.transform = 'translateY(12px)';
-      item.style.transition = 'opacity 0.5s ease ' + index * 0.08 + 's, transform 0.5s ease ' + index * 0.08 + 's';
-      observer.observe(item);
-    });
-  }
-
-  function initCinematicIntro() {
-    if (!document.documentElement.classList.contains('intro-pending')) return;
-
-    var nav = document.querySelector('nav');
-    var el = document.querySelector('.hero-network');
-    if (!nav || !el) return;
-
-    if (prefersReducedMotion()) {
-      document.documentElement.classList.remove('intro-pending');
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-      nav.style.opacity = '1';
-      return;
-    }
-
-    var introFinished = false;
-    var failsafe = window.setTimeout(showFinalIntroState, INTRO_FAILSAFE_TIMEOUT);
-
-    function startIntroReveal() {
-      if (introFinished) return;
-      document.documentElement.classList.add('intro-active');
-      window.setTimeout(finishIntroReveal, INTRO_REVEAL_DURATION);
-    }
-
-    function finishIntroReveal() {
-      if (introFinished) return;
-
-      introFinished = true;
-      window.clearTimeout(failsafe);
-      el.style.opacity = '1';
-      el.style.transform = 'translateY(0)';
-      el.style.backgroundPosition = '0% 50%';
-      el.style.animation = 'none';
-      revealNav();
-      document.documentElement.classList.remove('intro-pending');
-      document.documentElement.classList.remove('intro-active');
-    }
-
-    function showFinalIntroState() {
-      if (introFinished) return;
-
-      introFinished = true;
-      el.style.opacity = '1';
-      el.style.transform = 'translateY(0)';
-      el.style.backgroundPosition = '0% 50%';
-      el.style.animation = 'none';
-      revealNav();
-      document.documentElement.classList.remove('intro-pending');
-      document.documentElement.classList.remove('intro-active');
-    }
-
-    function revealNav() {
-      nav.style.transition = 'none';
-      nav.offsetHeight;
-      nav.style.transition = 'opacity 2.2s ease';
-      nav.style.opacity = '1';
-    }
-
-    function waitForIntroFont() {
-      if (!document.fonts || !document.fonts.ready) {
-        return Promise.resolve();
-      }
-
-      var timeout = new Promise(function (resolve) {
-        window.setTimeout(resolve, FONT_WAIT_TIMEOUT);
-      });
-
-      return Promise.race([document.fonts.ready, timeout]).catch(function () {});
-    }
-
-    var timerReady = new Promise(function (resolve) {
-      window.setTimeout(resolve, INTRO_DELAY);
-    });
-    Promise.all([waitForIntroFont(), timerReady]).then(startIntroReveal);
-  }
+  var dragJustEnded = false;
 
   function initFloatingBubbles() {
     if (prefersReducedMotion()) return;
@@ -183,14 +63,101 @@
       });
     }
 
+    // -- Drag state ----------------------------------------------------------
+    var drag = { bubble: null, ox: 0, oy: 0, history: [], didMove: false };
+
+    function getEventPos(e) {
+      var src = e.touches ? e.touches[0] : e;
+      return { x: src.clientX, y: src.clientY };
+    }
+
+    bubbles.forEach(function (b) {
+      if (!b.el) return;
+      b.el.addEventListener('mousedown', onDragStart);
+      b.el.addEventListener('touchstart', onDragStart, { passive: true });
+    });
+
+    function onDragStart(e) {
+      var b = bubbles.filter(function (bub) { return bub.el === e.currentTarget; })[0];
+      if (!b) return;
+      var pos  = getEventPos(e);
+      var rect = network.getBoundingClientRect();
+      drag.bubble  = b;
+      // Store offset in layout-% space so it stays correct across resizes.
+      // rect.width is the visual (scaled) width, which maps 1:1 to layout %.
+      drag.oxPct   = (pos.x - rect.left)  / rect.width  * 100 - b.x;
+      drag.oyPct   = (pos.y - rect.top)   / rect.height * 100 - b.y;
+      drag.history = [{ x: b.x, y: b.y, t: Date.now() }];
+      drag.didMove = false;
+      b.vx = 0;
+      b.vy = 0;
+      b.el.style.cursor = 'grabbing';
+    }
+
+    window.addEventListener('mousemove', onDragMove);
+    window.addEventListener('touchmove', onDragMove, { passive: true });
+    window.addEventListener('mouseup',   onDragEnd);
+    window.addEventListener('touchend',  onDragEnd);
+
+    function onDragMove(e) {
+      if (!drag.bubble) return;
+      var b    = drag.bubble;
+      var pos  = getEventPos(e);
+      var rect = network.getBoundingClientRect();
+      var rx   = b.rxPct || 5, ry = b.ryPct || 5;
+      var nx   = (pos.x - rect.left)  / rect.width  * 100 - drag.oxPct;
+      var ny   = (pos.y - rect.top)   / rect.height * 100 - drag.oyPct;
+      b.x = Math.max(rx, Math.min(100 - rx, nx));
+      b.y = Math.max(ry, Math.min(100 - ry, ny));
+      drag.didMove = true;
+      var now = Date.now();
+      drag.history.push({ x: b.x, y: b.y, t: now });
+      // Keep only the last 100 ms for velocity sampling
+      drag.history = drag.history.filter(function (h) { return now - h.t < 100; });
+    }
+
+    function onDragEnd() {
+      if (!drag.bubble) return;
+      var b = drag.bubble;
+
+      if (drag.history.length >= 2) {
+        var oldest = drag.history[0];
+        var newest = drag.history[drag.history.length - 1];
+        var dt = (newest.t - oldest.t) / 16;
+        if (dt > 0) {
+          b.vx = (newest.x - oldest.x) / dt;
+          b.vy = (newest.y - oldest.y) / dt;
+          // Cap throw speed
+          var speed = Math.sqrt(b.vx * b.vx + b.vy * b.vy);
+          var maxSpeed = 0.6;
+          if (speed > maxSpeed) {
+            b.vx = b.vx / speed * maxSpeed;
+            b.vy = b.vy / speed * maxSpeed;
+          }
+        } else {
+          b.vx = 0; b.vy = 0;
+        }
+      }
+
+      b.el.style.cursor = '';
+      drag.bubble = null;
+      drag.history = [];
+
+      if (drag.didMove) {
+        dragJustEnded = true;
+        setTimeout(function () { dragJustEnded = false; }, 0);
+      }
+    }
+    // ------------------------------------------------------------------------
+
     function tick() {
       var cw = network.offsetWidth, ch = network.offsetHeight;
 
-      // Move
+      // Move — skip dragged bubble (drag handler owns its position)
       bubbles.forEach(function (b) {
+        if (b === drag.bubble) return;
         b.x += b.vx;
         b.y += b.vy;
-        // Wall bouncing using actual pixel radius converted to %
         var rx = b.rxPct || 5, ry = b.ryPct || 5;
         if (b.x < rx)        { b.x = rx;        b.vx =  Math.abs(b.vx); }
         if (b.x > 100 - rx)  { b.x = 100 - rx;  b.vx = -Math.abs(b.vx); }
@@ -210,16 +177,23 @@
           if (dist < minDist && dist > 0.1) {
             var nx = dx / dist, ny = dy / dist;
             var overlap = (minDist - dist) * 0.5;
-            // Push apart in pixel space, convert back to %
-            a.x -= nx * overlap / cw * 100; a.y -= ny * overlap / ch * 100;
-            b.x += nx * overlap / cw * 100; b.y += ny * overlap / ch * 100;
-            // Exchange velocities along normal
-            var dvx = b.vx - a.vx, dvy = b.vy - a.vy;
-            var dot = dvx * nx + dvy * ny;
-            if (dot < 0) {
-              var damp = 0.88;
-              a.vx += nx * dot * damp; a.vy += ny * dot * damp;
-              b.vx -= nx * dot * damp; b.vy -= ny * dot * damp;
+            // Dragged bubble acts as immovable; push the other fully
+            if (a === drag.bubble) {
+              b.x += nx * overlap * 2 / cw * 100;
+              b.y += ny * overlap * 2 / ch * 100;
+            } else if (b === drag.bubble) {
+              a.x -= nx * overlap * 2 / cw * 100;
+              a.y -= ny * overlap * 2 / ch * 100;
+            } else {
+              a.x -= nx * overlap / cw * 100; a.y -= ny * overlap / ch * 100;
+              b.x += nx * overlap / cw * 100; b.y += ny * overlap / ch * 100;
+              var dvx = b.vx - a.vx, dvy = b.vy - a.vy;
+              var dot = dvx * nx + dvy * ny;
+              if (dot < 0) {
+                var damp = 0.88;
+                a.vx += nx * dot * damp; a.vy += ny * dot * damp;
+                b.vx -= nx * dot * damp; b.vy -= ny * dot * damp;
+              }
             }
           }
         }
@@ -241,6 +215,7 @@
   function initNodeLinks() {
     document.querySelectorAll('.network-node').forEach(function (node) {
       node.addEventListener('click', function () {
+        if (dragJustEnded) return;
         document.getElementById('work').scrollIntoView({ behavior: 'smooth' });
       });
     });

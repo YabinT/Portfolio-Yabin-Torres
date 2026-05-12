@@ -111,11 +111,7 @@ nav {
 .hero-network {
   position: absolute;
   inset: 0;
-  opacity: 0;
   scale: 0.5;
-  transform: translateY(20px);
-  animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
-  animation-fill-mode: forwards;
 }
 
 .network-lines {
@@ -159,7 +155,11 @@ nav {
     box-shadow 0.4s ease,
     border-color 0.4s ease,
     opacity 0.35s ease;
-  cursor: pointer;
+  cursor: grab;
+}
+
+.network-node:active {
+  cursor: grabbing;
 }
 
 .node-label {
@@ -224,12 +224,6 @@ nav {
   left: 40%;
   top: 92%;
   width: clamp(130px, 16vw, 220px);
-}
-
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 
@@ -349,49 +343,10 @@ nav {
 }
 
 
-/* -- INTRO ANIMATION ----------------------------------- */
-html.intro-pending body {
-  background: var(--color-bg);
-}
-
-html.intro-pending nav {
-  opacity: 0;
-}
-
-html.intro-pending .hero-network {
-  animation: none;
-  opacity: 0;
-  transform: translateY(28px);
-  filter: blur(12px);
-}
-
-html.intro-pending.intro-active .hero-network {
-  animation: introReveal 2.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes introReveal {
-  0% {
-    opacity: 0;
-    transform: translateY(28px);
-    filter: blur(12px);
-  }
-  45% {
-    opacity: 1;
-    filter: blur(3px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .hero-network,
   .network-node,
   .network-lines line { animation: none; }
-
-  .hero-network { opacity: 1; transform: none; filter: none; }
 }
 
 /* -- RESPONSIVE ----------------------------------------- */
