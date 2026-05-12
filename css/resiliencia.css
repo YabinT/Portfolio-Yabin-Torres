@@ -197,10 +197,9 @@ nav.nav-hidden {
 }
 
 .hero-intro-grid {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
+  display: flex;
+  flex-direction: column;
   gap: 48px;
-  align-items: start;
 }
 
 .hero-para {
@@ -216,41 +215,38 @@ nav.nav-hidden {
 
 /* -- CASE INFO TABLE ----------------------------------------- */
 .case-info-table {
-  border-top: 1px solid rgba(26,26,24,0.15);
-  border-bottom: 1px solid rgba(26,26,24,0.1);
-  width: 120%;
-  margin-left: -10%;
-  display: grid;
-  grid-template-columns: 1.25fr 1fr 0.6fr 1.35fr 1.45fr;
-  margin-top: 0;
-  margin-bottom: 64px;
+  width: 100%;
+  margin-left: 0;
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid rgba(26,26,24,0.18);
 }
 
 .case-info-row {
-  min-height: 92px;
-  padding: 24px 24px 24px 0;
-  border-right: 1px solid rgba(26,26,24,0.1);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  flex: 1;
+  border-right: 1px solid rgba(26,26,24,0.12);
+  border-bottom: none;
+  text-align: left;
 }
 
 .case-info-row:last-child {
   border-right: none;
-  padding-right: 0;
 }
 
 .case-info-label {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 13px;
   color: var(--muted);
-  margin-bottom: 6px;
   display: block;
   text-transform: uppercase;
   letter-spacing: 0.01em;
-  text-align: center;
+  text-align: left;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(26,26,24,0.12);
+  margin-bottom: 0;
 }
 
 .case-info-value {
@@ -259,7 +255,8 @@ nav.nav-hidden {
   font-size: 20px;
   line-height: 1.25;
   color: var(--text);
-  text-align: center;
+  text-align: left;
+  padding: 12px 20px;
 }
 
 /* -- SECTIONS ------------------------------------------------ */
@@ -1084,17 +1081,14 @@ footer {
   :root { --pad: 28px; }
 
   .case-info-table {
-    width: 100%;
-    margin-left: 0;
-    grid-template-columns: 1fr 1fr;
+    flex-wrap: wrap;
   }
   .case-info-row {
-    min-height: 84px;
-    border-bottom: 1px solid rgba(26,26,24,0.1);
+    flex: 0 0 50%;
+    border-bottom: 1px solid rgba(26,26,24,0.12);
   }
   .case-info-row:nth-child(2n) {
     border-right: none;
-    padding-right: 0;
   }
   .case-info-row:last-child { border-bottom: none; }
   .section-split { gap: 16px; }
@@ -1156,21 +1150,21 @@ footer {
     grid-template-columns: 56px 1fr;
   }
   .img-pair { grid-template-columns: 1fr; gap: 24px; }
-  .hero-intro-grid { grid-template-columns: 1fr; gap: 24px; }
 }
 
 @media (max-width: 560px) {
   :root { --pad: 20px; }
-  .case-info-table { grid-template-columns: 1fr; }
+  .case-info-table { flex-direction: column; }
   .case-info-row {
+    flex: 1;
     border-right: none;
-    padding-right: 0;
+    border-bottom: 1px solid rgba(26,26,24,0.12);
   }
+  .case-info-row:last-child { border-bottom: none; }
   .brand-card-grid--three {
     grid-template-columns: 1fr;
   }
   .kpi-grid {
     grid-template-columns: 1fr;
   }
-  .hero-title { font-size: 32px; }
 }
