@@ -993,7 +993,7 @@ footer .nav-inner {
 .footer-name,
 .footer-links {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 20px;
   color: var(--muted);
 }
 
