@@ -161,15 +161,33 @@
   // Reads device orientation and feeds mobileGravity for the tick loop.
   // On iOS 13+ DeviceOrientationEvent.requestPermission() is required —
   // we ask on the first touchstart so the permission dialog is user-triggered.
+  //
+  // Beta is self-calibrated: the phone's angle on the first reading becomes
+  // the neutral / zero-gravity position, so the effect works regardless of
+  // what absolute value the platform reports for "upright portrait."
   function initGyroscope() {
     if (!window.DeviceOrientationEvent || prefersReducedMotion()) return;
     if (window.innerWidth > 600) return;
 
+    var betaRef = null;
+
     function handleOrientation(e) {
-      // gamma: left/right tilt (-90..90), beta: front/back tilt (-180..180).
-      // Normalize gamma to -1..1; center beta around 90° (phone held upright).
-      mobileGravity.x = (e.gamma || 0) / 90 * 0.004;
-      mobileGravity.y = ((e.beta || 90) - 90) / 90 * 0.003;
+      var gamma = e.gamma != null ? e.gamma : 0;
+      var beta  = e.beta  != null ? e.beta  : null;
+
+      // Capture the first beta reading as the neutral position.
+      if (betaRef === null && beta !== null) betaRef = beta;
+
+      var gx = gamma / 90;
+      var gy = betaRef !== null ? (beta - betaRef) / 90 : 0;
+
+      // Deadzone: ignore micro-tilts from hand tremor (~10° each axis).
+      var dz = 0.11;
+      if (Math.abs(gx) < dz) gx = 0;
+      if (Math.abs(gy) < dz) gy = 0;
+
+      mobileGravity.x =  gx * 0.003;
+      mobileGravity.y = -gy * 0.003; // negate: spec says +beta = top toward user = gravity upward = negative CSS y
     }
 
     if (typeof DeviceOrientationEvent.requestPermission === 'function') {
