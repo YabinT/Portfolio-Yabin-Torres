@@ -334,6 +334,32 @@ nav {
 
 
 
+/* -- HERO TAP CTA (mobile only) ------------------------- */
+.hero-tap-cta {
+  display: none;
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 100px;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  padding: 12px 28px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.hero-tap-cta:active {
+  background: rgba(255, 255, 255, 0.16);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-network,
   .network-node,
@@ -390,4 +416,77 @@ nav {
   .project-title { font-size: var(--text-h3); }
 
   .filter-bar { gap: var(--space-lg); flex-wrap: wrap; justify-content: flex-start; }
+}
+
+/* -- MOBILE (≤ 600px) ------------------------------------ */
+@media (max-width: 600px) {
+  body {
+    padding-top: 0;
+    height: 100svh;
+    overflow: hidden;
+  }
+
+  nav {
+    background: transparent;
+    height: 64px;
+  }
+
+  .hero {
+    height: 100svh;
+    min-height: unset;
+    flex: none;
+  }
+
+  .hero-network {
+    scale: 1;
+  }
+
+  .network-node {
+    width: clamp(84px, 24vw, 108px);
+  }
+
+  .network-node-industrial {
+    width: clamp(112px, 31vw, 144px);
+  }
+
+  .network-node-research,
+  .network-node-interface {
+    width: clamp(84px, 23vw, 106px);
+    padding: var(--space-sm);
+  }
+
+  .node-label {
+    font-size: clamp(11px, 3.2vw, 14px);
+  }
+
+  .hero-tap-cta {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Works: hidden until hero is dismissed */
+  .works {
+    display: none;
+  }
+
+  /* Works-active: hero gone, works visible */
+  body.works-active {
+    height: auto;
+    min-height: 100svh;
+    overflow-y: auto;
+    padding-top: 64px;
+  }
+
+  body.works-active nav {
+    background: var(--color-bg);
+  }
+
+  body.works-active .hero {
+    display: none;
+  }
+
+  body.works-active .works {
+    display: block;
+    padding: var(--space-xl) var(--pad-x) var(--space-2xl);
+  }
 }

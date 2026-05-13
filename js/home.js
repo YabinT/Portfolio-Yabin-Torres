@@ -3,9 +3,14 @@
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
+  // Shared gravity vector updated by gyroscope handler
+  var mobileGravity = { x: 0, y: 0 };
+
   document.addEventListener('DOMContentLoaded', function () {
     initFloatingBubbles();
     initNodeLinks();
+    initGyroscope();
+    initMobileWorks();
   });
 
   function initFloatingBubbles() {
@@ -14,7 +19,14 @@
     var network = document.querySelector('.hero-network');
     if (!network) return;
 
-    var bubbles = [
+    var isMobile = window.innerWidth <= 600;
+
+    var bubbles = isMobile ? [
+      { el: document.querySelector('.network-node-industrial'), x: 22, y: 34 },
+      { el: document.querySelector('.network-node-research'),   x: 76, y: 20 },
+      { el: document.querySelector('.network-node-interface'),  x: 70, y: 66 },
+      { el: document.querySelector('.network-node-branding'),   x: 28, y: 74 }
+    ] : [
       { el: document.querySelector('.network-node-industrial'), x: 22, y: 44 },
       { el: document.querySelector('.network-node-research'),   x: 74, y: 18 },
       { el: document.querySelector('.network-node-interface'),  x: 66, y: 74 },
@@ -34,19 +46,24 @@
     measureRadii();
     window.addEventListener('resize', measureRadii);
 
+    var baseSpeed = isMobile ? 0.026 : 0.04;
+    var speedRange = isMobile ? 0.012 : 0.02;
+
     bubbles.forEach(function (b) {
       if (!b.el) return;
       b.el.style.animation = 'none';
       b.el.style.cursor = 'default';
-      var speed = 0.04 + Math.random() * 0.02;
+      var speed = baseSpeed + Math.random() * speedRange;
       var angle = Math.random() * Math.PI * 2;
       b.vx = Math.cos(angle) * speed;
       b.vy = Math.sin(angle) * speed;
       b.frozen = false;
       b.el.addEventListener('mouseenter', function () { b.frozen = true; });
       b.el.addEventListener('mouseleave', function () { b.frozen = false; });
+      b.el.addEventListener('touchstart',  function () { b.frozen = true; },  { passive: true });
+      b.el.addEventListener('touchend',    function () { b.frozen = false; });
+      b.el.addEventListener('touchcancel', function () { b.frozen = false; });
     });
-    // -----------------------------------------------------------------------
 
     var lineConns = [
       { id: 'line-ir', a: 0, b: 1 }, { id: 'line-ib', a: 0, b: 2 },
@@ -67,7 +84,7 @@
     function tick() {
       var cw = network.offsetWidth, ch = network.offsetHeight;
 
-      // Move all bubbles (skip frozen ones)
+      // Move all bubbles
       bubbles.forEach(function (b) {
         if (b.frozen) return;
         b.x += b.vx; b.y += b.vy;
@@ -77,6 +94,18 @@
         if (b.y < ry)       { b.y = ry;       b.vy =  Math.abs(b.vy); }
         if (b.y > 100 - ry) { b.y = 100 - ry; b.vy = -Math.abs(b.vy); }
       });
+
+      // Gyroscope gravity (mobile only)
+      if (isMobile) {
+        var MAX_SPEED = 0.18;
+        bubbles.forEach(function (b) {
+          if (b.frozen) return;
+          b.vx += mobileGravity.x;
+          b.vy += mobileGravity.y;
+          var spd = Math.sqrt(b.vx * b.vx + b.vy * b.vy);
+          if (spd > MAX_SPEED) { b.vx = b.vx / spd * MAX_SPEED; b.vy = b.vy / spd * MAX_SPEED; }
+        });
+      }
 
       // Bubble collision
       for (var i = 0; i < bubbles.length; i++) {
@@ -129,10 +158,72 @@
     tick();
   }
 
+  // Reads device orientation and feeds mobileGravity for the tick loop.
+  // On iOS 13+ DeviceOrientationEvent.requestPermission() is required —
+  // we ask on the first touchstart so the permission dialog is user-triggered.
+  function initGyroscope() {
+    if (!window.DeviceOrientationEvent || prefersReducedMotion()) return;
+    if (window.innerWidth > 600) return;
+
+    function handleOrientation(e) {
+      // gamma: left/right tilt (-90..90), beta: front/back tilt (-180..180).
+      // Normalize gamma to -1..1; center beta around 90° (phone held upright).
+      mobileGravity.x = (e.gamma || 0) / 90 * 0.004;
+      mobileGravity.y = ((e.beta || 90) - 90) / 90 * 0.003;
+    }
+
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+      // iOS 13+: permission must follow a user gesture
+      document.addEventListener('touchstart', function askPermission() {
+        DeviceOrientationEvent.requestPermission()
+          .then(function (state) {
+            if (state === 'granted') {
+              window.addEventListener('deviceorientation', handleOrientation);
+            }
+          })
+          .catch(function () {});
+        document.removeEventListener('touchstart', askPermission);
+      }, { once: true });
+    } else {
+      window.addEventListener('deviceorientation', handleOrientation);
+    }
+  }
+
+  function initMobileWorks() {
+    if (window.innerWidth > 600) return;
+
+    var cta = document.querySelector('.hero-tap-cta');
+    if (!cta) return;
+
+    cta.addEventListener('click', function () {
+      var hero = document.querySelector('.hero');
+      if (hero) {
+        hero.style.transition = 'opacity 0.25s ease';
+        hero.style.opacity = '0';
+      }
+      setTimeout(function () {
+        document.body.classList.add('works-active');
+        window.scrollTo(0, 0);
+      }, 240);
+    });
+  }
+
   function initNodeLinks() {
     document.querySelectorAll('.network-node').forEach(function (node) {
       node.addEventListener('click', function () {
-        document.getElementById('work').scrollIntoView({ behavior: 'smooth' });
+        if (window.innerWidth <= 600) {
+          var hero = document.querySelector('.hero');
+          if (hero) {
+            hero.style.transition = 'opacity 0.25s ease';
+            hero.style.opacity = '0';
+          }
+          setTimeout(function () {
+            document.body.classList.add('works-active');
+            window.scrollTo(0, 0);
+          }, 240);
+        } else {
+          document.getElementById('work').scrollIntoView({ behavior: 'smooth' });
+        }
       });
     });
   }
