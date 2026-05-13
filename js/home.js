@@ -159,12 +159,9 @@
   }
 
   // Reads device orientation and feeds mobileGravity for the tick loop.
-  // On iOS 13+ DeviceOrientationEvent.requestPermission() is required —
-  // we ask on the first touchstart so the permission dialog is user-triggered.
-  //
-  // Beta is self-calibrated: the phone's angle on the first reading becomes
-  // the neutral / zero-gravity position, so the effect works regardless of
-  // what absolute value the platform reports for "upright portrait."
+  // On iOS 13+, requestPermission() must be called from a click handler —
+  // the .tilt-prompt button is shown and triggers it explicitly.
+  // Beta is self-calibrated: first reading becomes the neutral position.
   function initGyroscope() {
     if (!window.DeviceOrientationEvent || prefersReducedMotion()) return;
     if (window.innerWidth > 600) return;
@@ -191,17 +188,24 @@
     }
 
     if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-      // iOS 13+: permission must follow a user gesture
-      document.addEventListener('touchstart', function askPermission() {
-        DeviceOrientationEvent.requestPermission()
-          .then(function (state) {
-            if (state === 'granted') {
-              window.addEventListener('deviceorientation', handleOrientation);
-            }
-          })
-          .catch(function () {});
-        document.removeEventListener('touchstart', askPermission);
-      }, { once: true });
+      // iOS 13+: must call requestPermission() directly from a user gesture (click).
+      // Show the tilt-prompt button so the user can explicitly enable it.
+      var btn = document.querySelector('.tilt-prompt');
+      if (btn) {
+        btn.classList.add('visible');
+        btn.addEventListener('click', function () {
+          DeviceOrientationEvent.requestPermission()
+            .then(function (state) {
+              if (state === 'granted') {
+                window.addEventListener('deviceorientation', handleOrientation);
+              }
+              btn.classList.remove('visible');
+            })
+            .catch(function () {
+              btn.classList.remove('visible');
+            });
+        });
+      }
     } else {
       window.addEventListener('deviceorientation', handleOrientation);
     }

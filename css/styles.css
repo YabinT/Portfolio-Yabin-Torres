@@ -360,6 +360,36 @@ nav {
   background: rgba(255, 255, 255, 0.16);
 }
 
+/* -- TILT PROMPT (iOS only, shown via JS) --------------- */
+.tilt-prompt {
+  display: none;
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 100px;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  padding: 10px 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, opacity 0.3s;
+}
+
+.tilt-prompt.visible {
+  display: flex;
+  align-items: center;
+}
+
+.tilt-prompt:active {
+  background: rgba(255, 255, 255, 0.16);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-network,
   .network-node,
