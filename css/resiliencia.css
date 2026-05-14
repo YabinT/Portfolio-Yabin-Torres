@@ -1272,3 +1272,88 @@ footer .nav-inner {
 .brand-card--blue p,
 .brand-card--magenta p,
 .brand-card--black p { color: rgba(255, 255, 255, 0.72); }
+
+/* -- MOBILE (≤ 600px) ---------------------------------------- */
+@media (max-width: 600px) {
+
+  /* Tokens */
+  :root { --pad: 20px; }
+
+  /* Nav */
+  nav {
+    height: 64px;
+    padding: 0 20px;
+  }
+  .nav-logo  { font-size: 16px; }
+  .nav-links { gap: 24px; }
+  .nav-links a { font-size: 16px; }
+
+  /* Wrap — flat padding on phones */
+  .wrap { padding: 0 20px; }
+
+  /* Hero intro */
+  .hero-intro {
+    padding-top: 72px;
+    padding-bottom: 28px;
+  }
+  .hero-intro-grid { gap: 20px; }
+  .hero-project-logo { max-width: 100px; }
+
+  .hero-title {
+    font-size: 26px;
+    margin: 12px 0 16px;
+  }
+  .hero-para {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .hero-content { gap: 20px; }
+
+  /* Case info table */
+  .case-info-table  { flex-direction: column; }
+  .case-info-row    { flex: none; }
+  .case-info-label  { font-size: 11px; padding: 8px 12px; }
+  .case-info-value  { font-size: 15px; padding: 8px 12px; }
+
+  /* Text sections */
+  .section {
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+  .section-panel--media {
+    padding-top: 48px;
+    padding-bottom: 56px;
+  }
+  .section-heading {
+    font-size: 22px;
+    line-height: 1.25;
+  }
+  .section-body {
+    font-size: 16px;
+    line-height: 1.6;
+    gap: 16px;
+  }
+
+  /* Diagrams & cards */
+  .flow-title,
+  .brand-group-title {
+    font-size: 22px;
+    margin-bottom: 24px;
+  }
+  .flow-step strong,
+  .kpi-card strong,
+  .stakeholder-card h3 { font-size: 18px; }
+  .flow-step p,
+  .kpi-card p,
+  .stakeholder-card p,
+  .brand-card p { font-size: 15px; }
+
+  /* Images */
+  .img-trio-item { height: 220px; }
+  .img-pair { gap: 16px; }
+
+  /* Footer */
+  footer { padding: 20px; }
+  .footer-name,
+  .footer-links { font-size: 14px; }
+}
