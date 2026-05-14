@@ -267,7 +267,7 @@ nav {
 /* -- PROJECT LIST --------------------------------------- */
 .project-list {
   list-style: none;
-  border-top: 1px solid rgba(237, 236, 232, 0.12);
+  border-top: 1px solid transparent;
 }
 
 .project-item {
@@ -275,10 +275,10 @@ nav {
   grid-template-columns: 80px 1fr 200px 320px 200px;
   align-items: center;
   padding: 4px 0;
-  border-bottom: 1px solid rgba(237, 236, 232, 0.07);
+  border-bottom: 1px solid transparent;
   position: relative;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: box-shadow 0.25s ease;
 }
 
 
@@ -298,15 +298,7 @@ nav {
 }
 
 .project-item:hover {
-  background: #4A4A47;
-}
-
-.project-item:hover .project-title,
-.project-item:hover .project-year,
-.project-item:hover .project-cat,
-.project-item:hover .project-tags,
-.project-item:hover .project-cta {
-  color: #FFFFFF;
+  box-shadow: 0 -1px 0 0 rgba(237, 236, 232, 0.45), 0 1px 0 0 rgba(237, 236, 232, 0.45);
 }
 
 .project-cat {
