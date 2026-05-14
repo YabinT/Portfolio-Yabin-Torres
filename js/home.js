@@ -322,12 +322,12 @@
       var gx = gamma / 90;
       var gy = betaRef !== null ? (beta - betaRef) / 90 : 0;
 
-      var dz = 0.07;
+      var dz = 0.04;
       if (Math.abs(gx) < dz) gx = 0;
       if (Math.abs(gy) < dz) gy = 0;
 
-      mobileGravity.x =  gx * 0.006;
-      mobileGravity.y = -gy * 0.006;
+      mobileGravity.x =  gx * 0.009;
+      mobileGravity.y = -gy * 0.009;
     }
 
     if (typeof DeviceOrientationEvent.requestPermission === 'function') {
