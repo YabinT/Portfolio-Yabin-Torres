@@ -250,7 +250,7 @@ nav {
 /* -- PROJECT TABLE HEADER ------------------------------- */
 .project-list-header {
   display: grid;
-  grid-template-columns: 80px 1fr 200px 320px 200px;
+  grid-template-columns: 1fr 1fr auto;
   align-items: center;
   padding: var(--space-sm) 0;
   border-bottom: 1px solid rgba(237, 236, 232, 0.12);
@@ -272,7 +272,7 @@ nav {
 
 .project-item {
   display: grid;
-  grid-template-columns: 80px 1fr 200px 320px 200px;
+  grid-template-columns: 1fr 1fr auto;
   align-items: center;
   padding: 4px 0;
   border-bottom: 1px solid rgba(237, 236, 232, 0.45);
@@ -320,8 +320,17 @@ nav {
   font-size: 18px;
   font-weight: 500;
   color: var(--color-text);
-  transition: background 0.2s, color 0.2s;
+  transition: color 0.2s;
   white-space: nowrap;
+}
+
+.cta-arrow {
+  font-size: 1.2em;
+  vertical-align: middle;
+  line-height: 1;
+  display: inline-block;
+  transform: scaleX(1.1);
+  transform-origin: left center;
 }
 
 
@@ -425,7 +434,7 @@ nav {
   }
 
   .project-item {
-    grid-template-columns: 48px 1fr;
+    grid-template-columns: 1fr;
     grid-template-rows: auto auto auto;
     gap: var(--space-sm);
     padding: var(--space-md) 0;

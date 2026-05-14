@@ -103,7 +103,33 @@ nav.nav-hidden {
   justify-content: space-between;
 }
 
-/* -- SECTIONS WRAPPER (scroll-stack) ------------------------- */
+/* -- NAV RETURN ---------------------------------------------- */
+.nav-return {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity 0.2s;
+}
+
+.nav-return:hover {
+  opacity: 0.7;
+}
+
+.back-arrow {
+  font-size: 1.2em;
+  vertical-align: middle;
+  line-height: 1;
+  display: inline-block;
+  transform: scaleX(1.1);
+  transform-origin: right center;
+}
+
+/* -- SECTIONS WRAPPER ---------------------------------------- */
 .sections-wrapper {
   position: relative;
   z-index: 1;
@@ -111,12 +137,9 @@ nav.nav-hidden {
   background: var(--bg);
 }
 
-
 .section-panel {
-  position: sticky;
-  top: 0;
+  position: relative;
   background: var(--bg);
-  min-height: 100vh;
 }
 
 .section-panel--media {
@@ -204,7 +227,7 @@ nav.nav-hidden {
   height: 100%;
   display: flex;
   align-items: center;
-  padding-top: 80px;
+  padding-top: 96px;
   padding-bottom: 40px;
   box-sizing: border-box;
 }
@@ -262,12 +285,11 @@ nav.nav-hidden {
 .case-info-label {
   font-family: var(--font-mono);
   font-size: 13px;
-  color: var(--muted);
+  color: var(--mint);
   display: block;
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
+  letter-spacing: 0;
   text-align: left;
-  padding: 12px 20px;
+  padding: 12px 0 4px;
   border-bottom: 2px solid #fff;
   margin-bottom: 0;
 }
@@ -279,7 +301,7 @@ nav.nav-hidden {
   line-height: 1.25;
   color: var(--text);
   text-align: left;
-  padding: 12px 20px;
+  padding: 12px 0;
 }
 
 /* -- SECTIONS ------------------------------------------------ */
@@ -906,10 +928,10 @@ nav.nav-hidden {
 }
 
 .img-trio-figure figcaption {
-  font-family: var(--font-sans);
-  font-size: 16px;
+  font-family: var(--font-mono);
+  font-size: 13px;
   line-height: 1.4;
-  color: var(--muted);
+  color: var(--mint);
   margin-top: 14px;
 }
 
@@ -1291,6 +1313,9 @@ footer .nav-inner {
   /* Wrap — flat padding on phones */
   .wrap { padding: 0 20px; }
 
+  /* Nav return */
+  .nav-return { font-size: 15px; }
+
   /* Hero intro */
   .hero-intro {
     padding-top: 72px;
@@ -1312,8 +1337,8 @@ footer .nav-inner {
   /* Case info table */
   .case-info-table  { flex-direction: column; }
   .case-info-row    { flex: none; }
-  .case-info-label  { font-size: 11px; padding: 8px 12px; }
-  .case-info-value  { font-size: 15px; padding: 8px 12px; }
+  .case-info-label  { font-size: 13px; padding: 8px 0 4px; }
+  .case-info-value  { font-size: 15px; padding: 8px 0; }
 
   /* Text sections */
   .section {
