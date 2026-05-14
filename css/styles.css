@@ -267,7 +267,7 @@ nav {
 /* -- PROJECT LIST --------------------------------------- */
 .project-list {
   list-style: none;
-  border-top: 1px solid transparent;
+  border-top: 1px solid rgba(237, 236, 232, 0.45);
 }
 
 .project-item {
@@ -275,7 +275,7 @@ nav {
   grid-template-columns: 80px 1fr 200px 320px 200px;
   align-items: center;
   padding: 4px 0;
-  border-bottom: 1px solid transparent;
+  border-bottom: 1px solid rgba(237, 236, 232, 0.45);
   position: relative;
   cursor: pointer;
   transition: box-shadow 0.25s ease;
@@ -297,8 +297,8 @@ nav {
   transition: color 0.2s;
 }
 
-.project-item:hover {
-  box-shadow: 0 -1px 0 0 rgba(237, 236, 232, 0.45), 0 1px 0 0 rgba(237, 236, 232, 0.45);
+.project-item:hover .project-cta {
+  color: var(--color-mint);
 }
 
 .project-cat {
