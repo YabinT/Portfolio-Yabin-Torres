@@ -52,8 +52,8 @@
     measureRadii();
     window.addEventListener('resize', measureRadii);
 
-    var baseSpeed  = isMobile ? 0.026 : 0.04;
-    var speedRange = isMobile ? 0.012 : 0.02;
+    var baseSpeed  = isMobile ? 0.032 : 0.065;
+    var speedRange = isMobile ? 0.014 : 0.025;
 
     bubbles.forEach(function (b) {
       if (!b.el) return;
@@ -236,7 +236,7 @@
 
       // Gyroscope gravity (mobile only)
       if (isMobile) {
-        var MAX_SPEED = 0.18;
+        var MAX_SPEED = 0.28;
         bubbles.forEach(function (b) {
           if (b.frozen) return;
           b.vx += mobileGravity.x;
@@ -322,12 +322,12 @@
       var gx = gamma / 90;
       var gy = betaRef !== null ? (beta - betaRef) / 90 : 0;
 
-      var dz = 0.11;
+      var dz = 0.07;
       if (Math.abs(gx) < dz) gx = 0;
       if (Math.abs(gy) < dz) gy = 0;
 
-      mobileGravity.x =  gx * 0.003;
-      mobileGravity.y = -gy * 0.003;
+      mobileGravity.x =  gx * 0.006;
+      mobileGravity.y = -gy * 0.006;
     }
 
     if (typeof DeviceOrientationEvent.requestPermission === 'function') {
