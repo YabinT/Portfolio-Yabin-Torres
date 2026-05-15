@@ -3,6 +3,9 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("index.html");
   eleventyConfig.addPassthroughCopy("contact.html");
 
+  // Decap CMS config (YAML is not processed as a template — needs explicit copy)
+  eleventyConfig.addPassthroughCopy({ "content/admin/config.yml": "admin/config.yml" });
+
   // Static asset folders
   eleventyConfig.addPassthroughCopy("css");
   eleventyConfig.addPassthroughCopy("assets");
