@@ -1,0 +1,38 @@
+# Case study frontmatter schema
+# Reference for authoring new case studies under content/cases/
+# Copy this structure into a new .md file and fill in the values.
+
+layout: cases.njk
+
+title: Project Name
+intro: One-paragraph introduction to the project.
+cover: assets/images/project-slug/cover.jpg
+
+meta:
+  role: Product Designer
+  type: UX + Brand
+  tools: Figma, Maze
+  year: 2024
+
+sections:
+
+  # --- No images
+  - title: Section title
+    text: Section body text.
+    images: []
+
+  # --- One full-width image
+  - title: Section title
+    text: Section body text.
+    images:
+      - src: assets/images/project-slug/image.jpg
+        alt: Descriptive alt text
+
+  # --- Two side-by-side images
+  - title: Section title
+    text: Section body text.
+    images:
+      - src: assets/images/project-slug/left.jpg
+        alt: Left image description
+      - src: assets/images/project-slug/right.jpg
+        alt: Right image description

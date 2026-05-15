@@ -121,12 +121,30 @@ nav.nav-hidden {
 }
 
 .back-arrow {
-  font-size: 1.2em;
+  display: inline-flex;
+  align-items: center;
+  width: 28px;
+  height: 1em;
   vertical-align: middle;
-  line-height: 1;
-  display: inline-block;
-  transform: scaleX(1.1);
-  transform-origin: right center;
+  flex-shrink: 0;
+  flex-direction: row-reverse;
+}
+
+.back-arrow::before {
+  content: '';
+  flex: 1;
+  height: 1.5px;
+  background: currentColor;
+}
+
+.back-arrow::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 7px solid currentColor;
+  flex-shrink: 0;
 }
 
 /* -- SECTIONS WRAPPER ---------------------------------------- */
@@ -603,7 +621,6 @@ nav.nav-hidden {
   display: flex;
   flex-direction: column;
   position: relative;
-  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .flow-step:not(:last-child)::after {
@@ -642,16 +659,6 @@ nav.nav-hidden {
   transition: color 0.2s ease;
 }
 
-.flow-step:hover {
-  background: var(--mint);
-  border-color: var(--mint);
-}
-
-.flow-step:hover .flow-kicker,
-.flow-step:hover strong,
-.flow-step:hover p {
-  color: var(--bg);
-}
 
 /* -- STAKEHOLDER DIAGRAM -------------------------------------- */
 .stakeholder-diagram {
@@ -756,7 +763,6 @@ nav.nav-hidden {
   background: var(--bg);
   display: flex;
   flex-direction: column;
-  transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .kpi-index {
@@ -785,16 +791,6 @@ nav.nav-hidden {
   transition: color 0.2s ease;
 }
 
-.kpi-card:hover {
-  background: var(--mint);
-  border-color: var(--mint);
-}
-
-.kpi-card:hover .kpi-index,
-.kpi-card:hover strong,
-.kpi-card:hover p {
-  color: var(--bg);
-}
 
 /* -- LOGO TRIO ----------------------------------------------- */
 .logo-trio {
@@ -1264,20 +1260,6 @@ footer .nav-inner {
   color: #25C47E;
 }
 
-.flow-step:hover,
-.kpi-card:hover {
-  background: #3D3D3B;
-  border-color: rgba(255, 255, 255, 0.18);
-}
-
-.flow-step:hover .flow-kicker,
-.flow-step:hover strong,
-.flow-step:hover p,
-.kpi-card:hover .kpi-index,
-.kpi-card:hover strong,
-.kpi-card:hover p {
-  color: #FFFFFF;
-}
 
 .brand-card {
   background: #F5F4F0;

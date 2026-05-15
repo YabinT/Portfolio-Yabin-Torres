@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ title }} — Yabin Torres</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/css/resiliencia.css" />
+</head>
+
+<body>
+
+  <nav>
+    <a href="/" class="nav-return">
+      <span class="back-arrow"></span> Return
+    </a>
+    <ul class="nav-links">
+      <li><a href="mailto:yabintc@gmail.com">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero-intro-fixed">
+    <section class="hero-intro wrap reveal">
+      <div class="hero-intro-grid">
+
+        {% if cover %}
+        <div class="hero-visual">
+          <img src="/{{ cover }}" alt="{{ title }}" class="hero-cover" />
+        </div>
+        {% endif %}
+
+        <div class="hero-content">
+          <h1 class="hero-title">{{ title }}</h1>
+          <p class="hero-para">{{ intro }}</p>
+          <div class="case-info-table" aria-label="Case study information">
+            {% if meta.role %}
+            <div class="case-info-row">
+              <span class="case-info-label">Role</span>
+              <span class="case-info-value">{{ meta.role }}</span>
+            </div>
+            {% endif %}
+            {% if meta.type %}
+            <div class="case-info-row">
+              <span class="case-info-label">Type</span>
+              <span class="case-info-value">{{ meta.type }}</span>
+            </div>
+            {% endif %}
+            {% if meta.tools %}
+            <div class="case-info-row">
+              <span class="case-info-label">Tools</span>
+              <span class="case-info-value">{{ meta.tools }}</span>
+            </div>
+            {% endif %}
+            {% if meta.year %}
+            <div class="case-info-row">
+              <span class="case-info-label">Year</span>
+              <span class="case-info-value">{{ meta.year }}</span>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <div class="sections-wrapper">
+    {% for section in sections %}
+
+    <section class="section section-panel wrap reveal">
+      <div class="section-split">
+        <div class="section-left">
+          <h2 class="section-heading">{{ section.title }}</h2>
+        </div>
+        <div class="section-body">
+          <p>{{ section.text }}</p>
+        </div>
+      </div>
+    </section>
+
+    {% if section.images and section.images | length %}
+    <section class="section-panel section-panel--media wrap reveal">
+
+      {% if section.images | length == 1 %}
+      <div class="js-lightbox js-lightbox-wide">
+        <img class="img-full-width"
+             src="/{{ section.images[0].src }}"
+             alt="{{ section.images[0].alt }}" />
+      </div>
+
+      {% elif section.images | length == 2 %}
+      <div class="img-pair">
+        {% for img in section.images %}
+        <div class="img-placeholder img-half js-lightbox js-lightbox-wide">
+          <img src="/{{ img.src }}" alt="{{ img.alt }}" />
+        </div>
+        {% endfor %}
+      </div>
+
+      {% endif %}
+    </section>
+    {% endif %}
+
+    {% endfor %}
+  </div>
+
+  <footer>
+    <div class="nav-inner">
+      <span class="footer-name">Yabin Torres — 2025</span>
+      <span class="footer-links">
+        <a href="#">LinkedIn</a> &nbsp;·&nbsp;
+        <a href="mailto:yabintc@gmail.com">Email</a>
+      </span>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">×</button>
+    <div class="lightbox-inner">
+      <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+    </div>
+  </div>
+
+  <script src="/js/case-study.js"></script>
+
+</body>
+</html>
