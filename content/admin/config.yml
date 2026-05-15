@@ -2,6 +2,7 @@ backend:
   name: github
   repo: YabinT/Portfolio-Yabin-Torres
   branch: main
+  site_domain: www.yabintorres.com
 
 media_folder: "assets/images"
 public_folder: "/assets/images"
