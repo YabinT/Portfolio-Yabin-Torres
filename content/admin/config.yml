@@ -3,6 +3,8 @@ backend:
   repo: YabinT/Portfolio-Yabin-Torres
   branch: main
   site_domain: www.yabintorres.com
+  base_url: https://www.yabintorres.com
+  auth_endpoint: api/auth
 
 media_folder: "assets/images"
 public_folder: "/assets/images"
