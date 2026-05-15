@@ -45,23 +45,31 @@ module.exports = async function handler(req, res) {
   }
 };
 
-// Returns an HTML page that posts a message back to the CMS popup opener.
-// Sveltia/Decap CMS expects the handshake: popup sends "authorizing:github",
-// opener replies, then popup sends the final authorization message to that origin.
+// Returns an HTML page that posts the token back to the CMS popup opener.
+// payload is inlined as a JS object literal so JSON quotes never break the script.
 function cmsMessage(status, payload) {
-  const message = `authorization:github:${status}:${JSON.stringify(payload)}`;
+  const payloadLiteral = JSON.stringify(payload);
   return `<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" /></head>
 <body>
 <script>
   (function () {
-    function receiveMessage(e) {
-      window.opener.postMessage("${message}", e.origin);
+    var payload = ${payloadLiteral};
+    var stringMsg = 'authorization:github:${status}:' + JSON.stringify(payload);
+
+    setTimeout(function () {
+      if (window.opener) {
+        // String format expected by Sveltia CMS / Decap CMS
+        window.opener.postMessage(stringMsg, '*');
+        // Object format used by some Decap CMS versions
+        window.opener.postMessage(
+          { type: 'authorization', provider: 'github', token: payload.token },
+          '*'
+        );
+      }
       window.close();
-    }
-    window.addEventListener("message", receiveMessage, false);
-    window.opener.postMessage("authorizing:github", "*");
+    }, 200);
   })();
 <\/script>
 </body>
