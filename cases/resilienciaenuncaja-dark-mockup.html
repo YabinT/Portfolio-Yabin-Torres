@@ -3,19 +3,186 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Resiliencia en una Caja — Yabin Torres</title>
+  <title>[MOCKUP Dark] Resiliencia en una Caja — Yabin Torres</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/resiliencia.css" />
+
+  <style>
+    /* -- DARK TOKEN OVERRIDES --------------------------------- */
+    :root {
+      --bg:         #0F0F0E;
+      --surface:    #1A1A18;
+      --border:     rgba(255, 255, 255, 0.1);
+      --border-sec: rgba(255, 255, 255, 0.08);
+      --text:       #FFFFFF;
+      --muted:      #FFFFFF;
+      --dim:        #FFFFFF;
+      --mint:       #25C47E;
+      --mint-line:  rgba(37, 196, 126, 0.3);
+    }
+
+    /* Nav has hardcoded #FFFFFF background in resiliencia.css */
+    nav { background: #0F0F0E; }
+
+    /* Hardcoded rgba(26,26,24,…) borders throughout */
+    .case-info-table {
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .case-info-row {
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .case-info-label {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .case-info-row:last-child { border-right: none; }
+
+    .section-index-list {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .section-index-list li {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    /* Responsive mobile borders */
+    @media (max-width: 900px) {
+      .case-info-row { border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+    }
+    @media (max-width: 560px) {
+      .case-info-row { border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+      .case-info-row:last-child { border-bottom: none; }
+    }
+
+    /* Extra top padding so sticky nav doesn't clip the cards */
+    .section-panel--media {
+      padding-top: 100px;
+    }
+
+    #kpi-section {
+      padding-top: 32px;
+    }
+
+    .sections-wrapper .section-panel:last-child {
+      padding-bottom: 48px;
+    }
+
+    /* Stakeholder cards — dark grey, white type, shrink to content */
+    .stakeholder-card {
+      min-height: 0;
+      background: #2A2A28;
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .stakeholder-card--impact { border-color: rgba(37, 196, 126, 0.4); }
+
+    .stakeholder-card h3,
+    .stakeholder-card p { color: #FFFFFF; }
+
+    .stakeholder-role { color: #25C47E; }
+
+    .stakeholder-card:not(:last-child)::after {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Flow, branch, and KPI cards — same dark grey system as stakeholder cards */
+    .flow-step,
+    .kpi-card,
+    .flow-branch-card {
+      background: #2A2A28;
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .kpi-card--highlight { border-color: rgba(37, 196, 126, 0.4); }
+
+    .flow-entry { border-color: rgba(255, 255, 255, 0.08); }
+    .flow-chip  { border-color: rgba(255, 255, 255, 0.12); color: #FFFFFF; }
+
+
+    .flow-step strong,
+    .flow-step p,
+    .kpi-card strong,
+    .kpi-card p {
+      color: #FFFFFF;
+    }
+
+    .flow-kicker,
+    .kpi-index {
+      color: #25C47E;
+    }
+
+    /* Hover — lighter grey */
+    .flow-step:hover,
+    .kpi-card:hover {
+      background: #3D3D3B;
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .flow-step:hover .flow-kicker,
+    .flow-step:hover strong,
+    .flow-step:hover p,
+    .kpi-card:hover .kpi-index,
+    .kpi-card:hover strong,
+    .kpi-card:hover p {
+      color: #FFFFFF;
+    }
+
+    /* Brand cards — restore all original colors */
+    .brand-card {
+      background: #F5F4F0;
+      border-color: rgba(10, 122, 80, 0.16);
+    }
+    .brand-card p { color: #1A1A18; }
+
+    .brand-card--lilac { background: #EDEEFF; border-color: rgba(10, 122, 80, 0.16); }
+
+    .brand-card--blue    { background: #005895; border-color: #005895; color: #FFFFFF; }
+    .brand-card--magenta { background: #AA3290; border-color: #AA3290; color: #FFFFFF; }
+    .brand-card--black   { background: #111719; border-color: #111719; color: #FFFFFF; }
+
+    .brand-card--blue p,
+    .brand-card--magenta p,
+    .brand-card--black p { color: rgba(255, 255, 255, 0.72); }
+
+    /* Browser chrome */
+    .browser-chrome { background: #2A2A28; }
+    .browser-url    { background: #1F1F1D; color: #888888; }
+
+    /* Footer — match nav font size */
+    .footer-name,
+    .footer-links,
+    .footer-links a { font-size: 20px; }
+
+    /* Mockup badge */
+    .mockup-badge {
+      position: fixed;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--mint);
+      color: #0F0F0E;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      z-index: 200;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+  </style>
 </head>
 
 <body>
 
+  <div class="mockup-badge">Dark Mode Mockup</div>
+
   <!-- -- NAV ---------------------------------------------------- -->
   <nav>
-    <a href="../index.html" class="nav-return">
-      <span class="back-arrow"></span> Return
+    <a href="../mockup-dark-home.html" class="nav-logo">
+      <span>Yabin Torres</span>
     </a>
     <ul class="nav-links">
       <li><a href="mailto:yabintc@gmail.com">Contact</a></li>
@@ -23,19 +190,24 @@
   </nav>
 
   <!-- -- HERO INTRO --------------------------------------------- -->
-  <div class="hero-intro-fixed">
   <section class="hero-intro wrap reveal">
     <div class="hero-intro-grid">
-      <div class="hero-visual">
-        <img src="../assets/images/resilienciaenuncaja/LogoSVG B&W.svg" alt="Resiliencia en una Caja" class="hero-project-logo" />
+      <div class="hero-para">
+        <p>An online learning platform created to transform lives through education, helping small and medium-sized businesses build resilience by learning how to prepare for, manage, and recover from disasters.</p>
       </div>
-      <div class="hero-content">
-        <h1 class="hero-title">Resiliencia<br>en una caja</h1>
-        <p class="hero-para">An online learning platform created to transform lives through education, helping small and medium-sized businesses build resilience by learning how to prepare for, manage, and recover from disasters.</p>
+      <div class="hero-left">
         <div class="case-info-table" aria-label="Case study information">
+          <div class="case-info-row">
+            <span class="case-info-label">Project</span>
+            <span class="case-info-value">Resiliencia en una Caja</span>
+          </div>
           <div class="case-info-row">
             <span class="case-info-label">Role</span>
             <span class="case-info-value">UX/UI Designer</span>
+          </div>
+          <div class="case-info-row">
+            <span class="case-info-label">Year</span>
+            <span class="case-info-value">2025</span>
           </div>
           <div class="case-info-row">
             <span class="case-info-label">Type</span>
@@ -43,13 +215,12 @@
           </div>
           <div class="case-info-row">
             <span class="case-info-label">Tools</span>
-            <span class="case-info-value">Figma &middot; Elementor</span>
+            <span class="case-info-value">Figma &middot; Elementor &middot; Fluent Forms</span>
           </div>
         </div>
       </div>
     </div>
   </section>
-  </div>
 
   <!-- -- SECTIONS WRAPPER -------------------------------------- -->
   <div class="sections-wrapper">
@@ -58,7 +229,7 @@
   <section class="section section-panel wrap reveal context-section">
     <div class="section-split">
       <div class="section-left">
-        <h2 class="section-heading">Strong content. No design holding it together</h2>
+        <h2 class="section-heading">Strong content. No design holding it together.</h2>
       </div>
       <div class="section-body">
         <p>Despite the platform's solid foundation, the experience lacked design consistency, clear communication, and a user journey capable of explaining how the platform worked or how users could gain value from it. The homepage failed to guide first-time visitors, and users were not progressing through the learning funnel, revealing the need to redesign the experience to make the platform's purpose, navigation, and value immediately understandable and trustworthy.</p>
@@ -362,7 +533,7 @@
   <section class="section section-panel wrap reveal">
     <div class="section-split">
       <div class="section-left">
-        <h2 class="section-heading">Purpose, trust, and one clear action</h2>
+        <h2 class="section-heading">Purpose, trust, and one clear action.</h2>
       </div>
       <div class="section-body">
         <p>The original homepage described the platform in language written for a grant report. Technically accurate, functionally invisible. A visitor arriving for the first time had no way to understand what Resiliencia en una Caja was, why it existed, or what they were supposed to do.</p>
@@ -382,7 +553,7 @@
   <section class="section section-panel wrap reveal">
     <div class="section-split">
       <div class="section-left">
-        <h2 class="section-heading">26 questions, 73 submissions. Where the funnel broke</h2>
+        <h2 class="section-heading">26 questions, 73 submissions. Where the funnel broke.</h2>
       </div>
       <div class="section-body">
         <p>The self-assessment had been live for nearly a year, built in WPForms. Seventy-three people had completed it. None of them received a result. The form had expired without anyone noticing, touch targets on mobile were 23px, and there was no progress indicator — no way for a user to know how far through they were or what completing it would give them.</p>
@@ -407,7 +578,7 @@
   <section class="section section-panel wrap reveal">
     <div class="section-split">
       <div class="section-left">
-        <h2 class="section-heading">Where data becomes direction</h2>
+        <h2 class="section-heading">Where data becomes direction.</h2>
       </div>
       <div class="section-body">
         <p>Completing the self-assessment had always felt like submitting to a void. The score page was designed to close that loop — to make the result feel earned and the next step feel obvious.</p>
@@ -434,7 +605,7 @@
   <section class="section section-panel wrap reveal">
     <div class="section-split">
       <div class="section-left">
-        <h2 class="section-heading">10 modules. 3 pillars. One personalized path</h2>
+        <h2 class="section-heading">10 modules. 3 pillars. One personalized path.</h2>
       </div>
       <div class="section-body">
         <p>The full curriculum covers ten modules across three areas: Disaster Risk Management, Business Strengthening and Governance, and Sustainability and Social Responsibility. The challenge was making the catalog feel navigable, not overwhelming.</p>
@@ -467,11 +638,11 @@
     </div>
   </section>
 
-  <!-- -- 07 OUTCOMES · TEXT (no media panel) -------------------- -->
+  <!-- -- 07 OUTCOMES · TEXT ------------------------------------- -->
   <section class="section section-panel context-section wrap reveal">
     <div class="section-split">
       <div class="section-left">
-        <h2 class="section-heading">From broken funnel to working system</h2>
+        <h2 class="section-heading">From broken funnel to working system.</h2>
       </div>
       <div class="section-body">
         <p>The four metrics The UPS Foundation set as success criteria all have answers now. In the seven months since the redesign launched, 1,384 people reached the platform across 7 countries. Of those, 213 completed the self-assessment — with a 92.6% completion rate among users who started it. Sixty-three moved from their score into the learning path. Every submission produced a result. Before the rebuild, 73 had produced none.</p>
@@ -508,7 +679,7 @@
 
   </div><!-- /.sections-wrapper -->
 
-<!-- -- FOOTER -------------------------------------------------- -->
+  <!-- -- FOOTER -------------------------------------------------- -->
   <footer>
     <div class="nav-inner">
       <span class="footer-name">Yabin Torres — 2025</span>

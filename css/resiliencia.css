@@ -601,7 +601,140 @@ nav.nav-hidden {
   margin-bottom: 28px;
 }
 
-.flow-section-label {
+/* Entry sources bar */
+.flow-canvas {
+  display: flex;
+  flex-direction: column;
+}
+
+.flow-entry {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 20px;
+  border: 1px solid rgba(10, 122, 80, 0.16);
+  border-radius: 2px;
+  margin-bottom: 18px;
+}
+
+.flow-entry-label {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--mint);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.flow-entry-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.flow-chip {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+  padding: 4px 10px;
+  white-space: nowrap;
+}
+
+/* Drop-off branch — aligns under steps 02–03 */
+.flow-branch {
+  margin-top: 18px;
+  margin-left: calc((100% - 72px) / 5 + 18px);
+  width: calc(2 * ((100% - 72px) / 5) + 18px);
+  position: relative;
+}
+
+/* Vertical connector: line + arrowhead from step 02 down into the branch */
+.flow-branch::before {
+  content: '';
+  position: absolute;
+  top: -18px;
+  left: 27px;
+  width: 2px;
+  height: 10px;
+  background: var(--mint);
+}
+
+.flow-branch::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 23px;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 8px solid var(--mint);
+}
+
+.flow-branch-steps {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.flow-branch-card {
+  border: 1px solid rgba(37, 196, 126, 0.18);
+  border-radius: 2px;
+  padding: 20px;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.flow-branch-card .flow-kicker {
+  margin-bottom: 40px;
+}
+
+.flow-branch-card strong {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.flow-branch-card p {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin-top: auto;
+}
+
+/* Horizontal connector between branch cards: line + arrowhead */
+.flow-branch-card:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -16px;
+  width: 10px;
+  height: 2px;
+  background: var(--mint);
+  transform: translateY(-50%);
+}
+
+.flow-branch-card:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -18px;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 6px solid var(--mint);
+  transform: translateY(-50%);
+  background: none;
 }
 
 .flow-steps {
@@ -623,14 +756,29 @@ nav.nav-hidden {
   position: relative;
 }
 
+.flow-step:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -16px;
+  width: 10px;
+  height: 2px;
+  background: var(--mint);
+  transform: translateY(-50%);
+}
+
 .flow-step:not(:last-child)::after {
   content: '';
   position: absolute;
   top: 50%;
   right: -18px;
-  width: 18px;
-  height: 1px;
-  background: rgba(10, 122, 80, 0.45);
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 6px solid var(--mint);
+  transform: translateY(-50%);
+  background: none;
 }
 
 .flow-kicker {
@@ -791,6 +939,22 @@ nav.nav-hidden {
   transition: color 0.2s ease;
 }
 
+
+/* -- KPI STAT (outcomes diagram) ----------------------------- */
+.kpi-stat {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.kpi-card--highlight {
+  border-color: rgba(37, 196, 126, 0.42);
+}
 
 /* -- LOGO TRIO ----------------------------------------------- */
 .logo-trio {
@@ -1153,17 +1317,47 @@ footer .nav-inner {
   .flow-step {
     min-height: 0;
   }
+  .flow-step:not(:last-child)::before {
+    top: auto; right: auto;
+    left: 27px; bottom: -14px;
+    width: 2px; height: 9px;
+    transform: none;
+  }
   .flow-step:not(:last-child)::after {
-    top: auto;
-    right: auto;
-    left: 28px;
-    bottom: -16px;
-    width: 1px;
-    height: 16px;
+    top: auto; right: auto;
+    left: 23px; bottom: -7px;
+    border-top: 7px solid var(--mint);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: none;
+    transform: none;
   }
   .flow-kicker {
     margin-bottom: 24px;
   }
+  .flow-branch {
+    margin-left: 0;
+    width: 100%;
+  }
+  .flow-branch::before,
+  .flow-branch::after { display: none; }
+  .flow-branch-steps { grid-template-columns: 1fr; }
+  .flow-branch-card:not(:last-child)::before {
+    top: auto; right: auto;
+    left: 27px; bottom: -14px;
+    width: 2px; height: 9px;
+    transform: none;
+  }
+  .flow-branch-card:not(:last-child)::after {
+    top: auto; right: auto;
+    left: 23px; bottom: -7px;
+    border-top: 7px solid var(--mint);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: none;
+    transform: none;
+  }
+
   .stakeholder-diagram {
     grid-template-columns: 1fr;
     gap: 16px;
@@ -1195,6 +1389,15 @@ footer .nav-inner {
     grid-template-columns: 56px 1fr;
   }
   .img-pair { grid-template-columns: 1fr; gap: 24px; }
+  .decision-findings,
+  .decision-arrows,
+  .decision-outputs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .profile-header { grid-template-columns: 1fr; gap: 12px; }
+  .profile-data { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .profile-datum:nth-child(4n)        { border-right: 2px solid var(--pb); }
+  .profile-datum:nth-child(2n)        { border-right: none; }
+  .profile-datum:nth-last-child(-n+4) { border-bottom: 2px solid var(--pb); }
+  .profile-datum:nth-last-child(-n+2) { border-bottom: none; }
 }
 
 @media (max-width: 560px) {
@@ -1206,6 +1409,164 @@ footer .nav-inner {
   .kpi-grid {
     grid-template-columns: 1fr;
   }
+  .decision-findings,
+  .decision-arrows,
+  .decision-outputs { grid-template-columns: 1fr; }
+  .profile-data { grid-template-columns: 1fr; }
+  .profile-datum:nth-last-child(-n+2) { border-bottom: 2px solid var(--pb); }
+  .profile-datum:nth-child(n)         { border-right: none; }
+  .profile-datum:last-child           { border-bottom: none; }
+}
+
+/* -- DECISION MAP -------------------------------------------- */
+.decision-map {
+  display: flex;
+  flex-direction: column;
+}
+
+.decision-findings,
+.decision-outputs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.decision-card {
+  border: 1px solid rgba(10, 122, 80, 0.16);
+  border-radius: 2px;
+  padding: 20px;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.decision-card--source {
+  border-color: rgba(10, 122, 80, 0.42);
+}
+
+.decision-tag {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--mint);
+  margin-bottom: 40px;
+}
+
+.decision-card strong {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.decision-card p {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin-top: auto;
+}
+
+.decision-arrows {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.decision-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  position: relative;
+}
+
+.decision-arrow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: calc(100% - 10px);
+  background: var(--mint);
+}
+
+.decision-arrow::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 10px solid var(--mint);
+}
+
+/* -- USER PROFILE CARD --------------------------------------- */
+.profile-card {
+  --pb: rgba(255, 255, 255, 0.25);
+  border: 2px solid var(--pb);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.profile-header {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 48px;
+  padding: 28px;
+  border-bottom: 2px solid var(--pb);
+  align-items: start;
+}
+
+.profile-label {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--mint);
+  padding-top: 3px;
+}
+
+.profile-tagline {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.profile-data {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.profile-datum {
+  padding: 20px 28px;
+  border-right: 2px solid var(--pb);
+  border-bottom: 2px solid var(--pb);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.profile-datum:nth-child(4n)        { border-right: none; }
+.profile-datum:nth-last-child(-n+4) { border-bottom: none; }
+
+.profile-datum-label {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--mint);
+}
+
+.profile-datum-value {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--text);
 }
 
 /* -- DARK CARD SYSTEM ---------------------------------------- */
@@ -1213,9 +1574,22 @@ footer .nav-inner {
   padding-top: 100px;
 }
 
-#kpi-section {
+#kpi-section,
+#outcomes-diagram {
   padding-top: 32px;
 }
+
+#user-profile { padding-top: 32px; }
+#decision-map { padding-top: 32px; }
+.profile-card { --pb: rgba(255, 255, 255, 0.25); }
+
+.decision-card {
+  background: #2A2A28;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.decision-card--source { border-color: rgba(37, 196, 126, 0.4); }
+.decision-card strong,
+.decision-card p { color: #FFFFFF; }
 
 .sections-wrapper .section-panel:last-child {
   padding-bottom: 48px;
@@ -1239,14 +1613,24 @@ footer .nav-inner {
 }
 
 .flow-step,
-.kpi-card {
+.kpi-card,
+.flow-branch-card {
   background: #2A2A28;
-  border-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
-.flow-step:not(:last-child)::after {
-  background: rgba(255, 255, 255, 0.2);
+.flow-entry {
+  border-color: rgba(255, 255, 255, 0.08);
 }
+
+.flow-chip {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.kpi-card--highlight {
+  border-color: rgba(37, 196, 126, 0.4);
+}
+
 
 .flow-step strong,
 .flow-step p,
