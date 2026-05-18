@@ -1416,6 +1416,13 @@ footer .nav-inner {
   .profile-datum:nth-last-child(-n+2) { border-bottom: 2px solid var(--pb); }
   .profile-datum:nth-child(n)         { border-right: none; }
   .profile-datum:last-child           { border-bottom: none; }
+
+  .scoring-mechanism                  { grid-template-columns: 1fr; }
+  .scoring-cell                       { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+  .scoring-cell:last-child            { border-bottom: none; }
+  .scoring-pillars                    { grid-template-columns: 1fr; }
+  .scoring-pillar                     { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+  .scoring-pillar:last-child          { border-bottom: none; }
 }
 
 /* -- DECISION MAP -------------------------------------------- */
@@ -1569,6 +1576,151 @@ footer .nav-inner {
   color: var(--text);
 }
 
+/* -- SCORING LOGIC ------------------------------------------- */
+.scoring-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.scoring-diagram {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.scoring-mechanism {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.scoring-cell {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+}
+.scoring-cell:last-child { border-right: none; }
+
+.scoring-label {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--mint);
+}
+
+.scoring-cell .scoring-label {
+  min-height: 36px;
+}
+
+.scoring-value {
+  font-family: var(--font-sans);
+  font-size: 36px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1;
+}
+
+.scoring-note {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.scoring-band-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.scoring-band-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.scoring-band-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.scoring-band--low  .scoring-band-dot { background: rgba(255, 255, 255, 0.22); }
+.scoring-band--mid  .scoring-band-dot { background: rgba(255, 255, 255, 0.55); }
+.scoring-band--high .scoring-band-dot { background: var(--mint); }
+
+.scoring-band-name {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text);
+  flex: 1;
+}
+
+.scoring-band-range {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+.scoring-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.scoring-pillar {
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-direction: column;
+}
+.scoring-pillar:last-child { border-right: none; }
+
+.scoring-pillar-header {
+  padding: 24px 28px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.scoring-pillar-header strong {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.scoring-modules {
+  padding: 16px 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.scoring-module {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.35;
+  opacity: 0.75;
+}
+
+.scoring-footer {
+  padding: 14px 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.scoring-footer p {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--mint);
+  line-height: 1.5;
+}
+
 /* -- DARK CARD SYSTEM ---------------------------------------- */
 .section-panel--media {
   padding-top: 100px;
@@ -1579,8 +1731,10 @@ footer .nav-inner {
   padding-top: 32px;
 }
 
-#user-profile { padding-top: 32px; }
-#decision-map { padding-top: 32px; }
+#user-profile  { padding-top: 32px; }
+#decision-map  { padding-top: 32px; }
+#scoring-logic  { padding-top: 32px; }
+#score-pillars  { padding-top: 32px; }
 .profile-card { --pb: rgba(255, 255, 255, 0.25); }
 
 .decision-card {

@@ -306,7 +306,7 @@
     <div class="profile-card">
       <div class="profile-header">
         <span class="profile-label">User profile</span>
-        <p class="profile-tagline">A micro-business owner with limited digital experience, a concrete disaster risk, and fifteen minutes to decide if the platform is worth her time.</p>
+        <p class="profile-tagline">A micro-business owner with limited digital experience, a concrete disaster risk, and no prior exposure to structured online learning platforms.</p>
       </div>
       <div class="profile-data">
         <div class="profile-datum">
@@ -550,7 +550,7 @@
   </section>
 
   <!-- -- 04 SELF-ASSESSMENT · TEXT ------------------------------ -->
-  <section class="section section-panel wrap reveal">
+  <section class="section section-panel wrap reveal context-section">
     <div class="section-split">
       <div class="section-left">
         <h2 class="section-heading">26 questions, 73 submissions. Where the funnel broke.</h2>
@@ -559,6 +559,53 @@
         <p>The self-assessment had been live for nearly a year, built in WPForms. Seventy-three people had completed it. None of them received a result. The form had expired without anyone noticing, touch targets on mobile were 23px, and there was no progress indicator — no way for a user to know how far through they were or what completing it would give them.</p>
         <p>The rebuild moved to Fluent Forms. The questionnaire was restructured into 13 labeled steps with a visible progress bar, with each question mapped to one of the ten learning modules. The scoring logic was rebuilt so that on completion, a user receives an actual result — a percentage score per pillar, a reading of where their business is strong and where it's exposed. The form went from a dead end to the first meaningful output the platform had ever delivered.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- -- 04 SELF-ASSESSMENT · SCORING LOGIC -------------------- -->
+  <section id="scoring-logic" class="section-panel section-panel--media wrap reveal">
+    <div class="scoring-wrap" aria-label="Self-assessment scoring logic">
+
+      <div class="scoring-diagram">
+        <div class="scoring-mechanism">
+          <div class="scoring-cell">
+            <span class="scoring-label">Total questions</span>
+            <strong class="scoring-value">26</strong>
+            <p class="scoring-note">Yes · No · Unknown</p>
+          </div>
+          <div class="scoring-cell">
+            <span class="scoring-label">Valid answer</span>
+            <strong class="scoring-value">Yes only</strong>
+            <p class="scoring-note">1 to 3 points per answer</p>
+          </div>
+          <div class="scoring-cell">
+            <span class="scoring-label">Maximum score</span>
+            <strong class="scoring-value">55 pts</strong>
+            <p class="scoring-note">Total accumulated on completion</p>
+          </div>
+          <div class="scoring-cell">
+            <span class="scoring-label">Resilience levels</span>
+            <div class="scoring-band-stack">
+              <div class="scoring-band-row scoring-band--low">
+                <span class="scoring-band-dot" aria-hidden="true"></span>
+                <span class="scoring-band-name">Low</span>
+                <span class="scoring-band-range">0 – 18 pts</span>
+              </div>
+              <div class="scoring-band-row scoring-band--mid">
+                <span class="scoring-band-dot" aria-hidden="true"></span>
+                <span class="scoring-band-name">Intermediate</span>
+                <span class="scoring-band-range">19 – 36 pts</span>
+              </div>
+              <div class="scoring-band-row scoring-band--high">
+                <span class="scoring-band-dot" aria-hidden="true"></span>
+                <span class="scoring-band-name">High</span>
+                <span class="scoring-band-range">37 – 55 pts</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -575,7 +622,7 @@
   </section>
 
   <!-- -- 05 SCORE PAGE · TEXT ----------------------------------- -->
-  <section class="section section-panel wrap reveal">
+  <section class="section section-panel wrap reveal context-section">
     <div class="section-split">
       <div class="section-left">
         <h2 class="section-heading">Where data becomes direction.</h2>
@@ -583,6 +630,55 @@
       <div class="section-body">
         <p>Completing the self-assessment had always felt like submitting to a void. The score page was designed to close that loop — to make the result feel earned and the next step feel obvious.</p>
         <p>The page shows a percentage score broken down across the three resilience pillars, color-coded so a user can immediately see where their business is weakest. Below the score, a set of recommended modules surfaces — not the full catalog, but the specific ones most relevant to their result. The score page functions as a conversion mechanism: it takes the data a user just produced and turns it into a personalized starting point.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 05 SCORE PAGE · PILLARS -------------------------------- -->
+  <section id="score-pillars" class="section-panel section-panel--media wrap reveal">
+    <div class="scoring-diagram">
+      <div class="scoring-pillars">
+
+        <div class="scoring-pillar">
+          <div class="scoring-pillar-header">
+            <span class="scoring-label">5 modules</span>
+            <strong>Disaster Risk Management</strong>
+          </div>
+          <div class="scoring-modules">
+            <div class="scoring-module">Disaster Risk Reduction</div>
+            <div class="scoring-module">Emergency Preparedness</div>
+            <div class="scoring-module">Resilient Supply Chain</div>
+            <div class="scoring-module">Water Management</div>
+            <div class="scoring-module">Climate Change and Environment</div>
+          </div>
+        </div>
+
+        <div class="scoring-pillar">
+          <div class="scoring-pillar-header">
+            <span class="scoring-label">3 modules</span>
+            <strong>Business Strengthening and Governance</strong>
+          </div>
+          <div class="scoring-modules">
+            <div class="scoring-module">Business Governance</div>
+            <div class="scoring-module">Finance and Economic Viability</div>
+            <div class="scoring-module">Quality Management</div>
+          </div>
+        </div>
+
+        <div class="scoring-pillar">
+          <div class="scoring-pillar-header">
+            <span class="scoring-label">2 modules</span>
+            <strong>Sustainability and Social Responsibility</strong>
+          </div>
+          <div class="scoring-modules">
+            <div class="scoring-module">Environmental Sustainability</div>
+            <div class="scoring-module">Corporate Social Responsibility</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="scoring-footer">
+        <p>Each module is scored independently against a threshold. Falling below it triggers a specific course recommendation on the results page.</p>
       </div>
     </div>
   </section>
