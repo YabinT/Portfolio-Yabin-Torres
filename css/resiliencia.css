@@ -14,6 +14,11 @@
   --font-sans:    'DM Sans', system-ui, sans-serif;
   --font-mono:    'DM Sans', system-ui, sans-serif;
 
+  --type-h1:      clamp(36px, 4vw, 56px);
+  --type-h2:      36px;
+  --type-body:    20px;
+  --type-caption: 13px;
+
   --pad:          64px;
   --max:          1440px;
   --col:          1312px;
@@ -27,7 +32,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: var(--type-body);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
@@ -61,7 +66,7 @@ nav.nav-hidden {
 .nav-logo {
   font-family: var(--font-sans);
   font-weight: 500;
-  font-size: 20px;
+  font-size: var(--type-body);
   color: var(--text);
   text-decoration: none;
   display: flex;
@@ -85,7 +90,7 @@ nav.nav-hidden {
 
 .nav-links a {
   font-family: var(--font-sans);
-  font-size: 20px;
+  font-size: var(--type-body);
   color: var(--muted);
   text-decoration: none;
   transition: color 0.2s;
@@ -106,7 +111,7 @@ nav.nav-hidden {
 /* -- NAV RETURN ---------------------------------------------- */
 .nav-return {
   font-family: var(--font-sans);
-  font-size: 18px;
+  font-size: var(--type-body);
   font-weight: 500;
   color: var(--text);
   text-decoration: none;
@@ -179,7 +184,7 @@ nav.nav-hidden {
 .hero-title {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: clamp(36px, 4vw, 56px);
+  font-size: var(--type-h1);
   line-height: 1.1;
   color: var(--text);
   margin: 28px 0 32px;
@@ -187,7 +192,7 @@ nav.nav-hidden {
 
 .hero-subtitle {
   font-family: var(--font-sans);
-  font-size: 17px;
+  font-size: var(--type-body);
   color: var(--muted);
   line-height: 1.6;
   margin-bottom: 60px;
@@ -226,8 +231,8 @@ nav.nav-hidden {
 
 .cover-image .placeholder-label {
   font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--dim);
+  font-size: var(--type-caption);
+  color: var(--mint);
 }
 
 /* -- HERO INTRO ---------------------------------------------- */
@@ -279,7 +284,7 @@ nav.nav-hidden {
 
 .hero-para {
   font-family: var(--font-sans);
-  font-size: 22px;
+  font-size: var(--type-body);
   color: var(--muted);
   line-height: 1.4;
 }
@@ -302,7 +307,7 @@ nav.nav-hidden {
 
 .case-info-label {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--type-caption);
   color: var(--mint);
   display: block;
   letter-spacing: 0;
@@ -315,7 +320,7 @@ nav.nav-hidden {
 .case-info-value {
   font-family: var(--font-sans);
   font-weight: 500;
-  font-size: 20px;
+  font-size: var(--type-body);
   line-height: 1.25;
   color: var(--text);
   text-align: left;
@@ -339,7 +344,7 @@ nav.nav-hidden {
 
 .section-label {
   font-family: var(--font-mono);
-  font-size: 36px;
+  font-size: var(--type-caption);
   color: var(--mint);
   letter-spacing: 0.01em;
   display: block;
@@ -363,7 +368,7 @@ nav.nav-hidden {
 .section-heading {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: 36px;
+  font-size: var(--type-h2);
   line-height: 1.2;
   color: var(--text);
 }
@@ -374,7 +379,7 @@ nav.nav-hidden {
 
 .section-body {
   font-family: var(--font-sans);
-  font-size: 20px;
+  font-size: var(--type-body);
   color: var(--muted);
   line-height: 1.7;
   max-width: 100%;
@@ -431,8 +436,8 @@ nav.nav-hidden {
 
 .img-placeholder .placeholder-label {
   font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--dim);
+  font-size: var(--type-caption);
+  color: var(--mint);
   position: absolute;
 }
 
@@ -479,7 +484,7 @@ nav.nav-hidden {
 
 .brand-group-title {
   font-family: var(--font-serif);
-  font-size: 36px;
+  font-size: var(--type-h2);
   font-weight: 400;
   line-height: 1.2;
   letter-spacing: 0;
@@ -538,21 +543,21 @@ nav.nav-hidden {
   padding: 0 10px;
   border-radius: 2px;
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: var(--type-caption);
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #005895;
+  color: var(--mint);
   background: rgba(0, 88, 149, 0.08);
 }
 
 .brand-chip--magenta {
-  color: #AA3290;
+  color: var(--mint);
   background: rgba(170, 50, 144, 0.08);
 }
 
 .brand-chip--dark {
-  color: #FFFFFF;
+  color: var(--mint);
   background: rgba(255, 255, 255, 0.14);
 }
 
@@ -575,7 +580,7 @@ nav.nav-hidden {
 
 .brand-card p {
   font-family: var(--font-sans);
-  font-size: 20px;
+  font-size: var(--type-body);
   line-height: 1.7;
   color: var(--muted);
 }
@@ -594,7 +599,7 @@ nav.nav-hidden {
 
 .flow-title {
   font-family: var(--font-serif);
-  font-size: 36px;
+  font-size: var(--type-h2);
   font-weight: 400;
   line-height: 1.2;
   color: var(--text);
@@ -619,7 +624,7 @@ nav.nav-hidden {
 
 .flow-entry-label {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--type-caption);
   color: var(--mint);
   white-space: nowrap;
   flex-shrink: 0;
@@ -633,8 +638,8 @@ nav.nav-hidden {
 
 .flow-chip {
   font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--text);
+  font-size: var(--type-caption);
+  color: var(--mint);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 2px;
   padding: 4px 10px;
@@ -696,7 +701,7 @@ nav.nav-hidden {
 .flow-branch-card strong {
   display: block;
   font-family: var(--font-serif);
-  font-size: 24px;
+  font-size: var(--type-body);
   font-weight: 400;
   line-height: 1.15;
   color: var(--text);
@@ -705,7 +710,7 @@ nav.nav-hidden {
 
 .flow-branch-card p {
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: var(--type-body);
   line-height: 1.55;
   color: var(--muted);
   margin-top: auto;
@@ -783,7 +788,7 @@ nav.nav-hidden {
 
 .flow-kicker {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--type-caption);
   color: var(--mint);
   margin-bottom: 40px;
 }
@@ -791,7 +796,7 @@ nav.nav-hidden {
 .flow-step strong {
   display: block;
   font-family: var(--font-serif);
-  font-size: 24px;
+  font-size: var(--type-body);
   font-weight: 400;
   line-height: 1.15;
   color: var(--text);
@@ -800,7 +805,7 @@ nav.nav-hidden {
 
 .flow-step p {
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: var(--type-body);
   line-height: 1.55;
   color: var(--muted);
   margin-top: auto;
@@ -856,14 +861,14 @@ nav.nav-hidden {
 
 .stakeholder-role {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--type-caption);
   color: var(--mint);
   margin-bottom: 16px;
 }
 
 .stakeholder-card h3 {
   font-family: var(--font-serif);
-  font-size: 24px;
+  font-size: var(--type-body);
   font-weight: 400;
   line-height: 1.15;
   color: var(--text);
@@ -872,7 +877,7 @@ nav.nav-hidden {
 
 .stakeholder-card p {
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: var(--type-body);
   line-height: 1.55;
   color: var(--muted);
   margin-top: auto;
@@ -890,7 +895,7 @@ nav.nav-hidden {
 
 .kpi-title {
   font-family: var(--font-serif);
-  font-size: 36px;
+  font-size: var(--type-h2);
   font-weight: 400;
   line-height: 1.2;
   color: var(--text);
@@ -915,7 +920,7 @@ nav.nav-hidden {
 
 .kpi-index {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--type-caption);
   color: var(--mint);
   margin-bottom: 40px;
 }
@@ -923,7 +928,7 @@ nav.nav-hidden {
 .kpi-card strong {
   display: block;
   font-family: var(--font-serif);
-  font-size: 24px;
+  font-size: var(--type-body);
   font-weight: 400;
   line-height: 1.15;
   color: var(--text);
@@ -932,7 +937,7 @@ nav.nav-hidden {
 
 .kpi-card p {
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: var(--type-body);
   line-height: 1.55;
   color: var(--muted);
   margin-top: auto;
@@ -944,7 +949,7 @@ nav.nav-hidden {
 .kpi-stat {
   display: block;
   font-family: var(--font-sans);
-  font-size: 36px;
+  font-size: var(--type-h2);
   font-weight: 700;
   line-height: 1;
   color: var(--text);
@@ -1029,8 +1034,8 @@ nav.nav-hidden {
   left: 50%;
   transform: translateX(-50%);
   font-family: var(--font-mono);
-  font-size: 9px;
-  color: #888888;
+  font-size: var(--type-caption);
+  color: var(--mint);
   background: #D4D4D4;
   padding: 3px 13px;
   border-radius: 2px;
@@ -1089,7 +1094,7 @@ nav.nav-hidden {
 
 .img-trio-figure figcaption {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--type-caption);
   line-height: 1.4;
   color: var(--mint);
   margin-top: 14px;
@@ -1143,7 +1148,7 @@ nav.nav-hidden {
 
 .section-index-label {
   font-family: var(--font-mono);
-  font-size: 36px;
+  font-size: var(--type-h2);
   color: var(--text);
   margin-bottom: 24px;
   display: block;
@@ -1165,13 +1170,13 @@ nav.nav-hidden {
 
 .section-index-list span:first-child {
   font-family: var(--font-mono);
-  font-size: 20px;
+  font-size: var(--type-body);
   color: var(--muted);
 }
 
 .section-index-list span:last-child {
   font-family: var(--font-serif);
-  font-size: 20px;
+  font-size: var(--type-body);
   line-height: 1.2;
   color: var(--text);
 }
@@ -1197,7 +1202,7 @@ footer .nav-inner {
 .footer-name,
 .footer-links {
   font-family: var(--font-mono);
-  font-size: 20px;
+  font-size: var(--type-body);
   color: var(--muted);
 }
 
@@ -1264,7 +1269,7 @@ footer .nav-inner {
   border: none;
   color: rgba(255, 255, 255, 0.6);
   font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 32px;
+  font-size: var(--type-h2);
   line-height: 1;
   cursor: pointer;
   padding: 4px 8px;
@@ -1453,7 +1458,7 @@ footer .nav-inner {
 
 .decision-tag {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--type-caption);
   color: var(--mint);
   margin-bottom: 40px;
 }
@@ -1461,7 +1466,7 @@ footer .nav-inner {
 .decision-card strong {
   display: block;
   font-family: var(--font-serif);
-  font-size: 24px;
+  font-size: var(--type-body);
   font-weight: 400;
   line-height: 1.15;
   color: var(--text);
@@ -1470,7 +1475,7 @@ footer .nav-inner {
 
 .decision-card p {
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: var(--type-body);
   line-height: 1.55;
   color: var(--muted);
   margin-top: auto;
@@ -1533,14 +1538,14 @@ footer .nav-inner {
 
 .profile-label {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--type-caption);
   color: var(--mint);
   padding-top: 3px;
 }
 
 .profile-tagline {
   font-family: var(--font-sans);
-  font-size: 20px;
+  font-size: var(--type-body);
   line-height: 1.65;
   color: var(--muted);
 }
@@ -1564,13 +1569,13 @@ footer .nav-inner {
 
 .profile-datum-label {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--type-caption);
   color: var(--mint);
 }
 
 .profile-datum-value {
   font-family: var(--font-sans);
-  font-size: 20px;
+  font-size: var(--type-body);
   font-weight: 500;
   line-height: 1.25;
   color: var(--text);
@@ -1605,7 +1610,7 @@ footer .nav-inner {
 
 .scoring-label {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--type-caption);
   color: var(--mint);
 }
 
@@ -1615,7 +1620,7 @@ footer .nav-inner {
 
 .scoring-value {
   font-family: var(--font-sans);
-  font-size: 36px;
+  font-size: var(--type-h2);
   font-weight: 500;
   color: var(--text);
   line-height: 1;
@@ -1623,7 +1628,7 @@ footer .nav-inner {
 
 .scoring-note {
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: var(--type-body);
   color: var(--muted);
   line-height: 1.45;
 }
@@ -1652,7 +1657,7 @@ footer .nav-inner {
 
 .scoring-band-name {
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: var(--type-body);
   font-weight: 500;
   color: var(--text);
   flex: 1;
@@ -1660,9 +1665,9 @@ footer .nav-inner {
 
 .scoring-band-range {
   font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--muted);
-  opacity: 0.6;
+  font-size: var(--type-caption);
+  color: var(--mint);
+  opacity: 1;
 }
 
 .scoring-pillars {
@@ -1687,7 +1692,7 @@ footer .nav-inner {
 
 .scoring-pillar-header strong {
   font-family: var(--font-sans);
-  font-size: 20px;
+  font-size: var(--type-body);
   font-weight: 500;
   color: var(--text);
   line-height: 1.2;
@@ -1703,10 +1708,10 @@ footer .nav-inner {
 
 .scoring-module {
   font-family: var(--font-sans);
-  font-size: 13px;
-  color: var(--muted);
+  font-size: var(--type-caption);
+  color: var(--mint);
   line-height: 1.35;
-  opacity: 0.75;
+  opacity: 1;
 }
 
 .scoring-footer {
@@ -1716,9 +1721,34 @@ footer .nav-inner {
 
 .scoring-footer p {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--type-caption);
   color: var(--mint);
   line-height: 1.5;
+}
+
+#score-pillars .scoring-diagram {
+  font-family: var(--font-sans);
+  font-size: var(--type-body);
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+#score-pillars .scoring-pillar-header strong,
+#score-pillars .scoring-module {
+  font-family: var(--font-sans);
+  font-size: var(--type-body);
+  line-height: 1.7;
+  color: var(--muted);
+  opacity: 1;
+}
+
+#score-pillars .scoring-label,
+#score-pillars .scoring-footer p {
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+  line-height: 1.4;
+  color: var(--mint);
+  opacity: 1;
 }
 
 /* -- DARK CARD SYSTEM ---------------------------------------- */
@@ -1883,6 +1913,10 @@ footer .nav-inner {
     font-size: 16px;
     line-height: 1.6;
     gap: 16px;
+  }
+  #score-pillars .scoring-diagram {
+    font-size: 16px;
+    line-height: 1.6;
   }
 
   /* Diagrams & cards */
