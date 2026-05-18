@@ -161,8 +161,8 @@ nav.nav-hidden {
 }
 
 .section-panel--media {
-  padding-top: 64px;
-  padding-bottom: 80px;
+  padding-top: 32px;
+  padding-bottom: 96px;
 }
 
 /* -- HERO ---------------------------------------------------- */
@@ -324,8 +324,8 @@ nav.nav-hidden {
 
 /* -- SECTIONS ------------------------------------------------ */
 .section {
-  padding-top: 64px;
-  padding-bottom: 80px;
+  padding-top: 112px;
+  padding-bottom: 40px;
 }
 
 .context-section {
@@ -1723,7 +1723,8 @@ footer .nav-inner {
 
 /* -- DARK CARD SYSTEM ---------------------------------------- */
 .section-panel--media {
-  padding-top: 100px;
+  padding-top: 32px;
+  padding-bottom: 96px;
 }
 
 #kpi-section,
@@ -1734,7 +1735,9 @@ footer .nav-inner {
 #user-profile  { padding-top: 32px; }
 #decision-map  { padding-top: 32px; }
 #scoring-logic  { padding-top: 32px; }
-#score-pillars  { padding-top: 32px; }
+#score-pillars  { padding-top: 32px; padding-bottom: 20px; }
+.score-page-shot--dashboard { padding-top: 20px; padding-bottom: 20px; }
+.score-page-shot--result { padding-top: 20px; }
 .profile-card { --pb: rgba(255, 255, 255, 0.25); }
 
 .decision-card {
@@ -1862,13 +1865,16 @@ footer .nav-inner {
 
   /* Text sections */
   .section {
-    padding-top: 40px;
-    padding-bottom: 48px;
+    padding-top: 64px;
+    padding-bottom: 28px;
   }
   .section-panel--media {
-    padding-top: 48px;
-    padding-bottom: 56px;
+    padding-top: 28px;
+    padding-bottom: 64px;
   }
+  #score-pillars { padding-bottom: 16px; }
+  .score-page-shot--dashboard { padding-top: 16px; padding-bottom: 16px; }
+  .score-page-shot--result { padding-top: 16px; }
   .section-heading {
     font-size: 22px;
     line-height: 1.25;
