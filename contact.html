@@ -13,119 +13,321 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact — Yabin Torres</title>
+  <meta name="description" content="Get in touch with Yabin Torres — product design, UX research and interface work." />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="css/styles.css?v=2" />
+  <link rel="stylesheet" href="css/styles.css?v=9" />
 
   <style>
     /* ---- Contact page ---------------------------------------- */
-    .contact-section {
+
+    /* The base stylesheet locks the body to a non-scrolling viewport
+       for the home hero. The contact page needs to scroll. */
+    body.contact-page {
+      display: block;
+      height: auto;
       min-height: 100vh;
-      min-height: 100svh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 96px var(--pad-x) var(--space-xl);
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
+    .contact {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(48px, 7vw, 112px);
+      align-items: start;
+      align-content: center;
+      /* Fill the viewport below the 96px nav so the composition sits
+         centred instead of stranded at the top. Grid still grows if the
+         content outruns the space. */
+      min-height: calc(100vh - 96px);
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: clamp(40px, 8vh, 96px) var(--pad-x) var(--space-3xl);
+    }
+
+    /* ---- Left column ----------------------------------------- */
     .contact-label {
-      font-family: 'DM Sans', system-ui, sans-serif;
-      font-size: 13px;
+      display: block;
+      font-size: var(--text-label);
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #1A9E6A;
-      margin-bottom: 28px;
-      opacity: 0;
-      animation: ct-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+      color: var(--color-mint);
+      margin-bottom: var(--space-lg);
     }
 
-    .contact-name {
-      font-family: 'DM Sans', system-ui, sans-serif;
+    .contact-title {
       font-weight: 400;
-      font-size: clamp(52px, 8vw, 96px);
+      font-size: clamp(40px, 5.2vw, 72px);
       line-height: 1.05;
-      color: #1C1C1A;
-      margin-bottom: 56px;
-      opacity: 0;
-      animation: ct-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      margin-bottom: var(--space-lg);
     }
 
-    .contact-btn {
-      display: inline-flex;
+    .contact-lede {
+      font-size: var(--text-body);
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 42ch;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .contact-channels {
+      list-style: none;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .contact-channels li { border-bottom: 1px solid var(--color-border); }
+
+    .contact-channel {
+      display: flex;
       align-items: center;
-      gap: 10px;
-      font-family: 'DM Sans', system-ui, sans-serif;
-      font-size: 13px;
-      letter-spacing: 0.06em;
-      color: #F8F7F4;
-      background: #1C1C1A;
-      padding: 16px 32px;
-      border-radius: 2px;
-      text-decoration: none;
-      width: fit-content;
-      transition: background 0.2s;
-      opacity: 0;
-      animation: ct-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding: var(--space-md) 0;
+      font-size: var(--text-h3);
+      color: var(--color-text);
+      transition: color 0.2s;
     }
 
-    .contact-btn:hover { background: #1A9E6A; }
+    .contact-channel:hover,
+    .contact-channel:focus-visible { color: var(--color-mint); }
+
+    .contact-channel .arrow {
+      font-size: var(--text-h4);
+      opacity: 0.5;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .contact-channel:hover .arrow,
+    .contact-channel:focus-visible .arrow {
+      opacity: 1;
+      transform: translate(2px, -2px);
+    }
+
+    /* ---- Right column: form ---------------------------------- */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .field label {
+      font-size: var(--text-label);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .field input,
+    .field textarea {
+      font-family: var(--font-sans);
+      font-size: 16px; /* 16px min keeps iOS from zooming on focus */
+      line-height: 1.5;
+      color: var(--color-text);
+      background: transparent;
+      border: 1px solid var(--color-border);
+      border-radius: 2px;
+      padding: 14px 16px;
+      width: 100%;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder { color: rgba(255, 255, 255, 0.3); }
+
+    .field input:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: var(--color-mint);
+      box-shadow: 0 0 0 3px rgba(37, 196, 126, 0.16);
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 148px;
+    }
+
+    .contact-submit {
+      font-family: var(--font-sans);
+      font-size: var(--text-label);
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      color: var(--color-bg);
+      background: var(--color-mint);
+      border: none;
+      border-radius: 2px;
+      padding: 16px 32px;
+      width: fit-content;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .contact-submit:hover { opacity: 0.85; }
+
+    .contact-submit:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .form-status {
+      font-size: var(--text-label);
+      line-height: 1.5;
+      min-height: 1.2em;
+    }
+
+    .form-status.is-ok    { color: var(--color-mint); }
+    .form-status.is-error { color: #E4776B; }
+
+    /* Honeypot — hidden from humans, tempting to bots */
+    .botcheck {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    /* ---- Entrance -------------------------------------------- */
+    .contact-intro > *,
+    .contact-form {
+      opacity: 0;
+      animation: ct-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .contact-label    { animation-delay: 0.10s; }
+    .contact-title    { animation-delay: 0.20s; }
+    .contact-lede     { animation-delay: 0.30s; }
+    .contact-channels { animation-delay: 0.40s; }
+    .contact-form     { animation-delay: 0.35s; }
 
     @keyframes ct-rise {
-      from { opacity: 0; transform: translateY(24px); }
+      from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .contact-label,
-      .contact-name,
-      .contact-btn {
+      .contact-intro > *,
+      .contact-form {
         animation: none;
         opacity: 1;
         transform: none;
       }
     }
 
+    /* ---- Responsive ------------------------------------------ */
     @media (max-width: 900px) {
-      .contact-name { margin-bottom: 40px; }
+      .contact {
+        grid-template-columns: 1fr;
+        gap: var(--space-2xl);
+        min-height: 0;
+        align-content: start;
+      }
+
+      .contact-lede { margin-bottom: var(--space-xl); }
+    }
+
+    @media (max-width: 600px) {
+      body.contact-page {
+        height: auto;
+        min-height: 100svh;
+        overflow-y: auto;
+        padding-top: 64px;
+      }
+
+      body.contact-page nav {
+        background: var(--color-bg);
+        height: 64px;
+      }
+
+      .contact-submit { width: 100%; }
     }
   </style>
 </head>
 
-<body>
+<body class="contact-page">
 
   <!-- NAV -->
   <nav>
     <a href="/" class="nav-logo">
       <span>Yabin Torres</span>
-      <span class="nav-logo-dot"></span>
     </a>
     <ul class="nav-links">
       <li><a href="/#work">Work</a></li>
-      <li><a href="/#about">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="contact.html" aria-current="page">Contact</a></li>
     </ul>
   </nav>
 
   <!-- CONTACT -->
-  <section class="contact-section">
-    <span class="contact-label">Get in touch</span>
-    <h1 class="contact-name">Yabin Torres</h1>
-    <a href="mailto:tu@email.com" class="contact-btn">Contact me</a>
-  </section>
+  <main class="contact">
 
-  <!-- FOOTER -->
-  <footer>
-    <span class="footer-name">Yabin Torres — 2025</span>
-    <ul class="footer-links">
-      <li><a href="#">LinkedIn</a></li>
-      <li><a href="#">Behance</a></li>
-      <li><a href="mailto:tu@email.com">Email</a></li>
-    </ul>
-  </footer>
+    <div class="contact-intro">
+      <span class="contact-label">Get in touch</span>
+      <h1 class="contact-title">Let&rsquo;s work together</h1>
+      <p class="contact-lede">
+        Tell me what you&rsquo;re building &mdash; product, research or interface.
+        I read every message and usually reply within a day.
+      </p>
+
+      <ul class="contact-channels">
+        <li>
+          <a class="contact-channel" href="https://www.linkedin.com/in/yabintorres/" target="_blank" rel="noopener noreferrer">
+            <span>LinkedIn</span>
+            <span class="arrow" aria-hidden="true">&#8599;</span>
+          </a>
+        </li>
+        <li>
+          <a class="contact-channel" href="mailto:yabintc@gmail.com">
+            <span>yabintc@gmail.com</span>
+            <span class="arrow" aria-hidden="true">&#8599;</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Posts straight to Web3Forms without JS; contact.js upgrades it
+         to an inline async submit. -->
+    <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+      <!-- Public by design: Web3Forms access keys are safe to expose. -->
+      <input type="hidden" name="access_key" value="3e56a98c-3bf7-471a-8ef6-ff905a0d7800" />
+      <input type="hidden" name="subject" value="Nuevo mensaje desde yabintorres.com" />
+      <input type="checkbox" name="botcheck" class="botcheck" tabindex="-1" autocomplete="off" />
+
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required autocomplete="name" placeholder="Your name" />
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required autocomplete="email" placeholder="you@company.com" />
+      </div>
+
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required placeholder="What are you working on?"></textarea>
+      </div>
+
+      <button type="submit" class="contact-submit" id="contact-submit">Send message</button>
+
+      <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+    </form>
+
+  </main>
+
+  <script src="js/contact.js?v=1"></script>
 
 </body>
 </html>
