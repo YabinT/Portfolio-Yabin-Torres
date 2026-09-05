@@ -181,6 +181,13 @@
       cursor: not-allowed;
     }
 
+    /* Reserve the widget's height so the button doesn't jump when the
+       captcha iframe finishes loading. */
+    .h-captcha {
+      min-height: 78px;
+      color-scheme: light;
+    }
+
     .form-status {
       font-size: var(--text-label);
       line-height: 1.5;
@@ -288,12 +295,6 @@
             <span class="arrow" aria-hidden="true">&#8599;</span>
           </a>
         </li>
-        <li>
-          <a class="contact-channel" href="mailto:yabintc@gmail.com">
-            <span>yabintc@gmail.com</span>
-            <span class="arrow" aria-hidden="true">&#8599;</span>
-          </a>
-        </li>
       </ul>
     </div>
 
@@ -320,6 +321,11 @@
         <textarea id="message" name="message" required placeholder="What are you working on?"></textarea>
       </div>
 
+      <!-- hCaptcha, rendered by web3forms/client/script.js. No site key
+           needed on the free plan; the widget writes its token into an
+           h-captcha-response field that goes out with the form data. -->
+      <div class="h-captcha" data-captcha="true" data-theme="dark"></div>
+
       <button type="submit" class="contact-submit" id="contact-submit">Send message</button>
 
       <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
@@ -327,7 +333,8 @@
 
   </main>
 
-  <script src="js/contact.js?v=1"></script>
+  <script src="https://web3forms.com/client/script.js" async defer></script>
+  <script src="js/contact.js?v=2"></script>
 
 </body>
 </html>

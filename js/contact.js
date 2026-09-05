@@ -17,16 +17,33 @@
     if (state) status.classList.add(state);
   }
 
+  /* The captcha token is single-use: without a reset, a second attempt
+     in the same page view is always rejected. */
+  function resetCaptcha() {
+    try {
+      if (window.hcaptcha && typeof window.hcaptcha.reset === 'function') {
+        window.hcaptcha.reset();
+      }
+    } catch (error) {
+      /* A missing or not-yet-loaded widget is not worth surfacing. */
+    }
+  }
+
   form.addEventListener('submit', async function (event) {
     event.preventDefault();
 
     if (!form.reportValidity()) return;
 
+    const payload = Object.fromEntries(new FormData(form).entries());
+
+    if (!payload['h-captcha-response']) {
+      setStatus('Please complete the captcha before sending.', 'is-error');
+      return;
+    }
+
     button.disabled = true;
     button.textContent = 'Sending…';
     setStatus('');
-
-    const payload = Object.fromEntries(new FormData(form).entries());
 
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
@@ -44,14 +61,21 @@
         form.reset();
         setStatus('Thanks — your message is on its way. I usually reply within a day.', 'is-ok');
       } else {
-        throw new Error(result.message || 'Submission rejected');
+        /* Web3Forms explains the rejection (bad captcha, spam flag);
+           that is more useful than a blanket failure message. */
+        setStatus(
+          (result && result.message) ||
+          'Your message was not accepted. Please try again.',
+          'is-error'
+        );
       }
     } catch (error) {
       setStatus(
-        'Something went wrong. Write me directly at yabintc@gmail.com.',
+        'Could not reach the server. Check your connection, or reach me on LinkedIn.',
         'is-error'
       );
     } finally {
+      resetCaptcha();
       button.disabled = false;
       button.textContent = DEFAULT_LABEL;
     }
