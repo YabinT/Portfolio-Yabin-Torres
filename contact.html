@@ -20,13 +20,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="css/styles.css?v=9" />
+  <link rel="stylesheet" href="css/styles.css?v=13" />
 
   <style>
     /* ---- Contact page ---------------------------------------- */
 
-    /* The base stylesheet locks the body to a non-scrolling viewport
-       for the home hero. The contact page needs to scroll. */
+    /* The base stylesheet used to lock the body to a non-scrolling viewport for
+       the home hero; since the home redesign it scrolls by default. These rules
+       are now belt-and-braces rather than a fix. */
     body.contact-page {
       display: block;
       height: auto;
@@ -75,6 +76,68 @@
       color: rgba(255, 255, 255, 0.7);
       max-width: 42ch;
       margin-bottom: var(--space-2xl);
+    }
+
+    /* Proof and expectation-setting, between the lede and the channels.
+       Class 07 rule: answer the visitor's doubts next to the moment of doubt. */
+    .contact-proof {
+      font-size: var(--text-h4);
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.55);
+      max-width: 46ch;
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--color-border);
+      margin-bottom: var(--space-lg);
+    }
+
+    .contact-proof strong {
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .contact-proof a {
+      color: var(--color-mint);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .contact-next {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      max-width: 46ch;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .contact-next li {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: var(--space-md);
+      align-items: start;
+      font-size: var(--text-h4);
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .contact-next li span {
+      display: grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      border: 1px solid var(--color-border);
+      border-radius: 50%;
+      font-size: var(--text-micro);
+      color: var(--color-mint);
+      line-height: 1;
+    }
+
+    .contact-reassure {
+      font-size: var(--text-label);
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.45);
+      max-width: 44ch;
+      margin-top: calc(var(--space-lg) * -1 + var(--space-xs));
     }
 
     .contact-channels {
@@ -217,7 +280,9 @@
     .contact-label    { animation-delay: 0.10s; }
     .contact-title    { animation-delay: 0.20s; }
     .contact-lede     { animation-delay: 0.30s; }
-    .contact-channels { animation-delay: 0.40s; }
+    .contact-proof    { animation-delay: 0.36s; }
+    .contact-next     { animation-delay: 0.42s; }
+    .contact-channels { animation-delay: 0.48s; }
     .contact-form     { animation-delay: 0.35s; }
 
     @keyframes ct-rise {
@@ -272,6 +337,7 @@
       <span>Yabin Torres</span>
     </a>
     <ul class="nav-links">
+      <li><a href="services.html">Services</a></li>
       <li><a href="/#work">Work</a></li>
       <li><a href="contact.html" aria-current="page">Contact</a></li>
     </ul>
@@ -281,12 +347,27 @@
   <main class="contact">
 
     <div class="contact-intro">
-      <span class="contact-label">Get in touch</span>
-      <h1 class="contact-title">Let&rsquo;s work together</h1>
-      <p class="contact-lede">
+      <span class="contact-label" id="contact-label">Get in touch</span>
+      <h1 class="contact-title" id="contact-title">Let&rsquo;s work together</h1>
+      <p class="contact-lede" id="contact-lede">
         Tell me what you&rsquo;re building &mdash; product, research or interface.
         I read every message and usually reply within a day.
       </p>
+
+      <!-- Trust signals. Only names already published as case studies on this
+           site appear here; nothing pending client authorisation. -->
+      <p class="contact-proof">
+        Design delivered for <strong>The UPS Foundation</strong> and <strong>CENACED</strong>.
+        Every claim on this site is documented in a
+        <a href="/#work">case study</a> &mdash; including the parts that didn&rsquo;t work.
+      </p>
+
+      <!-- Sets expectations before the form, not after it. -->
+      <ol class="contact-next">
+        <li><span>1</span> I read it myself. There is no inbox filter and no assistant.</li>
+        <li><span>2</span> You get a reply within one working day, usually with a question or two.</li>
+        <li><span>3</span> If it&rsquo;s a fit we book 30 minutes. If it isn&rsquo;t, I&rsquo;ll say so and point you somewhere better.</li>
+      </ol>
 
       <ul class="contact-channels">
         <li>
@@ -303,7 +384,9 @@
     <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
       <!-- Public by design: Web3Forms access keys are safe to expose. -->
       <input type="hidden" name="access_key" value="3e56a98c-3bf7-471a-8ef6-ff905a0d7800" />
-      <input type="hidden" name="subject" value="Nuevo mensaje desde yabintorres.com" />
+      <input type="hidden" name="subject" id="form-subject" value="Nuevo mensaje desde yabintorres.com" />
+      <!-- Which CTA the visitor came through. Filled by contact.js from ?intent=. -->
+      <input type="hidden" name="intent" id="form-intent" value="general" />
       <input type="checkbox" name="botcheck" class="botcheck" tabindex="-1" autocomplete="off" />
 
       <div class="field">
@@ -327,6 +410,8 @@
       <div class="h-captcha" data-captcha="true" data-theme="dark"></div>
 
       <button type="submit" class="contact-submit" id="contact-submit">Send message</button>
+      <!-- Reassurance sits with the button, where the hesitation happens. -->
+      <p class="contact-reassure">No pitch deck, no mailing list. Your details are only used to reply to you.</p>
 
       <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
     </form>
@@ -334,7 +419,7 @@
   </main>
 
   <script src="https://web3forms.com/client/script.js" async defer></script>
-  <script src="js/contact.js?v=2"></script>
+  <script src="js/contact.js?v=3"></script>
 
 </body>
 </html>

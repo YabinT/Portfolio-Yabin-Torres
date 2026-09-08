@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8QM249Y8BC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-8QM249Y8BC');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trendo.mx — Yabin Torres</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../css/resiliencia.css" />
+  <style>
+    /* Status notice — scoped to this case study, which documents an approved
+       proposal rather than a shipped site. */
+    .status-note {
+      border: 1px solid var(--mint-line);
+      border-radius: 2px;
+      background: var(--surface);
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .status-note-chip {
+      font-size: var(--type-caption);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--mint);
+    }
+    .status-note p { margin: 0; }
+    @media (max-width: 900px) {
+      .status-note { padding: 20px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- -- NAV ---------------------------------------------------- -->
+  <nav>
+    <a href="../index.html" class="nav-return">
+      <span class="back-arrow"></span> Return
+    </a>
+    <ul class="nav-links">
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- -- HERO INTRO --------------------------------------------- -->
+  <div class="hero-intro-fixed">
+  <section class="hero-intro wrap reveal">
+    <div class="hero-intro-grid">
+      <div class="hero-visual">
+        <img src="../assets/images/trendo/wordmark.jpg" alt="Trendo.mx" class="hero-project-logo" />
+      </div>
+      <div class="hero-content">
+        <h1 class="hero-title">Trendo.mx</h1>
+        <p class="hero-para">Digital strategy and site redesign for a Mexican consumer-trends agency that produces the best research in its sector and is invisible in search. The work here is the diagnosis, the funnel architecture, and the design direction that came out of them.</p>
+        <div class="case-info-table" aria-label="Case study information">
+          <div class="case-info-row">
+            <span class="case-info-label">Role</span>
+            <span class="case-info-value">Strategy &middot; UX &middot; SEO</span>
+          </div>
+          <div class="case-info-row">
+            <span class="case-info-label">Type</span>
+            <span class="case-info-value">B2B &middot; Content strategy &middot; Website</span>
+          </div>
+          <div class="case-info-row">
+            <span class="case-info-label">Status</span>
+            <span class="case-info-value">Approved proposal &middot; in planning</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- -- SECTIONS WRAPPER -------------------------------------- -->
+  <div class="sections-wrapper">
+
+  <!-- -- 00 STATUS --------------------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="status-note">
+      <span class="status-note-chip">What this case study is</span>
+      <p>This is an approved proposal in execution planning, not a launched site. Every screen shown here is a working prototype, and the numbers are baseline measurements of the client's current site taken before any work shipped. Nothing on this page claims a result — the honest version of this project is the diagnosis and the architecture, and those are what it documents. Commercial terms and client names are omitted.</p>
+    </div>
+  </section>
+
+  <!-- -- 01 DIAGNOSIS · TEXT ----------------------------------- -->
+  <section class="section section-panel wrap reveal context-section">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">The best content in the sector, walled off from the people looking for it</h2>
+      </div>
+      <div class="section-body">
+        <p>The agency's problem was not quality. It was that its research lived in PDFs behind a login, where neither search engines nor language models can read it, and the site did not rank for its own subject. Search the topic this agency has spent years owning, and you find global consultancies and media agencies instead.</p>
+        <p>The audit put overall SEO health at roughly 5 out of 10, and the shape of that score is the interesting part: strong brand, weak technical base. Around ten indexed pages. No meta descriptions on any page audited. A flagship landing page with no H1 and roughly 180 words on it. A sitemap still listing sections last touched in 2020, and a blog that stopped in late 2024.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 01 DIAGNOSIS · SCORECARD ------------------------------ -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="kpi-diagram" aria-label="SEO diagnostic scorecard">
+      <h3 class="kpi-title">Baseline scorecard — the current site, before any work</h3>
+      <div class="kpi-grid">
+        <article class="kpi-card">
+          <span class="kpi-index">Technical</span>
+          <span class="kpi-stat">4/10</span>
+          <p>Unoptimized platform, broken and non-descriptive URLs, abandoned sitemap sections.</p>
+        </article>
+        <article class="kpi-card">
+          <span class="kpi-index">Content</span>
+          <span class="kpi-stat">4/10</span>
+          <p>The reports are the asset, and they are unreadable to search. The blog has been dormant since 2024.</p>
+        </article>
+        <article class="kpi-card kpi-card--highlight">
+          <span class="kpi-index">Authority &amp; brand</span>
+          <span class="kpi-stat">8/10</span>
+          <p>The one thing that is genuinely hard to build is already there — and it is being wasted.</p>
+        </article>
+        <article class="kpi-card">
+          <span class="kpi-index">B2B conversion</span>
+          <span class="kpi-stat">4/10</span>
+          <p>No schedulable call, no proposal flow, and a login standing between a lead and the thing they came for.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 02 AUTHORITY VS RELEVANCE · TEXT ---------------------- -->
+  <section class="section section-panel wrap reveal">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">Authority is high. Relevance is nearly zero. That's the good news</h2>
+      </div>
+      <div class="section-body">
+        <p>Two different questions get confused constantly. <em>Authority</em> asks whether the web vouches for you. <em>Relevance</em> asks whether you appear when your market searches for your subject. This agency scores decently on the first and almost nothing on the second — which is the best possible shape for the problem to have, because authority is the half that takes years to earn.</p>
+        <p>The public relations work did translate into real referring domains. Nearly two hundred of them, pointing at about ten pages. The organic traffic that exists is essentially all branded: people arrive because they already know the name, not because they discovered the topic. Ranking keywords sit in the low hundreds with almost no non-branded traffic behind them, and share of the relevant search space rounds to zero.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 02 AUTHORITY VS RELEVANCE · DIAGRAM ------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="scoring-wrap" aria-label="Authority versus relevance baseline">
+      <div class="scoring-diagram">
+        <div class="scoring-mechanism">
+          <div class="scoring-cell">
+            <span class="scoring-label">Referring domains</span>
+            <strong class="scoring-value">199</strong>
+            <p class="scoring-note">465 backlinks pointing at roughly 10 pages</p>
+          </div>
+          <div class="scoring-cell">
+            <span class="scoring-label">Organic traffic</span>
+            <strong class="scoring-value">1.4K</strong>
+            <p class="scoring-note">Branded and organic lines move together</p>
+          </div>
+          <div class="scoring-cell">
+            <span class="scoring-label">Share of search</span>
+            <strong class="scoring-value">0%</strong>
+            <p class="scoring-note">134 ranking keywords, ~0 non-branded traffic</p>
+          </div>
+          <div class="scoring-cell">
+            <span class="scoring-label">Reading</span>
+            <div class="scoring-band-stack">
+              <div class="scoring-band-row scoring-band--high">
+                <span class="scoring-band-dot" aria-hidden="true"></span>
+                <span class="scoring-band-name">Authority</span>
+                <span class="scoring-band-range">already earned</span>
+              </div>
+              <div class="scoring-band-row scoring-band--low">
+                <span class="scoring-band-dot" aria-hidden="true"></span>
+                <span class="scoring-band-name">Relevance</span>
+                <span class="scoring-band-range">not built yet</span>
+              </div>
+              <div class="scoring-band-row scoring-band--mid">
+                <span class="scoring-band-dot" aria-hidden="true"></span>
+                <span class="scoring-band-name">Demand</span>
+                <span class="scoring-band-range">arrives, then leaves</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 03 THE REFRAME · TEXT --------------------------------- -->
+  <section class="section section-panel wrap reveal context-section">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">40,000 downloads a year, and almost no one's email</h2>
+      </div>
+      <div class="section-body">
+        <p>The figure that reframed the whole engagement did not come from any analytics tool. It came from the client, buried in a quote from months earlier: the agency records roughly <strong>forty thousand PDF downloads a year</strong>, behind a login, with no usable email capture attached.</p>
+        <p>That changes the diagnosis from a traffic problem into a capture problem. Forty thousand people a year explicitly ask for this agency's research, and the agency keeps almost none of them. Read alongside the finding that branded and organic traffic move as one line, the implication is that essentially all of that demand arrives through rented channels — social platforms — and switches off the day an algorithm changes.</p>
+        <p>Replacing the login with an email gate is not a conversion tweak. It is the difference between an audience the agency owns and one it borrows.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 04 PERSONA · TEXT ------------------------------------- -->
+  <section class="section section-panel wrap reveal">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">She doesn't need to be convinced. Her committee does</h2>
+      </div>
+      <div class="section-body">
+        <p>The primary persona is an insights or marketing lead inside a large Mexican consumer brand. Her job is to keep her organization from misreading the consumer, and she is squeezed from above by budget and ROI questions and from below by brand and product teams wanting fast answers. She reads a great deal of trend content and almost all of it tastes like a generic roundup built on an imported framework.</p>
+        <p>The design consequence is specific and it governs the whole architecture: <strong>she is the champion, not the signatory</strong>. A CMO signs the budget, procurement negotiates, and brand teams are the end users. So the content cannot only persuade her — it has to give her something she can forward. A case she can send to her CMO. A page that says "this is what we do for a brand like yours." That requirement is why the architecture treats proof as a destination rather than a logo strip.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 04 PERSONA · CARDS ------------------------------------ -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="stakeholder-diagram" aria-label="The B2B buying committee">
+      <article class="stakeholder-card">
+        <span class="stakeholder-role">Champion &amp; user</span>
+        <h3>Insights lead</h3>
+        <p>Defines the need and carries it internally. Fears being sold a framework with no Mexican reality behind it.</p>
+      </article>
+
+      <article class="stakeholder-card">
+        <span class="stakeholder-role">Signs the budget</span>
+        <h3>CMO / direction</h3>
+        <p>Judges on ROI and reputational risk. Never visits the site — reads whatever gets forwarded.</p>
+      </article>
+
+      <article class="stakeholder-card stakeholder-card--impact">
+        <span class="stakeholder-role">End users</span>
+        <h3>Brand &amp; product</h3>
+        <p>Need the research to be actionable, not merely interesting. "What do I do with this on Monday."</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- -- 05 FUNNEL AUDIT · TEXT -------------------------------- -->
+  <section class="section section-panel wrap reveal context-section">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">A bucket with leaks, and barely any opening</h2>
+      </div>
+      <div class="section-body">
+        <p>Auditing each funnel stage against that persona — does this move her one step forward? — produced a harsher score than the SEO audit did, and a more useful one. The site is not underperforming evenly; it is missing its mouth.</p>
+        <p>Five leaks, in order of what they cost. The expensive one is at the entrance: someone searching the topic never encounters this agency at all, and leaves with a global consultancy instead. Second, an enormous social audience with no destination that converts. Third, the people who do arrive — already knowing the brand — cannot assemble an internal case, and stall. Fourth, the friction of a login on the reports plus no easy way to say "let's talk." Fifth, nothing continuous to keep her engaged, so no repeat business and no referrals.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 05 FUNNEL AUDIT · DIAGRAM ----------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="kpi-diagram" aria-label="Funnel audit by stage">
+      <h3 class="kpi-title">Funnel health by stage — current site</h3>
+      <div class="kpi-grid">
+        <article class="kpi-card">
+          <span class="kpi-index">Attraction</span>
+          <span class="kpi-stat">2/10</span>
+          <p>The hook exists and is invisible — sealed inside PDFs behind a login.</p>
+        </article>
+        <article class="kpi-card">
+          <span class="kpi-index">Consideration</span>
+          <span class="kpi-stat">4/10</span>
+          <p>The proof exists but sits loose: clients as logos rather than cases, services in one undifferentiated block.</p>
+        </article>
+        <article class="kpi-card">
+          <span class="kpi-index">Conversion</span>
+          <span class="kpi-stat">3/10</span>
+          <p>No schedulable call, no proposal flow, no ROI framing — and a login in the way.</p>
+        </article>
+        <article class="kpi-card">
+          <span class="kpi-index">Retention</span>
+          <span class="kpi-stat">2/10</span>
+          <p>A newsletter with no engine behind it, because the blog stopped two years ago.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 06 ARCHITECTURE · TEXT -------------------------------- -->
+  <section class="section section-panel wrap reveal">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">Same research, three packages, three temperatures of visitor</h2>
+      </div>
+      <div class="section-body">
+        <p>The architecture is derived from the funnel and the persona rather than patched onto the existing site. The audit is used only to decide what gets built first — it does not constrain what gets designed.</p>
+        <p>Its load-bearing idea is that the agency's research gets packaged three ways for three different visitors. Articles are the magnet: open, indexable, informational, written to be found. Reports are the hook: the complete study, gated behind an email — the article is the appetizer, the report is the plate. Services are the sales machine: they do not educate, they sell, one page per service framed by the business problem it solves.</p>
+        <p>Two rules keep it from drifting. <strong>Content links forward, never back</strong> — an article leads to services; a service does not lead back to the blog. And <strong>the site never sends traffic out to social</strong>: consumers live on social, the B2B market that signs contracts lives on the site. A video gets embedded, never linked away to.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 06 ARCHITECTURE · PILLARS ----------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="scoring-diagram">
+      <div class="scoring-pillars">
+
+        <div class="scoring-pillar">
+          <div class="scoring-pillar-header">
+            <span class="scoring-label">Cold visitor · open</span>
+            <strong>Trends — the magnet</strong>
+          </div>
+          <div class="scoring-modules">
+            <div class="scoring-module">Indexable articles</div>
+            <div class="scoring-module">Informational intent</div>
+            <div class="scoring-module">Reports broken into pieces</div>
+            <div class="scoring-module">Job: get found</div>
+          </div>
+        </div>
+
+        <div class="scoring-pillar">
+          <div class="scoring-pillar-header">
+            <span class="scoring-label">Warm visitor · gated</span>
+            <strong>Reports — the hook</strong>
+          </div>
+          <div class="scoring-modules">
+            <div class="scoring-module">Complete study</div>
+            <div class="scoring-module">Email gate, no login</div>
+            <div class="scoring-module">Proof of capability</div>
+            <div class="scoring-module">Job: capture the email</div>
+          </div>
+        </div>
+
+        <div class="scoring-pillar">
+          <div class="scoring-pillar-header">
+            <span class="scoring-label">Hot visitor · open</span>
+            <strong>Services — the sales machine</strong>
+          </div>
+          <div class="scoring-modules">
+            <div class="scoring-module">One page per service</div>
+            <div class="scoring-module">Problem, method, proof, result</div>
+            <div class="scoring-module">Commercial intent</div>
+            <div class="scoring-module">Job: close the client</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="scoring-footer">
+        <p>The email gate is not an extra bolted onto the funnel — it is the rail that runs through every stage, moving people off rented channels and onto one the agency owns.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 07 THE MISTAKE · TEXT --------------------------------- -->
+  <section class="section section-panel wrap reveal context-section">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">A visual reference gave art direction. It also quietly gave architecture</h2>
+      </div>
+      <div class="section-body">
+        <p>Partway through the design phase a homepage was built from a visual reference — and it copied the reference's structure along with its look. The result linked out to a video platform, dissolved Trends and Reports as destinations, and put selling ahead of attracting. Every one of those is a direct violation of the architecture that had already been agreed and written down.</p>
+        <p>It was rebuilt. What came out of it is now a standing rule on the project: <strong>a visual reference contributes art direction, never information architecture.</strong> If a reference implies a different structure, the funnel wins. Writing that down as a rule rather than a one-off correction is what keeps it from happening again on the next page, with a different reference and the same logic.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 08 DESIGN · MEDIA ------------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="js-lightbox js-lightbox-wide">
+      <img class="img-full-width" src="../assets/images/trendo/home-hero.jpg" alt="Homepage prototype — hero" />
+    </div>
+  </section>
+
+  <!-- -- 08 DESIGN · SERVICES ---------------------------------- -->
+  <section class="section section-panel wrap reveal">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">Services sorted by the decision, not by the deliverable</h2>
+      </div>
+      <div class="section-body">
+        <p>Nine services collapsed into three questions a visitor already knows the answer to about themselves: do you need to understand the consumer before deciding, to know what will sell next season, or to make your brand say something the country cares about. Each one carries both exits — a commercial call to action for someone ready, and a low-commitment download for someone still exploring.</p>
+        <p>That second exit is the funnel doing its job inside a sales page. The visitor who is not ready to buy does not leave; they hand over an email instead.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 08 DESIGN · MEDIA TRIO -------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="img-trio">
+      <figure class="img-trio-figure">
+        <div class="img-trio-item js-lightbox js-lightbox-wide">
+          <img src="../assets/images/trendo/home-servicios.jpg" alt="Services block — three decisions, not nine deliverables" />
+        </div>
+        <figcaption>Services — sorted by the visitor's decision.</figcaption>
+      </figure>
+      <figure class="img-trio-figure">
+        <div class="img-trio-item js-lightbox js-lightbox-wide">
+          <img src="../assets/images/trendo/home-emailgate.jpg" alt="Email gate — the report is sent by email, with no account required" />
+        </div>
+        <figcaption>The gate — email, not a login. No account, no password.</figcaption>
+      </figure>
+      <figure class="img-trio-figure">
+        <div class="img-trio-item js-lightbox js-lightbox-wide">
+          <img src="../assets/images/trendo/home-diagnostico.jpg" alt="Diagnostic call block" />
+        </div>
+        <figcaption>Conversion — a scheduled diagnostic call, framed by what it answers.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- -- 09 ARTICLE · TEXT ------------------------------------- -->
+  <section class="section section-panel wrap reveal">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">One flagship report, twenty indexable articles</h2>
+      </div>
+      <div class="section-body">
+        <p>The content engine is a documented procedure rather than an editorial calendar: take a report that already exists, break it into its constituent arguments, and publish each one as an open article that can rank. The flagship annual report alone decomposes into roughly twenty articles across five clusters — years of dormant material that is already written, already researched, and currently unreadable to a search engine.</p>
+        <p>The first cluster to ship is the regional one, because it carries the contrarian local data that stops the persona mid-scroll. The article below is the working sample: the shape every piece follows, ending on a link forward into services rather than sideways into more reading.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 09 ARTICLE · MEDIA ------------------------------------ -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="js-lightbox js-lightbox-wide">
+      <img class="img-full-width" src="../assets/images/trendo/articulo-consumidor-norte.jpg" alt="Sample article — the northern Mexican consumer" />
+    </div>
+  </section>
+
+  <!-- -- 10 STATE · TEXT --------------------------------------- -->
+  <section class="section section-panel context-section wrap reveal">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">What's decided, and what's still open</h2>
+      </div>
+      <div class="section-body">
+        <p>Decided: the content mission and the public tagline, phased scope with the redesign first and the content engine second, and a site scoped at nine unique pages plus three reusable templates. The 108 URLs of the existing site are inventoried and classified into keep, redirect, or retire, so that the migration preserves the referring domains rather than resetting them to zero — new design, existing equity.</p>
+        <p>Open, and honestly so: the platform recommendation has not been accepted by the client yet, and the alternative costing exists in case it is refused. Read access to the client's search console and analytics has been requested and not yet granted — which is the riskiest gap, because without knowing which URLs actually carry those backlinks, the redirect map gets prioritized blind. Several assets the plan depends on are still with the client: case permissions, testimonials, and the email tooling.</p>
+        <p>What I'm proud of: finding the forty-thousand-downloads figure in an old quotation rather than in an analytics dashboard, and letting it overturn a diagnosis I had already written. What I'd do differently: I built a homepage from a visual reference and let it import an architecture I had already argued against — I should have caught that in the first review, not the third.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 10 STATE · DIAGRAM ------------------------------------ -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="kpi-grid" aria-label="Scope and status">
+      <article class="kpi-card">
+        <span class="kpi-index">Strategy documents</span>
+        <span class="kpi-stat">17</span>
+        <p>Diagnosis, funnel architecture, persona, cluster map, migration plan and URL inventory.</p>
+      </article>
+      <article class="kpi-card">
+        <span class="kpi-index">Scope</span>
+        <span class="kpi-stat">9 + 3</span>
+        <p>Nine unique pages plus three reusable templates — the minimum that can actually operate.</p>
+      </article>
+      <article class="kpi-card kpi-card--highlight">
+        <span class="kpi-index">URLs classified</span>
+        <span class="kpi-stat">108</span>
+        <p>Every existing URL sorted into keep, redirect or retire, so the migration preserves authority.</p>
+      </article>
+      <article class="kpi-card">
+        <span class="kpi-index">Articles from one report</span>
+        <span class="kpi-stat">~20</span>
+        <p>Across five clusters — material that already exists and cannot currently be found.</p>
+      </article>
+    </div>
+  </section>
+
+  </div><!-- /.sections-wrapper -->
+
+<!-- -- FOOTER -------------------------------------------------- -->
+  <footer>
+    <div class="nav-inner">
+      <span class="footer-name">Yabin Torres — 2026</span>
+      <span class="footer-links">
+        <a href="https://www.linkedin.com/in/yabintorres/" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp;·&nbsp;
+        <a href="/contact.html">Contact</a>
+      </span>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">×</button>
+    <div class="lightbox-inner">
+      <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+    </div>
+  </div>
+
+  <script src="../js/case-study.js"></script>
+
+</body>
+</html>

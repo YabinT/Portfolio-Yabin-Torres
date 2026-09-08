@@ -44,10 +44,7 @@ body {
   font-size: var(--text-body);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+  overflow-x: hidden;
   padding-top: 96px;
 }
 
@@ -101,10 +98,12 @@ nav {
 .nav-links a:hover { color: var(--color-mint); }
 
 /* -- HERO ----------------------------------------------- */
+/* The page scrolls now, so the hero claims one screen explicitly instead of
+   flexing inside a locked 100vh body. */
 .hero {
   position: relative;
-  flex: 1;
-  min-height: 0;
+  height: calc(100svh - 96px);
+  min-height: 480px;
   overflow: hidden;
 }
 
@@ -227,139 +226,396 @@ nav {
   to { stroke-dashoffset: -80; }
 }
 
-/* -- WORKS SECTION -------------------------------------- */
-.works {
-  padding: var(--space-sm) var(--pad-x) var(--space-md);
-  flex-shrink: 0;
-}
-
-.works-header {
+/* -- HERO SCROLL CUE ------------------------------------ */
+.hero-scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: center;
-  margin-bottom: var(--space-xl);
+  transition: border-color 0.2s ease, background 0.2s ease;
+  z-index: 3;
 }
 
-.works-label {
-  font-family: var(--font-serif);
-  font-weight: 700; /* section title — bold */
-  font-size: var(--text-h2);
+.hero-scroll-cue:hover {
+  border-color: var(--color-mint);
+  background: rgba(37, 196, 126, 0.08);
+}
+
+.hero-scroll-arrow {
+  width: 9px;
+  height: 9px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  animation: scrollCueBob 2.4s ease-in-out infinite;
+}
+
+@keyframes scrollCueBob {
+  0%, 100% { transform: translateY(-3px) rotate(45deg); }
+  50%      { transform: translateY(1px)  rotate(45deg); }
+}
+
+/* -- SERVICES ------------------------------------------- */
+.services {
+  padding: var(--space-3xl) var(--pad-x);
+  border-top: 1px solid var(--color-border);
+}
+
+.services-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.services-heading {
+  font-size: clamp(36px, 5vw, 72px);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+}
+
+.services-lede {
+  margin-top: var(--space-lg);
+  max-width: 62ch;
+  font-size: var(--text-h3);
   color: var(--color-muted);
 }
 
-/* -- PROJECT TABLE HEADER ------------------------------- */
-.project-list-header {
+/* Two columns, not four: each of these has to carry a problem statement, a
+   deliverable list and a call to action, and 290px cannot hold that. */
+.services-grid {
+  margin-top: var(--space-2xl);
   display: grid;
-  grid-template-columns: 50% 1fr auto;
-  align-items: center;
-  padding: var(--space-sm) 0;
-  border-bottom: 1px solid rgba(237, 236, 232, 0.12);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-lg);
 }
 
-.project-list-header span {
-  font-family: var(--font-mono);
-  font-size: 18px;
-  color: var(--color-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-/* -- PROJECT LIST --------------------------------------- */
-.project-list {
-  list-style: none;
-  border-top: 1px solid rgba(237, 236, 232, 0.45);
-}
-
-.project-item {
-  display: grid;
-  grid-template-columns: 50% 1fr auto;
-  align-items: center;
-  padding: 4px 0;
-  border-bottom: 1px solid rgba(237, 236, 232, 0.45);
-  position: relative;
-  cursor: pointer;
-  transition: box-shadow 0.25s ease;
-}
-
-
-.project-year {
-  font-family: var(--font-mono);
-  font-size: 18px;
-  color: var(--color-muted);
-}
-
-.project-title {
-  font-family: var(--font-serif);
-  font-style: normal;
-  font-size: 18px;
-  color: var(--color-text);
-  line-height: 1.2;
-  transition: color 0.2s;
+.service {
   display: flex;
-  align-items: baseline;
-  gap: 24px;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-xl);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  transition: border-color 0.25s ease;
 }
 
-.project-label {
-  color: var(--color-muted);
-  flex-shrink: 0;
-}
+.service:hover { border-color: rgba(37, 196, 126, 0.5); }
 
-.project-item:hover .project-cta {
+/* Deep links from the home land under the fixed nav without this. */
+.service[id] { scroll-margin-top: calc(96px + var(--space-lg)); }
+
+.service-index {
+  font-size: var(--text-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--color-mint);
 }
 
-.project-cat {
-  font-family: var(--font-mono);
-  font-size: 18px;
+.service-title {
+  font-size: clamp(24px, 2.2vw, 34px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+
+.service p {
+  color: var(--color-muted);
+  font-size: var(--text-body);
+}
+
+.service-includes {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: auto;
+  padding-top: var(--space-sm);
+}
+
+.service-includes li {
+  font-size: var(--text-label);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 5px 12px;
+}
+
+.service-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  padding-top: var(--space-sm);
+}
+
+.btn-primary {
+  display: inline-block;
+  background: var(--color-mint);
+  color: #0F0F0E;
+  font-weight: 700;
+  font-size: var(--text-body);
+  padding: 12px 24px;
+  transition: filter 0.2s ease;
+}
+
+.btn-primary:hover { filter: brightness(1.12); }
+
+.btn-primary--lg {
+  font-size: var(--text-h3);
+  padding: 16px 32px;
+}
+
+.service-link,
+.feed-link {
+  align-self: flex-start;
+  font-size: var(--text-body);
+  border-bottom: 1px solid var(--color-mint);
+  padding-bottom: 2px;
+  transition: color 0.2s ease;
+}
+
+.service-link:hover { color: var(--color-mint); }
+
+.services-close {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+}
+
+.services-close p {
+  max-width: 56ch;
+  font-size: var(--text-h3);
   color: var(--color-muted);
 }
 
-.project-tags {
-  font-family: var(--font-mono);
-  font-size: 18px;
+/* -- SERVICES CARDS (home) ------------------------------ */
+/* The home only introduces the offer; the full cards live on services.html.
+   Image, heavy title, short paragraph, arrow link — in that order. */
+.services-cards {
+  margin-top: var(--space-2xl);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-xl);
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.service-card-media {
+  overflow: hidden;
+  background: var(--color-surface);
+  margin-bottom: var(--space-xs);
+}
+
+.service-card-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.service-card:hover .service-card-media img { transform: scale(1.04); }
+
+.service-card-title {
+  font-size: clamp(26px, 2.3vw, 38px);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+
+.service-card p {
+  font-size: var(--text-body);
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.service-card-link {
+  align-self: flex-start;
+  margin-top: auto;
+  padding-top: var(--space-sm);
+  font-size: var(--text-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 3px;
+  transition: color 0.2s ease;
+}
+
+.service-card-link::before {
+  content: '→';
+  margin-right: 10px;
+  border: 0;
+}
+
+.service-card-link:hover { color: var(--color-mint); }
+
+/* -- PAGE HEAD (services.html) -------------------------- */
+.page-head {
+  padding: var(--space-3xl) var(--pad-x) var(--space-2xl);
+}
+
+.page-kicker {
+  display: block;
+  font-size: var(--text-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-mint);
+  margin-bottom: var(--space-lg);
+}
+
+.services--page { border-top: none; padding-top: 0; }
+
+.services--quiet {
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-2xl);
+  padding-bottom: var(--space-3xl);
+}
+
+.services-close--flush {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+
+/* -- FEED / MASONRY ------------------------------------- */
+.feed {
+  padding: var(--space-3xl) var(--pad-x);
+  border-top: 1px solid var(--color-border);
+}
+
+.feed-header {
+  max-width: 1440px;
+  margin: 0 auto var(--space-2xl);
+}
+
+.feed-heading {
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+.feed-note {
+  margin-top: var(--space-sm);
   color: var(--color-muted);
+}
+
+/* CSS columns give the staggered masonry without measuring anything in JS.
+   Tiles must not break across a column boundary. */
+.feed-masonry {
+  max-width: 1440px;
+  margin: 0 auto;
+  columns: 4;
+  column-gap: var(--space-xl);
+}
+
+.feed-tile {
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  margin-bottom: var(--space-xl);
+  display: block;
+}
+
+.feed-tile a {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.feed-media {
+  overflow: hidden;
+  background: var(--color-surface);
+  margin-bottom: var(--space-sm);
+}
+
+.feed-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.feed-media--pad img { padding: 8%; }
+
+.feed-tile a:hover .feed-media img { transform: scale(1.04); }
+
+.feed-kicker {
+  font-size: var(--text-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-mint);
+}
+
+.feed-title {
+  font-size: var(--text-h3);
+  font-weight: 700;
+  line-height: 1.25;
+  transition: color 0.2s ease;
+}
+
+/* Four columns leave roughly 290px each, so the case titles scale with the
+   viewport instead of sitting at a fixed 36px and wrapping to four lines. */
+.feed-tile--project .feed-title { font-size: clamp(22px, 2vw, 36px); }
+
+.feed-tile a:hover .feed-title { color: var(--color-mint); }
+
+.feed-desc {
+  color: var(--color-muted);
+  font-size: var(--text-body);
+}
+
+.feed-link { margin-top: var(--space-xs); }
+
+/* Text-only tiles read as cards so they hold their own beside the images. */
+.feed-tile--note {
+  border: 1px solid var(--color-border);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  background: var(--color-surface);
+}
+
+.feed-tile--accent {
+  border-color: var(--color-mint);
+  background: rgba(37, 196, 126, 0.06);
+}
+
+/* -- SITE FOOTER ---------------------------------------- */
+.site-footer {
+  padding: var(--space-lg) var(--pad-x);
+  border-top: 1px solid var(--color-border);
+}
+
+.site-footer-inner {
+  max-width: 1440px;
+  margin: 0 auto;
   display: flex;
   align-items: baseline;
-  gap: 24px;
+  justify-content: space-between;
+  gap: var(--space-md);
+  font-size: var(--text-h3);
 }
 
-.project-cta {
-  display: inline-block;
-  padding: 8px 18px;
-  font-family: var(--font-sans);
-  font-size: 18px;
-  font-weight: 500;
-  color: var(--color-text);
-  transition: color 0.2s;
-  white-space: nowrap;
-}
-
-.cta-arrow {
-  display: inline-flex;
-  align-items: center;
-  width: 28px;
-  height: 1em;
-  vertical-align: middle;
-  flex-shrink: 0;
-}
-
-.cta-arrow::before {
-  content: '';
-  flex: 1;
-  height: 1.5px;
-  background: currentColor;
-}
-
-.cta-arrow::after {
-  content: '';
-  width: 0;
-  height: 0;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-left: 7px solid currentColor;
-  flex-shrink: 0;
-}
+.site-footer a { transition: color 0.2s ease; }
+.site-footer a:hover { color: var(--color-mint); }
 
 
 
@@ -426,25 +682,42 @@ nav {
 }
 
 /* -- RESPONSIVE ----------------------------------------- */
+/* The feed steps 4 → 3 → 2 → 1 so a column never gets too narrow to read. */
+@media (max-width: 1400px) {
+  .feed-masonry { columns: 3; }
+}
+
+@media (max-width: 1100px) {
+  .feed-masonry   { columns: 2; }
+  .services-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
 @media (max-width: 900px) {
   :root { --pad-x: 24px; }
 
-  body {
-    height: auto;
-    min-height: 100svh;
-    overflow-x: hidden;
-    overflow-y: auto;
-  }
-
   .hero {
-    flex: none;
-    height: 52svh;
-    min-height: 280px;
+    height: 62svh;
+    min-height: 320px;
   }
 
-  .works {
-    padding: var(--space-lg) var(--pad-x) var(--space-xl);
+  .services,
+  .feed { padding: var(--space-2xl) var(--pad-x); }
+
+  /* One card per row from here down — two of these side by side leaves the
+     problem statement and the deliverable chips too cramped to read. */
+  .services-grid {
+    grid-template-columns: 1fr;
+    margin-top: var(--space-2xl);
+    gap: var(--space-lg);
   }
+
+  .services-cards { margin-top: var(--space-2xl); gap: var(--space-lg); }
+
+  .service { padding: var(--space-lg); }
+
+  .page-head { padding: var(--space-2xl) var(--pad-x) var(--space-lg); }
+
+  .services-close { flex-direction: column; align-items: flex-start; }
 
   .network-node-industrial {
     width: clamp(160px, 40vw, 240px);
@@ -460,45 +733,22 @@ nav {
     width: clamp(105px, 25vw, 150px);
     font-size: clamp(10px, 2.8vw, 16px);
   }
-
-  .project-item {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
-    gap: var(--space-sm);
-    padding: var(--space-md) 0;
-  }
-
-  .project-cat,
-  .project-tags,
-  .project-cta { display: none; }
-
-  .project-title { font-size: var(--text-h3); }
-
-  .filter-bar { gap: var(--space-lg); flex-wrap: wrap; justify-content: flex-start; }
 }
 
 /* -- MOBILE (≤ 600px) ------------------------------------ */
+/* The hero keeps a full screen of its own here, but the page scrolls past it
+   now — there is no dismiss gate any more. */
 @media (max-width: 600px) {
-  body {
-    padding-top: 0;
-    height: 100svh;
-    overflow: hidden;
-  }
+  body { padding-top: 64px; }
 
-  nav {
-    background: transparent;
-    height: 64px;
-  }
+  nav { height: 64px; }
 
   .hero {
-    height: 100svh;
+    height: calc(100svh - 64px);
     min-height: unset;
-    flex: none;
   }
 
-  .hero-network {
-    scale: 1;
-  }
+  .hero-network { scale: 1; }
 
   .network-node {
     width: clamp(84px, 24vw, 108px);
@@ -523,29 +773,80 @@ nav {
     align-items: center;
   }
 
-  /* Works: hidden until hero is dismissed */
-  .works {
-    display: none;
-  }
+  /* "See work" already does this job here, and the two overlap at the bottom. */
+  .hero-scroll-cue { display: none; }
 
-  /* Works-active: hero gone, works visible */
-  body.works-active {
-    height: auto;
-    min-height: 100svh;
-    overflow-y: auto;
-    padding-top: 64px;
-  }
+  .nav-links { gap: var(--space-lg); }
+  .nav-links a,
+  .nav-logo { font-size: var(--text-h4); }
 
-  body.works-active nav {
-    background: var(--color-bg);
-  }
+  /* The page-head keeps its line breaks as a desktop composition; below this
+     width they strand single words, so let the heading wrap on its own. */
+  .page-head .services-heading br { display: none; }
 
-  body.works-active .hero {
-    display: none;
-  }
+  .services-grid  { grid-template-columns: 1fr; }
+  .feed-masonry   { columns: 1; }
+  .services-cards { grid-template-columns: 1fr; gap: var(--space-2xl); }
 
-  body.works-active .works {
-    display: block;
-    padding: var(--space-xl) var(--pad-x) var(--space-2xl);
+  .site-footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    font-size: var(--text-body);
   }
+}
+
+/* -- SOFT CTA ------------------------------------------------
+   The low-commitment exit for visitors who are interested but not
+   ready to start an engagement. Class 07: every money page needs a
+   secondary call to action, or the undecided visitor just leaves. */
+.soft-cta {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-3xl) 0;
+}
+
+.soft-cta-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--pad-x);
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+}
+
+.soft-cta-kicker {
+  display: block;
+  font-size: var(--text-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-mint);
+  margin-bottom: var(--space-md);
+}
+
+.soft-cta-title {
+  font-weight: 400;
+  font-size: clamp(28px, 3.2vw, 40px);
+  line-height: 1.14;
+  letter-spacing: -0.015em;
+  max-width: 20ch;
+}
+
+.soft-cta p {
+  font-size: var(--text-body);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.65);
+  max-width: 52ch;
+  margin-bottom: var(--space-lg);
+}
+
+.soft-cta-note {
+  display: block;
+  font-size: var(--text-label);
+  color: rgba(255, 255, 255, 0.42);
+  margin-top: var(--space-md);
+}
+
+@media (max-width: 900px) {
+  .soft-cta-inner { grid-template-columns: 1fr; }
 }

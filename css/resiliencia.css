@@ -389,6 +389,17 @@ nav.nav-hidden {
   gap: 24px;
 }
 
+/* Inline links inside body copy — mint, underlined for discoverability
+   in a paragraph, unlike the nav/footer links which stand alone. */
+.section-body a {
+  color: var(--mint);
+  text-decoration: none;
+  border-bottom: 1px solid var(--mint-line);
+  transition: border-color 0.2s ease;
+}
+
+.section-body a:hover { border-bottom-color: var(--mint); }
+
 
 .section-body--two-col {
   max-width: 100%;
@@ -742,10 +753,15 @@ nav.nav-hidden {
   background: none;
 }
 
+/* One equal column per step, whatever the count. This was repeat(5, …)
+   because every case written until now happened to have exactly five
+   steps; a four-step diagram left an empty track and read as though it
+   were left-aligned against the full-width diagrams around it. */
 .flow-steps {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
   gap: 18px;
   counter-reset: flow;
 }
@@ -1318,6 +1334,11 @@ footer .nav-inner {
   .flow-steps {
     grid-template-columns: 1fr;
     gap: 16px;
+  }
+  /* The desktop rule lays steps out as auto columns; stacking them needs
+     the flow reset, not just a single-column template. */
+  .flow-steps {
+    grid-auto-flow: row;
   }
   .flow-step {
     min-height: 0;
@@ -1941,4 +1962,160 @@ footer .nav-inner {
   footer { padding: 20px; }
   .footer-name,
   .footer-links { font-size: 14px; }
+}
+
+
+/* ============================================================
+   LIGHT CASE VARIANT  ·  body.case-light
+   ------------------------------------------------------------
+   Used by cases/refugios-temporales.html. The 2016 thesis is
+   documentation-led work — studio photography, exploded views
+   and technical drawings, all authored on white. On the dark
+   ground every one of those reads as a floating white box, so
+   this case inverts instead of fighting it.
+
+   --bg is pure #FFFFFF on purpose: it matches the studio
+   backgrounds of the prototype shots, so the image rectangles
+   disappear into the page instead of showing as brighter panels.
+
+   Scoped entirely to .case-light — the other four case studies
+   are untouched.
+   ============================================================ */
+
+body.case-light {
+  --bg:         #FFFFFF;
+  --surface:    #F2F1EE;
+  --border:     rgba(15, 15, 14, 0.14);
+  --border-sec: #0F0F0E;
+  --text:       #0F0F0E;
+  --muted:      #0F0F0E;
+  --dim:        #0F0F0E;
+  /* Darker than the dark-theme mint (#25C47E scores 2.26:1 on
+     white). #0A7A50 clears AA on both --bg and --surface. */
+  --mint:       #0A7A50;
+  --mint-line:  rgba(10, 122, 80, 0.35);
+}
+
+/* Chrome that hardcodes the dark ground */
+body.case-light nav            { background: #FFFFFF; }
+body.case-light .case-info-label { border-bottom-color: #0F0F0E; }
+
+/* -- Card system, inverted ----------------------------------- */
+body.case-light .decision-card,
+body.case-light .stakeholder-card,
+body.case-light .flow-step,
+body.case-light .kpi-card,
+body.case-light .flow-branch-card {
+  background: var(--surface);
+  border-color: rgba(15, 15, 14, 0.12);
+}
+
+body.case-light .decision-card--source,
+body.case-light .stakeholder-card--impact,
+body.case-light .kpi-card--highlight {
+  border-color: rgba(10, 122, 80, 0.45);
+}
+
+body.case-light .decision-card strong,
+body.case-light .decision-card p,
+body.case-light .stakeholder-card h3,
+body.case-light .stakeholder-card p,
+body.case-light .flow-step strong,
+body.case-light .flow-step p,
+body.case-light .kpi-card strong,
+body.case-light .kpi-card p { color: #0F0F0E; }
+
+body.case-light .stakeholder-role,
+body.case-light .flow-kicker,
+body.case-light .kpi-index { color: var(--mint); }
+
+body.case-light .stakeholder-card:not(:last-child)::after {
+  background: rgba(15, 15, 14, 0.2);
+}
+
+body.case-light .flow-entry  { border-color: rgba(15, 15, 14, 0.12); }
+body.case-light .flow-chip   { border-color: rgba(15, 15, 14, 0.18); }
+
+/* -- Lightbox stays dark: it is an overlay, not the page ------ */
+body.case-light .lightbox { background: rgba(15, 15, 14, 0.94); }
+
+/* -- Spec table ---------------------------------------------- */
+/* Token-driven, so it renders correctly in either theme. */
+.spec-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
+.spec-table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: collapse;
+  font-size: 16px;
+  color: var(--text);
+}
+
+.spec-table caption {
+  text-align: left;
+  padding: 20px 24px 0;
+  font-size: var(--type-caption);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mint);
+}
+
+.spec-table th,
+.spec-table td {
+  padding: 12px 16px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.spec-table thead th {
+  font-size: var(--type-caption);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--mint);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.spec-table tbody tr + tr td { border-top: 1px solid var(--border); }
+
+.spec-table .num { text-align: right; white-space: nowrap; }
+
+.spec-table tfoot td {
+  border-top: 2px solid var(--border-sec);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.spec-table-note {
+  padding: 16px 24px 20px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--muted);
+  opacity: 0.75;
+}
+
+@media (max-width: 600px) {
+  .spec-table { font-size: 15px; min-width: 620px; }
+  .spec-table th,
+  .spec-table td { padding: 10px 12px; }
+}
+
+/* The trio's drop shadow reads as a frame on the dark ground, but on white
+   it outlines an empty box below each photo (the item is 380px tall and the
+   studio shots are shorter). Drop the shadow and centre the image instead,
+   so the objects sit directly on the page. */
+body.case-light .img-trio-item {
+  background: #FFFFFF;
+  box-shadow: none;
+}
+
+body.case-light .img-trio-item img {
+  height: 100%;
+  object-fit: contain;
 }

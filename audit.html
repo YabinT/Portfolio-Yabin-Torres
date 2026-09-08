@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8QM249Y8BC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-8QM249Y8BC');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free page teardown — Yabin Torres</title>
+  <meta name="description" content="Send me the page that matters most and I'll send back a written teardown: what's broken, why, and the order I'd fix it in. Free, no pitch deck." />
+  <link rel="canonical" href="https://yabintorres.com/audit.html" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css?v=13" />
+
+  <style>
+    /* ---- Teardown offer page ---------------------------------
+       Self-contained like contact.html: leans on the tokens and the
+       nav/footer in styles.css, keeps its own layout local. */
+
+    .td-wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 var(--pad-x);
+    }
+
+    /* ---- Hero ------------------------------------------------ */
+    .td-hero {
+      padding: clamp(48px, 9vh, 112px) 0 var(--space-3xl);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .td-kicker {
+      display: inline-block;
+      font-size: var(--text-label);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-mint);
+      margin-bottom: var(--space-lg);
+    }
+
+    .td-title {
+      font-weight: 400;
+      font-size: clamp(40px, 5.6vw, 76px);
+      line-height: 1.03;
+      letter-spacing: -0.02em;
+      max-width: 18ch;
+      margin-bottom: var(--space-lg);
+    }
+
+    .td-lede {
+      font-size: clamp(17px, 1.5vw, 21px);
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 60ch;
+      margin-bottom: var(--space-xl);
+    }
+
+    .td-hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-lg);
+    }
+
+    .td-hero-note {
+      font-size: var(--text-label);
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    /* ---- Generic section ------------------------------------- */
+    .td-section {
+      padding: var(--space-3xl) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .td-section-kicker {
+      display: block;
+      font-size: var(--text-label);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: var(--space-md);
+    }
+
+    .td-h2 {
+      font-weight: 400;
+      font-size: clamp(28px, 3.4vw, 44px);
+      line-height: 1.12;
+      letter-spacing: -0.015em;
+      max-width: 22ch;
+      margin-bottom: var(--space-xl);
+    }
+
+    /* ---- Deliverables ---------------------------------------- */
+    .td-items {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--color-border);
+      border: 1px solid var(--color-border);
+    }
+
+    .td-items li {
+      background: var(--color-bg);
+      padding: var(--space-xl);
+    }
+
+    .td-items h3 {
+      font-weight: 500;
+      font-size: var(--text-h3);
+      line-height: 1.25;
+      margin-bottom: var(--space-sm);
+    }
+
+    .td-items p {
+      font-size: var(--text-h4);
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .td-items .td-num {
+      display: block;
+      font-size: var(--text-micro);
+      letter-spacing: 0.12em;
+      color: var(--color-mint);
+      margin-bottom: var(--space-md);
+    }
+
+    /* ---- Two-column prose ------------------------------------ */
+    .td-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 6vw, 96px);
+      align-items: start;
+    }
+
+    .td-prose p {
+      font-size: var(--text-body);
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 56ch;
+    }
+
+    .td-prose p + p { margin-top: var(--space-lg); }
+
+    .td-prose strong {
+      font-weight: 500;
+      color: var(--color-text);
+    }
+
+    /* ---- Evidence rows --------------------------------------- */
+    .td-proof {
+      list-style: none;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .td-proof li { border-bottom: 1px solid var(--color-border); }
+
+    .td-proof a {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) auto;
+      gap: var(--space-lg);
+      align-items: baseline;
+      padding: var(--space-lg) 0;
+      transition: color 0.2s;
+    }
+
+    .td-proof a:hover,
+    .td-proof a:focus-visible { color: var(--color-mint); }
+
+    .td-proof .td-proof-who {
+      font-size: var(--text-label);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    .td-proof .td-proof-what {
+      font-size: var(--text-h3);
+      line-height: 1.35;
+    }
+
+    .td-proof .arrow {
+      font-size: var(--text-h4);
+      opacity: 0.4;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .td-proof a:hover .arrow { opacity: 1; transform: translate(2px, -2px); }
+
+    /* ---- Fit / not fit --------------------------------------- */
+    .td-fit {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--color-border);
+      border: 1px solid var(--color-border);
+    }
+
+    .td-fit > div {
+      background: var(--color-bg);
+      padding: var(--space-xl);
+    }
+
+    .td-fit h3 {
+      font-weight: 500;
+      font-size: var(--text-h3);
+      margin-bottom: var(--space-lg);
+    }
+
+    .td-fit ul { list-style: none; }
+
+    .td-fit li {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: var(--space-md);
+      align-items: start;
+      font-size: var(--text-h4);
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    .td-fit li + li { margin-top: var(--space-md); }
+
+    .td-fit--yes li::before {
+      content: "\2713";
+      color: var(--color-mint);
+    }
+
+    .td-fit--no li::before {
+      content: "\2014";
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* ---- Form ------------------------------------------------ */
+    .td-form-section { padding: var(--space-3xl) 0; }
+
+    .td-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 6vw, 96px);
+      align-items: start;
+    }
+
+    .td-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .td-form .field {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .td-form label {
+      font-size: var(--text-label);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .td-form .field-hint {
+      font-size: var(--text-label);
+      text-transform: none;
+      letter-spacing: 0;
+      color: rgba(255, 255, 255, 0.38);
+    }
+
+    .td-form input[type="text"],
+    .td-form input[type="url"],
+    .td-form input[type="email"],
+    .td-form textarea {
+      font-family: var(--font-sans);
+      font-size: 16px; /* 16px min keeps iOS from zooming on focus */
+      line-height: 1.5;
+      color: var(--color-text);
+      background: transparent;
+      border: 1px solid var(--color-border);
+      border-radius: 2px;
+      padding: 14px 16px;
+      width: 100%;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .td-form input::placeholder,
+    .td-form textarea::placeholder { color: rgba(255, 255, 255, 0.3); }
+
+    .td-form input:focus,
+    .td-form textarea:focus {
+      outline: none;
+      border-color: var(--color-mint);
+      box-shadow: 0 0 0 3px rgba(37, 196, 126, 0.16);
+    }
+
+    .td-form textarea {
+      resize: vertical;
+      min-height: 128px;
+    }
+
+    /* Outranks `.td-form label`, which would otherwise force this
+       sentence into uppercase label styling. */
+    .td-form label.td-check {
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .td-check {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: var(--space-md);
+      align-items: start;
+      font-size: var(--text-h4);
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+    }
+
+    .td-check input {
+      width: 18px;
+      height: 18px;
+      margin-top: 3px;
+      accent-color: var(--color-mint);
+    }
+
+    .td-submit {
+      font-family: var(--font-sans);
+      font-size: var(--text-label);
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      color: var(--color-bg);
+      background: var(--color-mint);
+      border: none;
+      border-radius: 2px;
+      padding: 16px 32px;
+      width: fit-content;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .td-submit:hover { opacity: 0.85; }
+    .td-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* Reserve the widget's height so the button doesn't jump when the
+       captcha iframe finishes loading. */
+    .h-captcha {
+      min-height: 78px;
+      color-scheme: light;
+    }
+
+    .form-status {
+      font-size: var(--text-label);
+      line-height: 1.5;
+      min-height: 1.2em;
+    }
+
+    .form-status.is-ok    { color: var(--color-mint); }
+    .form-status.is-error { color: #E4776B; }
+
+    .td-reassure {
+      font-size: var(--text-label);
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.45);
+      max-width: 46ch;
+    }
+
+    /* Honeypot — hidden from humans, tempting to bots */
+    .botcheck {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    /* ---- Next steps ------------------------------------------ */
+    .td-next {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+      max-width: 46ch;
+    }
+
+    .td-next li {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: var(--space-md);
+      align-items: start;
+      font-size: var(--text-h4);
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .td-next li span {
+      display: grid;
+      place-items: center;
+      width: 24px;
+      height: 24px;
+      border: 1px solid var(--color-border);
+      border-radius: 50%;
+      font-size: var(--text-micro);
+      color: var(--color-mint);
+      line-height: 1;
+    }
+
+    /* ---- Responsive ------------------------------------------ */
+    @media (max-width: 900px) {
+      .td-items,
+      .td-fit,
+      .td-split,
+      .td-form-grid { grid-template-columns: 1fr; }
+
+      .td-split,
+      .td-form-grid { gap: var(--space-2xl); }
+
+      .td-proof a {
+        grid-template-columns: 1fr auto;
+        row-gap: var(--space-sm);
+      }
+
+      .td-proof .td-proof-who { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 600px) {
+      :root { --pad-x: 24px; }
+
+      .td-section,
+      .td-form-section { padding: var(--space-2xl) 0; }
+
+      .td-items li,
+      .td-fit > div { padding: var(--space-lg); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">
+      <span>Yabin Torres</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="services.html">Services</a></li>
+      <li><a href="/#work">Work</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- HERO — Answer -->
+    <section class="td-hero">
+      <div class="td-wrap">
+        <span class="td-kicker">Free &middot; No pitch deck</span>
+        <h1 class="td-title">Send me a page. I&rsquo;ll send back what it&rsquo;s costing you.</h1>
+        <p class="td-lede">
+          Pick the page that matters most &mdash; the one where people are supposed to donate,
+          apply, enrol, sign up or get in touch. You get a written teardown: what is broken,
+          why it is broken, and the order I would fix it in. If you want to talk it through
+          afterwards we book thirty minutes. If you don&rsquo;t, you keep the teardown anyway.
+        </p>
+        <div class="td-hero-actions">
+          <a class="btn-primary btn-primary--lg" href="#send">Send me a page</a>
+          <span class="td-hero-note">Usually back within three working days.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT YOU GET — Answer -->
+    <section class="td-section">
+      <div class="td-wrap">
+        <span class="td-section-kicker">What lands in your inbox</span>
+        <h2 class="td-h2">Six passes over one page, and a ranked list at the end</h2>
+
+        <ul class="td-items">
+          <li>
+            <span class="td-num">01</span>
+            <h3>Message match</h3>
+            <p>Does the page deliver what the link, ad or button that brought people there promised? This is the most common leak, and the cheapest one to close.</p>
+          </li>
+          <li>
+            <span class="td-num">02</span>
+            <h3>The claim audit</h3>
+            <p>Every claim the page makes, listed, with whether there is any evidence behind it. Most pages make twenty claims and support none of them.</p>
+          </li>
+          <li>
+            <span class="td-num">03</span>
+            <h3>Read as your audience</h3>
+            <p>I build the profile of the person the page is actually talking to &mdash; including the people who have to approve their decision &mdash; then score the page against what that person needs to know before acting.</p>
+          </li>
+          <li>
+            <span class="td-num">04</span>
+            <h3>The buttons</h3>
+            <p>What your calls to action say, what they should say, and what is missing for the visitor who is interested but not ready yet.</p>
+          </li>
+          <li>
+            <span class="td-num">05</span>
+            <h3>Friction</h3>
+            <p>Every field, step and unanswered question standing between intent and completion, and which of them earn their place.</p>
+          </li>
+          <li>
+            <span class="td-num">06</span>
+            <h3>The order to fix it in</h3>
+            <p>Not a list of forty issues. Three, ranked, with what each is plausibly worth &mdash; so you can hand it to whoever builds your site and they know where to start.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- WHY FREE — objection handling -->
+    <section class="td-section">
+      <div class="td-wrap td-split">
+        <div>
+          <span class="td-section-kicker">The obvious question</span>
+          <h2 class="td-h2">Why is this free?</h2>
+        </div>
+        <div class="td-prose">
+          <p>
+            Because it is how every project I have taken on actually started. When I ran a
+            furniture design studio, people hired me after the conversation where I listened
+            &mdash; not after the one where I presented. <strong>The thing they valued most was
+            the part that looked free.</strong>
+          </p>
+          <p>
+            The teardown is that conversation, written down. You can act on it yourself and
+            never speak to me again. That happens, and it is genuinely fine. But I would rather
+            show you how I think about your platform than describe how I think on a services page.
+          </p>
+          <p>
+            There is a limit, and it is an honest one: I do a small number of these at a time,
+            because each is read and written by me. If the queue is long I will tell you when to
+            expect it rather than quietly sitting on it.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EVIDENCE -->
+    <section class="td-section">
+      <div class="td-wrap">
+        <span class="td-section-kicker">The same method, on real work</span>
+        <h2 class="td-h2">Every number here is documented in a case study</h2>
+
+        <ul class="td-proof">
+          <li>
+            <a href="cases/unidosporellxs.html">
+              <span class="td-proof-who">CENACED</span>
+              <span class="td-proof-what">A 4.5/10 audit score, and one architectural decision that reframed the entire redesign</span>
+              <span class="arrow" aria-hidden="true">&#8599;</span>
+            </a>
+          </li>
+          <li>
+            <a href="cases/resilienciaenuncaja.html">
+              <span class="td-proof-who">The UPS Foundation</span>
+              <span class="td-proof-what">213 assessments submitted at 92.6% completion &mdash; the first real result the platform ever returned</span>
+              <span class="arrow" aria-hidden="true">&#8599;</span>
+            </a>
+          </li>
+          <li>
+            <a href="cases/trendo.html">
+              <span class="td-proof-who">Trendo &middot; proposal, not yet launched</span>
+              <span class="td-proof-what">40,000 downloads a year behind a login, and the best research in its sector invisible in search</span>
+              <span class="arrow" aria-hidden="true">&#8599;</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- FIT -->
+    <section class="td-section">
+      <div class="td-wrap">
+        <span class="td-section-kicker">Before you send it</span>
+        <h2 class="td-h2">This is worth your time if&hellip;</h2>
+
+        <div class="td-fit">
+          <div>
+            <h3>Send me a page when</h3>
+            <ul class="td-fit--yes">
+              <li>You run a nonprofit, foundation or social-impact platform where a page has to turn strangers into donors, applicants or participants.</li>
+              <li>People are supposed to do one specific thing on the page, and measurably fewer of them do it than should.</li>
+              <li>You suspect the brief you have been given describes a symptom rather than the problem.</li>
+              <li>Somebody else built the site and you want an independent read before spending money on it.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Don&rsquo;t bother when</h3>
+            <ul class="td-fit--no">
+              <li>What you want is &ldquo;make it look better&rdquo; with no outcome behind it. I would just be guessing at your taste.</li>
+              <li>The page does not exist yet. That is a redesign, and it is a real conversation &mdash; just not this one.</li>
+              <li>You are after a free logo. That is brand identity, and it lives on the services page.</li>
+              <li>You need it back tomorrow. I will not do a rushed one badly.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORM — Call to action -->
+    <section class="td-form-section" id="send">
+      <div class="td-wrap td-form-grid">
+
+        <div>
+          <span class="td-section-kicker">Send it over</span>
+          <h2 class="td-h2">One URL and one honest sentence</h2>
+          <ol class="td-next">
+            <li><span>1</span> I read the page myself and run it through the six passes above.</li>
+            <li><span>2</span> The written teardown lands in your inbox, usually within three working days.</li>
+            <li><span>3</span> If you ticked the box, we book thirty minutes to go through it. No obligation attached to that call, and no invoice after it.</li>
+          </ol>
+        </div>
+
+        <!-- Posts straight to Web3Forms without JS; contact.js upgrades it
+             to an inline async submit. Shares the contact form's IDs on purpose. -->
+        <form class="td-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+          <!-- Public by design: Web3Forms access keys are safe to expose. -->
+          <input type="hidden" name="access_key" value="3e56a98c-3bf7-471a-8ef6-ff905a0d7800" />
+          <input type="hidden" name="subject" id="form-subject" value="yabintorres.com — Page teardown request" />
+          <input type="hidden" name="intent" id="form-intent" value="teardown" />
+          <input type="checkbox" name="botcheck" class="botcheck" tabindex="-1" autocomplete="off" />
+
+          <div class="field">
+            <label for="page">The page <span class="field-hint">— the one that matters most, not your homepage</span></label>
+            <input type="url" id="page" name="page" required placeholder="https://" />
+          </div>
+
+          <div class="field">
+            <label for="goal">What is that page supposed to achieve?</label>
+            <textarea id="goal" name="goal" required placeholder="One sentence is enough. &quot;People should donate and almost nobody does&quot; tells me more than a brief."></textarea>
+          </div>
+
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required autocomplete="name" placeholder="Your name" />
+          </div>
+
+          <div class="field">
+            <label for="email">Email <span class="field-hint">— where the teardown goes</span></label>
+            <input type="email" id="email" name="email" required autocomplete="email" placeholder="you@organisation.org" />
+          </div>
+
+          <label class="td-check">
+            <input type="checkbox" name="wants_call" value="yes" />
+            <span>Yes, I&rsquo;d like the optional thirty minutes to talk it through afterwards.</span>
+          </label>
+
+          <!-- hCaptcha, rendered by web3forms/client/script.js. No site key
+               needed on the free plan; the widget writes its token into an
+               h-captcha-response field that goes out with the form data. -->
+          <div class="h-captcha" data-captcha="true" data-theme="dark"></div>
+
+          <button type="submit" class="td-submit" id="contact-submit">Send the page</button>
+
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+
+          <p class="td-reassure">
+            No mailing list, no automated sequence, no pitch deck. Your details are used to
+            send you the teardown and nothing else.
+          </p>
+        </form>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <span class="footer-name">Yabin Torres — 2026</span>
+      <span class="footer-links">
+        <a href="https://www.linkedin.com/in/yabintorres/" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp;·&nbsp;
+        <a href="contact.html">Contact</a>
+      </span>
+    </div>
+  </footer>
+
+  <script src="https://web3forms.com/client/script.js" async defer></script>
+  <script src="js/contact.js?v=3"></script>
+
+</body>
+</html>

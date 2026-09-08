@@ -19,8 +19,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="css/styles.css?v=9" />
-  <script src="js/home.js?v=9" defer></script>
+  <link rel="stylesheet" href="css/styles.css?v=13" />
+  <script src="js/home.js?v=11" defer></script>
 </head>
 
 <body>
@@ -31,6 +31,8 @@
       <span>Yabin Torres</span>
     </a>
     <ul class="nav-links">
+      <li><a href="services.html">Services</a></li>
+      <li><a href="#work">Work</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
@@ -60,21 +62,274 @@
     </div>
     <button class="hero-tap-cta" aria-label="View my work">See work</button>
     <button class="tilt-prompt" aria-label="Enable tilt interaction">Enable tilt</button>
+    <a class="hero-scroll-cue" href="#services" aria-label="Scroll to services">
+      <span class="hero-scroll-arrow" aria-hidden="true"></span>
+    </a>
   </section>
 
-  <!-- WORKS / FOOTER -->
-  <footer class="works" id="work">
+  <!-- SERVICES — intro only; the full offer lives on services.html -->
+  <section class="services" id="services">
+    <div class="services-inner">
+      <h2 class="services-heading">Understanding how people<br />behave online, and designing<br />for what they actually do.</h2>
+      <p class="services-lede">Every screen asks someone to decide whether to keep going. Understanding that decision — what they look for, what they ignore, where they give up — is the work. These are the four ways I put it into practice.</p>
 
-    <!-- PROJECT LIST -->
-    <ul class="project-list" id="project-list">
+      <div class="services-cards">
 
-      <li class="project-item" data-category="product" onclick="location.href='cases/resilienciaenuncaja.html'">
-        <span class="project-title"><span class="project-label">Project:</span> Resiliencia en una Caja</span>
-        <span class="project-tags"><span class="project-label">Client:</span> The UPS Foundation</span>
-        <div class="project-cta">Read Case Study <span class="cta-arrow"></span></div>
-      </li>
+        <article class="service-card">
+          <div class="service-card-media">
+            <img src="assets/thumbnails/svc-audit.jpg" alt="Self-assessment dashboard showing platform data" loading="lazy" width="800" height="600" />
+          </div>
+          <h3 class="service-card-title">Diagnosis<br />&amp; Audit</h3>
+          <p>I audit the product end to end — funnel, architecture, interface and the data you already have — and come back with what is actually broken and the order to fix it.</p>
+          <a class="service-card-link" href="services.html#audit">Diagnosis &amp; audit</a>
+        </article>
 
-    </ul>
+        <article class="service-card">
+          <div class="service-card-media">
+            <img src="assets/thumbnails/svc-redesign.jpg" alt="Redesigned homepage prototype" loading="lazy" width="800" height="600" />
+          </div>
+          <h3 class="service-card-title">Redesign<br />&amp; Interface</h3>
+          <p>Wireframes with real copy first, approved before any visual design touches them. Then the interface, then the build — on the platform you already have.</p>
+          <a class="service-card-link" href="services.html#redesign">Redesign &amp; interface</a>
+        </article>
+
+        <article class="service-card">
+          <div class="service-card-media">
+            <img src="assets/thumbnails/svc-systems.jpg" alt="Storefront built from repeating components" loading="lazy" width="800" height="600" />
+          </div>
+          <h3 class="service-card-title">Design<br />Systems</h3>
+          <p>Tokens, components and templates that hold up once somebody else is using them — including the ones authored in a CMS instead of written in code.</p>
+          <a class="service-card-link" href="services.html#systems">Design systems</a>
+        </article>
+
+        <article class="service-card">
+          <div class="service-card-media">
+            <img src="assets/thumbnails/svc-brand.jpg" alt="Logo variations from a brand manual" loading="lazy" width="800" height="600" />
+          </div>
+          <h3 class="service-card-title">Brand<br />Identity</h3>
+          <p>Logo, palette, typography and the manual that keeps them consistent once I’m not in the room. Built from zero, for platforms with no visual language of their own.</p>
+          <a class="service-card-link" href="services.html#brand">Brand identity</a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK / FEED -->
+  <section class="feed" id="work">
+    <div class="feed-header">
+      <h2 class="feed-heading">Selected work</h2>
+      <p class="feed-note">Four case studies, the pieces they're made of, and where it started.</p>
+    </div>
+
+    <div class="feed-masonry">
+
+      <!-- Resiliencia en una Caja -->
+      <article class="feed-tile feed-tile--project">
+        <a href="cases/resilienciaenuncaja.html">
+          <div class="feed-media">
+            <img src="assets/thumbnails/riab-home.jpg" alt="Resiliencia en una Caja homepage" loading="lazy" width="900" height="675" />
+          </div>
+          <span class="feed-kicker">The UPS Foundation</span>
+          <h3 class="feed-title">Resiliencia en una Caja</h3>
+          <p class="feed-desc">A learning platform whose funnel was broken end to end. 213 assessments submitted, 92.6% completion, and the first real result the platform ever returned.</p>
+          <span class="feed-link">Go to case</span>
+        </a>
+      </article>
+
+      <!-- Secondary: score page -->
+      <article class="feed-tile">
+        <a href="cases/resilienciaenuncaja.html#score-pillars">
+          <div class="feed-media">
+            <img src="assets/thumbnails/riab-results.jpg" alt="Self-assessment results page" loading="lazy" width="760" height="760" />
+          </div>
+          <h3 class="feed-title">Where data becomes direction</h3>
+          <p class="feed-desc">A score broken into three resilience pillars, so the result points at a course instead of a number.</p>
+          <span class="feed-link">Go to case</span>
+        </a>
+      </article>
+
+      <!-- Secondary: brand system -->
+      <article class="feed-tile">
+        <a href="cases/resilienciaenuncaja.html">
+          <div class="feed-media">
+            <img src="assets/thumbnails/riab-color.jpg" alt="Colour system" loading="lazy" width="760" height="950" />
+          </div>
+          <h3 class="feed-title">From a purchased theme to a design system</h3>
+          <p class="feed-desc">No logo, no palette, no typographic decisions — and a webinar on Monday. That deadline became the forcing function.</p>
+          <span class="feed-link">Go to case</span>
+        </a>
+      </article>
+
+      <!-- Unidos por Ellxs -->
+      <article class="feed-tile feed-tile--project">
+        <a href="cases/unidosporellxs.html">
+          <div class="feed-media">
+            <img src="assets/thumbnails/uxe-brigada.jpg" alt="Disaster response brigade in the field" loading="lazy" width="900" height="675" />
+          </div>
+          <span class="feed-kicker">CENACED</span>
+          <h3 class="feed-title">Unidos por Ellxs</h3>
+          <p class="feed-desc">The homepage was doing two incompatible jobs at once. Splitting authority from donation turned a redesign into a reusable per-campaign template.</p>
+          <span class="feed-link">Go to case</span>
+        </a>
+      </article>
+
+      <!-- Secondary: donation interface -->
+      <article class="feed-tile">
+        <a href="cases/unidosporellxs.html">
+          <div class="feed-media">
+            <img src="assets/thumbnails/uxe-donaciones.jpg" alt="Donation interface template" loading="lazy" width="760" height="570" />
+          </div>
+          <h3 class="feed-title">One donation template, every campaign</h3>
+          <p class="feed-desc">Context and form on one screen. Scoped CSS and container queries, so it survives inside a purchased theme.</p>
+          <span class="feed-link">Go to case</span>
+        </a>
+      </article>
+
+      <!-- Secondary: wireframe -->
+      <article class="feed-tile">
+        <a href="cases/unidosporellxs.html">
+          <div class="feed-media">
+            <img src="assets/thumbnails/uxe-wireframe.jpg" alt="Homepage wireframe with approved copy" loading="lazy" width="760" height="950" />
+          </div>
+          <h3 class="feed-title">Wireframe with real copy, first</h3>
+          <p class="feed-desc">Structure and words get approved before the design system touches anything. Otherwise the feedback is about a button colour while the argument of the page is broken.</p>
+          <span class="feed-link">Go to case</span>
+        </a>
+      </article>
+
+      <!-- Note: how I work -->
+      <article class="feed-tile feed-tile--note">
+        <h3 class="feed-title">No figure ships without a source</h3>
+        <p class="feed-desc">On the CENACED work the prototypes annotate themselves: every number without documentary backing gets a red dashed outline drawn straight into the mockup, so the design review doubles as a data review. Four figures are being held back that way right now.</p>
+        <a class="feed-link" href="cases/unidosporellxs.html">How that works</a>
+      </article>
+
+      <!-- Trendo -->
+      <article class="feed-tile feed-tile--project">
+        <a href="cases/trendo.html">
+          <div class="feed-media">
+            <img src="assets/thumbnails/trendo-hero.jpg" alt="Trendo.mx homepage prototype" loading="lazy" width="900" height="675" />
+          </div>
+          <span class="feed-kicker">Trendo &middot; proposal</span>
+          <h3 class="feed-title">Trendo.mx</h3>
+          <p class="feed-desc">The best research in its sector, invisible in search. 40,000 downloads a year behind a login turned a traffic diagnosis into a capture problem.</p>
+          <span class="feed-link">Go to case</span>
+        </a>
+      </article>
+
+      <!-- Secondary: trendo article -->
+      <article class="feed-tile">
+        <a href="cases/trendo.html">
+          <div class="feed-media">
+            <img src="assets/thumbnails/trendo-articulo.jpg" alt="Sample article layout" loading="lazy" width="760" height="950" />
+          </div>
+          <h3 class="feed-title">One report, twenty indexable articles</h3>
+          <p class="feed-desc">Years of research already written and unreadable to a search engine. The engine is a procedure, not an editorial calendar.</p>
+          <span class="feed-link">Go to case</span>
+        </a>
+      </article>
+
+      <!-- Secondary: trendo services -->
+      <article class="feed-tile">
+        <a href="cases/trendo.html">
+          <div class="feed-media">
+            <img src="assets/thumbnails/trendo-servicios.jpg" alt="Services block sorted by decision" loading="lazy" width="760" height="570" />
+          </div>
+          <h3 class="feed-title">Sorted by the decision, not the deliverable</h3>
+          <p class="feed-desc">Nine services collapsed into three questions a visitor already knows the answer to about themselves.</p>
+          <span class="feed-link">Go to case</span>
+        </a>
+      </article>
+
+      <!-- Note: about -->
+      <article class="feed-tile feed-tile--note">
+        <h3 class="feed-title">What I actually do</h3>
+        <p class="feed-desc">I'm a product designer working out of Mexico. Most of what's here was designed and shipped without a developer, on platforms that were already chosen before I arrived. I like the projects where the brief is wrong and finding that out is the job.</p>
+        <a class="feed-link" href="contact.html">Get in touch</a>
+      </article>
+
+      <!-- M14 ID -->
+      <article class="feed-tile feed-tile--project">
+        <a href="cases/m14-id.html">
+          <div class="feed-media">
+            <img src="assets/thumbnails/m14-build.jpg" alt="Eyewear product builder" loading="lazy" width="900" height="675" />
+          </div>
+          <span class="feed-kicker">Coursework</span>
+          <h3 class="feed-title">M14 ID</h3>
+          <p class="feed-desc">An eyewear product builder whose behaviour is authored in the CMS, not written into the storefront. Two categories, 31 looks, one dependency that proves the model.</p>
+          <span class="feed-link">Go to case</span>
+        </a>
+      </article>
+
+      <!-- Secondary: 3D frame -->
+      <article class="feed-tile">
+        <a href="cases/m14-id.html">
+          <div class="feed-media feed-media--pad">
+            <img src="assets/thumbnails/m14-frame.jpg" alt="Eyewear frame modelled in Blender" loading="lazy" width="760" height="570" />
+          </div>
+          <h3 class="feed-title">Modelled, not photographed</h3>
+          <p class="feed-desc">The frames were built in Blender and exported to glTF, so the customer turns the actual object instead of clicking between flat shots.</p>
+          <span class="feed-link">Go to case</span>
+        </a>
+      </article>
+
+      <!-- Secondary: CMS -->
+      <article class="feed-tile">
+        <a href="cases/m14-id.html">
+          <div class="feed-media">
+            <img src="assets/thumbnails/m14-cms.jpg" alt="The studio — authoring collections and rules" loading="lazy" width="760" height="760" />
+          </div>
+          <h3 class="feed-title">Three kinds of failure, kept apart</h3>
+          <p class="feed-desc">Rejected, conflicted and warned are different situations. Most tools collapse them into one red box.</p>
+          <span class="feed-link">Go to case</span>
+        </a>
+      </article>
+
+      <!-- Refugios Temporales — bachelor thesis -->
+      <article class="feed-tile feed-tile--project">
+        <a href="cases/refugios-temporales.html">
+          <div class="feed-media">
+            <img src="assets/thumbnails/tesis-render.jpg" alt="Sleeping modules laid out across a sports hall converted into a temporary shelter" loading="lazy" width="1200" height="600" />
+          </div>
+          <span class="feed-kicker">Bachelor thesis · CENTRO · 2016</span>
+          <h3 class="feed-title">Refugios Temporales</h3>
+          <p class="feed-desc">Mexico's civil protection manual specifies square metres, litres and toilets — then states that no model exists for laying the space out. The layout that was missing, and the furniture to build it.</p>
+          <span class="feed-link">Go to case</span>
+        </a>
+      </article>
+
+      <!-- Secondary: prototype -->
+      <article class="feed-tile">
+        <a href="cases/refugios-temporales.html">
+          <div class="feed-media">
+            <img src="assets/thumbnails/tesis-dormitorio.jpg" alt="Sleeping module prototype built at full scale" loading="lazy" width="1244" height="832" />
+          </div>
+          <h3 class="feed-title">Privacy you can put on an inventory</h3>
+          <p class="feed-desc">"Protect the family's privacy as far as possible" is unenforceable. A screen module turns it into a line item someone can count off a truck.</p>
+          <span class="feed-link">Go to case</span>
+        </a>
+      </article>
+
+      <!-- Note: availability -->
+      <article class="feed-tile feed-tile--note feed-tile--accent">
+        <h3 class="feed-title">Working on something?</h3>
+        <p class="feed-desc">I take on a small number of projects at a time — product design, UX, and the brand work around them. If you have a platform that isn't doing the job it was built for, that's usually where I'm useful.</p>
+        <a class="feed-link" href="contact.html">Start a conversation</a>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <span class="footer-name">Yabin Torres — 2026</span>
+      <span class="footer-links">
+        <a href="https://www.linkedin.com/in/yabintorres/" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp;·&nbsp;
+        <a href="contact.html">Contact</a>
+      </span>
+    </div>
   </footer>
 
 </body>

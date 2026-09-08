@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8QM249Y8BC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-8QM249Y8BC');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unidos por Ellxs — Yabin Torres</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../css/resiliencia.css" />
+  <style>
+    /* This case's decision map has two branches, not four. Scoped here so the
+       shared stylesheet keeps serving the four-column version it was built for.
+       Mirrors that stylesheet's own 560px collapse, which would otherwise lose
+       to these rules on source order. */
+    .decision-findings,
+    .decision-arrows,
+    .decision-outputs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    @media (max-width: 560px) {
+      .decision-findings,
+      .decision-arrows,
+      .decision-outputs { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- -- NAV ---------------------------------------------------- -->
+  <nav>
+    <a href="../index.html" class="nav-return">
+      <span class="back-arrow"></span> Return
+    </a>
+    <ul class="nav-links">
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- -- HERO INTRO --------------------------------------------- -->
+  <div class="hero-intro-fixed">
+  <section class="hero-intro wrap reveal">
+    <div class="hero-intro-grid">
+      <div class="hero-visual">
+        <img src="../assets/images/unidosporellxs/logo-uxe-blanco.webp" alt="Unidos por Ellxs" class="hero-project-logo" />
+      </div>
+      <div class="hero-content">
+        <h1 class="hero-title">Unidos<br>por Ellxs</h1>
+        <p class="hero-para">The digital ecosystem of a Mexican civil society organization that coordinates disaster response. A site redesign built on a single finding: the homepage was failing because it was trying to do two incompatible jobs on the same screen.</p>
+        <div class="case-info-table" aria-label="Case study information">
+          <div class="case-info-row">
+            <span class="case-info-label">Role</span>
+            <span class="case-info-value">Product Designer &middot; PM</span>
+          </div>
+          <div class="case-info-row">
+            <span class="case-info-label">Type</span>
+            <span class="case-info-value">Web &middot; Nonprofit &middot; Disaster Response</span>
+          </div>
+          <div class="case-info-row">
+            <span class="case-info-label">Tools</span>
+            <span class="case-info-value">Figma &middot; Elementor &middot; WordPress &middot; Linear</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- -- SECTIONS WRAPPER -------------------------------------- -->
+  <div class="sections-wrapper">
+
+  <!-- -- 01 CONTEXT · TEXT -------------------------------------- -->
+  <section class="section section-panel wrap reveal context-section">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">Three brands, one screen, and no way to tell them apart</h2>
+      </div>
+      <div class="section-body">
+        <p>Unidos por Ellxs is not a single organization. It is a coordination platform that sits on top of a civil society association, and it shares its public surface with a business-resilience programme aimed at small companies. Three names, three audiences, three different reasons to visit — all of them arriving at the same homepage.</p>
+        <p>The audit scored the existing site 4.5 out of 10. But the score was not the finding. The finding was that the problem was one of message before it was one of design: the homepage was simultaneously trying to establish institutional authority for someone who had never heard of the organization, and to persuade someone already convinced to donate. Those two jobs pull the same screen in opposite directions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 01 CONTEXT · STAKEHOLDERS ----------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="stakeholder-diagram" aria-label="The three brands in the ecosystem">
+      <article class="stakeholder-card">
+        <span class="stakeholder-role">Coordination platform</span>
+        <h3>Unidos por Ellxs</h3>
+        <p>The anchor brand. Connects brigades, companies and communities into a multi-sector response network.</p>
+      </article>
+
+      <article class="stakeholder-card">
+        <span class="stakeholder-role">Legal entity</span>
+        <h3>CENACED</h3>
+        <p>The civil society association that receives and administers donations, and issues tax receipts.</p>
+      </article>
+
+      <article class="stakeholder-card stakeholder-card--impact">
+        <span class="stakeholder-role">Business programme</span>
+        <h3>Arise MX</h3>
+        <p>Corporate resilience aimed at micro and small businesses. Solves a company's job, not an audience of its own.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- -- 02 THE DECISION · TEXT --------------------------------- -->
+  <section class="section section-panel wrap reveal context-section">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">Split the surface, not the message</h2>
+      </div>
+      <div class="section-body">
+        <p>The architectural decision that unlocked the rest was to stop treating the homepage as the place where donations happen. Cold traffic — someone who found the organization through search and does not yet know who it is — needs authority and transparency. Warm traffic — someone redirected from a campaign post about an earthquake that happened yesterday — needs the shortest possible path to a completed donation.</p>
+        <p>The separation was pressure-tested in a session with the digital team at UNICEF México, who reported that their redirected traffic must not pass through an intermediate landing page — their donation interface collapses context and form into a single screen. One nuance mattered: they have a media budget that guarantees pre-persuaded traffic, and this organization does not. The separation still applies, but for a different reason.</p>
+        <p>The practical consequence for development is the part that survives past this redesign: the donation interface is a <em>reusable per-campaign template</em>, not a new page built each time an emergency happens.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 02 THE DECISION · MAP --------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="decision-map">
+
+      <div class="decision-findings">
+        <div class="decision-card decision-card--source">
+          <span class="decision-tag">Traffic</span>
+          <strong>Cold &middot; organic &middot; does not know us</strong>
+          <p>Arrives through search or word of mouth with no prior relationship to the organization and no reason yet to trust it with money.</p>
+        </div>
+        <div class="decision-card decision-card--source">
+          <span class="decision-tag">Traffic</span>
+          <strong>Warm &middot; redirected from a live campaign</strong>
+          <p>Arrives from a social post or a campaign link during an active emergency, already persuaded and looking for the button.</p>
+        </div>
+      </div>
+
+      <div class="decision-arrows" aria-hidden="true">
+        <div class="decision-arrow"></div>
+        <div class="decision-arrow"></div>
+      </div>
+
+      <div class="decision-outputs">
+        <div class="decision-card">
+          <span class="decision-tag">Home</span>
+          <strong>Establish authority and transparency</strong>
+          <p>Opens with what the organization does and since when. Deliberately does not ask for a donation in the first screen — asking before giving reasons to trust inverts the order of the work.</p>
+        </div>
+        <div class="decision-card">
+          <span class="decision-tag">Donation interface</span>
+          <strong>Execute with the least friction possible</strong>
+          <p>Context and form on one screen, outside the main menu, reachable from the top bar and from direct campaign links. Reusable per campaign — Venezuela today, an earthquake tomorrow.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- -- 03 JOBS TO BE DONE · TEXT ------------------------------ -->
+  <section class="section section-panel wrap reveal context-section">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">What each visitor is actually hiring the site to do</h2>
+      </div>
+      <div class="section-body">
+        <p>The individual donor's job turned out to be the one that governs the homepage. It is not "give money" — it is closer to converting anxiety into something verifiable. The push is a worry with nowhere to go; the anxiety that stops the action is <em>where does my money actually end up</em>; and the inertia is that sharing a post on social already feels like having done something.</p>
+        <p>That reading is what makes Transparency a page rather than a block. It answers the donor's main anxiety head-on, and it doubles as due diligence for a company evaluating a partnership.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 03 JOBS TO BE DONE · CARDS ---------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="kpi-diagram" aria-label="Jobs to be done">
+      <h3 class="kpi-title">Jobs to be done</h3>
+      <div class="kpi-grid">
+        <article class="kpi-card kpi-card--highlight">
+          <span class="kpi-index">Dominant job</span>
+          <strong>Individual donor</strong>
+          <p>Channel a specific worry into a concrete, verifiable commitment — and get to see themselves as someone who acts, not only someone who shares.</p>
+        </article>
+        <article class="kpi-card">
+          <span class="kpi-index">Second job</span>
+          <strong>Company &middot; CSR</strong>
+          <p>Find a partner with a track record and exportable metrics, so a CSR budget can be defended to the board without reputational risk.</p>
+        </article>
+        <article class="kpi-card">
+          <span class="kpi-index">Inferred, unresearched</span>
+          <strong>Volunteer &middot; brigade member</strong>
+          <p>Know whether they qualify and what the next concrete step is, rather than filling in a form that leads nowhere. Flagged as an assumption — no direct research behind it yet.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 04 ARCHITECTURE · TEXT -------------------------------- -->
+  <section class="section section-panel wrap reveal">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">An information architecture that survives the end of a crisis</h2>
+      </div>
+      <div class="section-body">
+        <p>Three architectural moves did most of the work. <strong>Transparency became a page</strong>, not a paragraph, because it answers the anxiety that stops donations. <strong>Emergencies became an archive</strong>, not an active campaign section, so that the site stops accumulating orphaned emergency pages every time a crisis passes. And <strong>Arise MX moved down</strong> to sit under the company section — it solves a business job and has no audience of its own — while keeping its existing URL intact.</p>
+        <p>The donation interface sits outside the main menu entirely. It is a cross-cutting destination, reachable from the top bar, from contextual calls to action, and from direct campaign links.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 04 ARCHITECTURE · FLOW -------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="flow-diagram" aria-label="Homepage block structure">
+      <h3 class="flow-title">Homepage structure — each block answers one job</h3>
+      <div class="flow-canvas">
+
+        <div class="flow-entry">
+          <span class="flow-entry-label">Guiding rule</span>
+          <div class="flow-entry-chips">
+            <span class="flow-chip">Authority first</span>
+            <span class="flow-chip">Route without forcing a label</span>
+            <span class="flow-chip">Disarm the anxiety</span>
+            <span class="flow-chip">Exit to both lanes</span>
+          </div>
+        </div>
+
+        <ol class="flow-steps">
+          <li class="flow-step">
+            <span class="flow-kicker">01</span>
+            <strong>Hero</strong>
+            <p>What we do and since when. Immediate authority. Does not ask for a donation.</p>
+          </li>
+          <li class="flow-step">
+            <span class="flow-kicker">02</span>
+            <strong>Hard numbers</strong>
+            <p>Proof without adjectives. Every figure carries a source and a date, or it does not ship.</p>
+          </li>
+          <li class="flow-step flow-step--branch-source">
+            <span class="flow-kicker">03</span>
+            <strong>The fork</strong>
+            <p>Two routes — person or company. Placed third, not first: asking someone to classify themselves before giving them reasons to trust inverts the order.</p>
+          </li>
+          <li class="flow-step">
+            <span class="flow-kicker">04</span>
+            <strong>Allies</strong>
+            <p>External validation with logo and name. Third-party marks held back pending written authorization.</p>
+          </li>
+          <li class="flow-step">
+            <span class="flow-kicker">05</span>
+            <strong>Recent impact</strong>
+            <p>Three cases showing continuity, not only crisis response.</p>
+          </li>
+        </ol>
+
+        <div class="flow-branch">
+          <ol class="flow-branch-steps">
+            <li class="flow-branch-card">
+              <span class="flow-kicker">06</span>
+              <strong>Where each peso goes</strong>
+              <p>Spend breakdown and per-emergency reporting. Disarms the donor's principal anxiety.</p>
+            </li>
+            <li class="flow-branch-card">
+              <span class="flow-kicker">07</span>
+              <strong>Close</strong>
+              <p>Donate or talk to the team — an exit into either lane, without forcing a choice earlier.</p>
+            </li>
+          </ol>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 05 WIREFRAME · TEXT ----------------------------------- -->
+  <section class="section section-panel wrap reveal context-section">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">Wireframe with real copy, before any visual design</h2>
+      </div>
+      <div class="section-body">
+        <p>The process rule on this project is that structure and copy get approved before the design system is applied to anything. It exists because the alternative — showing stakeholders a beautiful screen and asking them to react to the words inside it — reliably produces feedback about the colour of a button when the argument of the page is what is broken.</p>
+        <p>The load-bearing line of the hero is <em>"before, during and after the emergency."</em> That phrase is what separates this organization from the ones that only appear during the crisis, and it was written into the wireframe rather than left to be discovered later.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 05 WIREFRAME · MEDIA ---------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="js-lightbox js-lightbox-wide">
+      <img class="img-full-width" src="../assets/images/unidosporellxs/wireframe-home-v2.jpg" alt="Homepage wireframe with approved copy — Unidos por Ellxs" />
+    </div>
+  </section>
+
+  <!-- -- 06 VERIFICATION · TEXT -------------------------------- -->
+  <section class="section section-panel wrap reveal context-section">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">The prototype marks its own unverified data in red</h2>
+      </div>
+      <div class="section-body">
+        <p>An organization that asks strangers for money during a disaster cannot afford a number it cannot defend. The rule on this project is absolute: no figure ships without a verifiable source and a date. Applying it honestly meant discovering how much of the available material did not survive it.</p>
+        <p>So the prototypes annotate themselves. Every figure without documentary backing is wrapped in a red dashed outline directly in the mockup, which turns the design review into a data review at the same time. Three items are currently held back that way: a headline percentage of spend going to programmes, which comes from an internal draft rather than a financial statement and carries the highest reputational risk on the page; the organization's stated years of operation, awaiting confirmation for unqualified public use; and the use of three partner brand marks, awaiting written authorization. A fourth is an open contradiction between two internal figures for the same count of mobilized brigade members.</p>
+        <p>None of them are in the shipped copy. The red outlines are the reason.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 06 VERIFICATION · DIRECTIONS -------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="img-trio">
+      <figure class="img-trio-figure">
+        <div class="img-trio-item js-lightbox js-lightbox-wide">
+          <img src="../assets/images/unidosporellxs/home-a-institucional.jpg" alt="Homepage direction A — institutional" />
+        </div>
+        <figcaption>A — Institutional. Sober, two-column hero, authority first.</figcaption>
+      </figure>
+      <figure class="img-trio-figure">
+        <div class="img-trio-item js-lightbox js-lightbox-wide">
+          <img src="../assets/images/unidosporellxs/home-b-campana.jpg" alt="Homepage direction B — campaign" />
+        </div>
+        <figcaption>B — Campaign. Derived from the emergency landing page already in production.</figcaption>
+      </figure>
+      <figure class="img-trio-figure">
+        <div class="img-trio-item js-lightbox js-lightbox-wide">
+          <img src="../assets/images/unidosporellxs/home-c-editorial.jpg" alt="Homepage direction C — editorial" />
+        </div>
+        <figcaption>C — Editorial. Impact and reporting carry the page.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- -- 07 DONATION INTERFACE · TEXT -------------------------- -->
+  <section class="section section-panel wrap reveal">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">One donation template, every campaign</h2>
+      </div>
+      <div class="section-body">
+        <p>The precedent for the template already existed. During an earthquake emergency the previous year, a standalone donation landing page had been built and shipped inside WordPress as embedded HTML, CSS and JavaScript — before any design system existed, which is why it shares no tokens or components with the rest of the site. It worked, and it carried copy, structure and trust decisions already validated in production. Re-inventing those would have been the expensive kind of tidy.</p>
+        <p>Two technical decisions from that page are worth keeping. All of its CSS is scoped under a single component class with its own reset, which is the reason it coexists with a purchased theme without fighting it. And it uses <strong>container queries rather than media queries</strong> — it responds to the width of the widget, not the width of the viewport, because the page builder's editor renders the widget narrow inside a wide viewport and media queries reported the wrong thing.</p>
+        <p>Decisions taken for the emergency campaign, and carried into the template: no fundraising goal and no progress bar; no recurring donation option, because an emergency campaign is not a subscription; and tax deductibility stated explicitly, because the receiving entity can issue receipts and that is a material part of the donor's decision.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 07 DONATION INTERFACE · MEDIA ------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="js-lightbox js-lightbox-wide">
+      <img class="img-full-width" src="../assets/images/unidosporellxs/donaciones.jpg" alt="Donation interface — reusable per-campaign template" />
+    </div>
+  </section>
+
+  <!-- -- 08 STATE · TEXT --------------------------------------- -->
+  <section class="section section-panel context-section wrap reveal">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">Where it actually stands</h2>
+      </div>
+      <div class="section-body">
+        <p>The architecture, the wireframe and three homepage directions are done. The design system exists as tokens and components, the production bundle is generated, and none of it is deployed — because the process rule says the design system is not applied until structure and copy are approved, and that approval is sitting with two stakeholders. The payment integration is written and installed as a plugin with its own database table and endpoint, and it is blocked one step earlier, on credentials for the payment account needed to run the sandbox test. Sandbox first, production second; that order does not get skipped to make a status report look better.</p>
+        <p>What I'm proud of: the bifurcation. It reframed a redesign request into an architecture decision, and the reusable donation template means the next emergency does not start from a blank page. What I'd do differently: the volunteer job is still an assumption with no research behind it, and I documented it as one rather than designing confidently on top of it — but I should have run those interviews while the wireframe was waiting for approval instead of treating the block as idle time.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 08 STATE · DIAGRAM ------------------------------------ -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="kpi-grid" aria-label="Project status">
+      <article class="kpi-card">
+        <span class="kpi-index">Architecture</span>
+        <span class="kpi-stat">Done</span>
+        <p>Sitemap, bifurcated home decision, and the donation interface defined as a reusable template.</p>
+      </article>
+      <article class="kpi-card">
+        <span class="kpi-index">Homepage directions</span>
+        <span class="kpi-stat">3</span>
+        <p>Institutional, campaign and editorial — built on shared tokens, differing in composition.</p>
+      </article>
+      <article class="kpi-card">
+        <span class="kpi-index">Design system</span>
+        <span class="kpi-stat">Held</span>
+        <p>Bundle generated, not deployed. Blocked on stakeholder approval of structure and copy, by process rule.</p>
+      </article>
+      <article class="kpi-card">
+        <span class="kpi-index">Payments</span>
+        <span class="kpi-stat">Blocked</span>
+        <p>Integration written and installed. Sandbox test blocked on account credentials — and it runs before production, not after.</p>
+      </article>
+    </div>
+  </section>
+
+  </div><!-- /.sections-wrapper -->
+
+<!-- -- FOOTER -------------------------------------------------- -->
+  <footer>
+    <div class="nav-inner">
+      <span class="footer-name">Yabin Torres — 2026</span>
+      <span class="footer-links">
+        <a href="https://www.linkedin.com/in/yabintorres/" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp;·&nbsp;
+        <a href="/contact.html">Contact</a>
+      </span>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">×</button>
+    <div class="lightbox-inner">
+      <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+    </div>
+  </div>
+
+  <script src="../js/case-study.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8QM249Y8BC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-8QM249Y8BC');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>M14 ID — Yabin Torres</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../css/resiliencia.css" />
+</head>
+
+<body>
+
+  <!-- -- NAV ---------------------------------------------------- -->
+  <nav>
+    <a href="../index.html" class="nav-return">
+      <span class="back-arrow"></span> Return
+    </a>
+    <ul class="nav-links">
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- -- HERO INTRO --------------------------------------------- -->
+  <div class="hero-intro-fixed">
+  <section class="hero-intro wrap reveal">
+    <div class="hero-intro-grid">
+      <div class="hero-visual">
+        <img src="../assets/images/interactiity/perspective.png" alt="Eyewear frame modelled in Blender" class="hero-project-logo" />
+      </div>
+      <div class="hero-content">
+        <h1 class="hero-title">M14 ID</h1>
+        <p class="hero-para">A visual-first product builder for customizable prescription eyewear, and the CMS that drives it. The shop's behaviour — what it sells, what it asks, and in what order — is authored in the CMS, not written into the storefront.</p>
+        <div class="case-info-table" aria-label="Case study information">
+          <div class="case-info-row">
+            <span class="case-info-label">Role</span>
+            <span class="case-info-value">Product Designer &middot; 3D &middot; Front-end</span>
+          </div>
+          <div class="case-info-row">
+            <span class="case-info-label">Type</span>
+            <span class="case-info-value">E-commerce &middot; Configurator &middot; Coursework</span>
+          </div>
+          <div class="case-info-row">
+            <span class="case-info-label">Tools</span>
+            <span class="case-info-value">Figma &middot; Blender &middot; React &middot; Vercel</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- -- SECTIONS WRAPPER -------------------------------------- -->
+  <div class="sections-wrapper">
+
+  <!-- -- 01 THESIS · TEXT -------------------------------------- -->
+  <section class="section section-panel wrap reveal context-section">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">The merchandising rule was living in a repo the merchandiser can't open</h2>
+      </div>
+      <div class="section-body">
+        <p>This was a three-week sprint for an Interactivity class: build a product builder with at least six customization categories, single- and multi-select behaviour, and cross-category rules. The obvious way to satisfy that brief is to hard-code seven steps in the storefront and move on.</p>
+        <p>The thesis I built instead was that the shop's behaviour belongs in the CMS. A category entry carries a <code>steps</code> array, and the builder renders exactly that order. Changing what a customer is asked, and when, becomes an authoring act rather than a deployment — and the shop's own merchandising logic stops being source code that only a developer can change.</p>
+        <p>Three deployments make up the system: a storefront, a studio where the catalogue and its rules are authored, and an API between them.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 01 THESIS · STAKEHOLDERS ----------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="stakeholder-diagram" aria-label="System architecture">
+      <article class="stakeholder-card">
+        <span class="stakeholder-role">Decides</span>
+        <h3>The studio</h3>
+        <p>Authors products, options, order, rules, recommendations and prices. Desktop-only by design — it is a workbench, not a shop.</p>
+      </article>
+
+      <article class="stakeholder-card">
+        <span class="stakeholder-role">Serves</span>
+        <h3>The API</h3>
+        <p>Enforces the schema gate and the conflict rules independently of whichever client is talking to it.</p>
+      </article>
+
+      <article class="stakeholder-card stakeholder-card--impact">
+        <span class="stakeholder-role">Executes and explains</span>
+        <h3>The storefront</h3>
+        <p>Runs the decisions authored upstream, and tells the customer what each one does to fit, compatibility and price.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- -- 02 CATEGORY MODEL · TEXT ------------------------------ -->
+  <section class="section section-panel wrap reveal">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">One question, two positions, two obligations</h2>
+      </div>
+      <div class="section-body">
+        <p>The category model is the part of this project I would defend hardest. Two categories ship — sunglasses and eyeglasses — and the DOM order of the builder's sections matches the <code>steps</code> array of the corresponding CMS entry exactly, verified live on both. Introducing it deleted a hard-coded running order, two invisible guards, and four hard-coded order-gate conditions.</p>
+        <p>The proof that the model is real rather than decorative is the <code>dependsOn</code> relationship. Sun lenses are the <em>same collection</em> in both categories. On sunglasses they are asked third and required. On eyeglasses they are asked ninth and depend on whether the customer took clip-ons. One question, two positions, two obligations — authored, not branched.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 02 CATEGORY MODEL · FLOW ------------------------------ -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="flow-diagram" aria-label="Step order per category, read from the live DOM">
+      <h3 class="flow-title">Step order — authored in the CMS, read back from the live DOM</h3>
+      <div class="flow-canvas">
+
+        <div class="flow-entry">
+          <span class="flow-entry-label">Sunglasses</span>
+          <div class="flow-entry-chips">
+            <span class="flow-chip">sizes</span>
+            <span class="flow-chip">materials</span>
+            <span class="flow-chip">sun-lenses</span>
+            <span class="flow-chip">lens-types</span>
+            <span class="flow-chip">lens-indexes</span>
+            <span class="flow-chip">coatings</span>
+            <span class="flow-chip">cases</span>
+          </div>
+        </div>
+
+        <ol class="flow-steps">
+          <li class="flow-step">
+            <span class="flow-kicker">01–02</span>
+            <strong>Sizes &amp; materials</strong>
+            <p>Identical opening on both categories. Sizes are named by where they sit in the frame's own run, not by an absolute width.</p>
+          </li>
+          <li class="flow-step">
+            <span class="flow-kicker">03–05</span>
+            <strong>Lens types &amp; indexes</strong>
+            <p>Sunglasses ask for the tint here and require it. Eyeglasses skip straight to lens type.</p>
+          </li>
+          <li class="flow-step flow-step--branch-source">
+            <span class="flow-kicker">06–07</span>
+            <strong>Coatings</strong>
+            <p>The multi-select category. Anti-reflective, scratch resistance, UV, blue-light and easy-clean combine freely.</p>
+          </li>
+          <li class="flow-step">
+            <span class="flow-kicker">08–09</span>
+            <strong>Clip-ons → sun lenses</strong>
+            <p>Eyeglasses only. Sun lenses arrive last here, and only if clip-ons were taken — the <code>dependsOn</code> edge.</p>
+          </li>
+          <li class="flow-step">
+            <span class="flow-kicker">Last</span>
+            <strong>Cases</strong>
+            <p>Closes both categories. Prescription is a step of both and draws no section — the Rx is a form on the specs screen.</p>
+          </li>
+        </ol>
+
+        <div class="flow-branch">
+          <ol class="flow-branch-steps">
+            <li class="flow-branch-card">
+              <span class="flow-kicker">Eyeglasses</span>
+              <strong>Nine steps, not seven</strong>
+              <p>sizes → materials → lens-types → lens-indexes → coatings → clip-ons → sun-lenses → cases, plus prescription.</p>
+            </li>
+            <li class="flow-branch-card">
+              <span class="flow-kicker">Consequence</span>
+              <strong>A new category needs no release</strong>
+              <p>Adding one is an entry in the studio. The builder reads its steps and renders them in order.</p>
+            </li>
+          </ol>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 02 CATEGORY MODEL · MEDIA ----------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="img-trio">
+      <figure class="img-trio-figure">
+        <div class="img-trio-item js-lightbox js-lightbox-wide">
+          <img src="../assets/images/interactiity/panel-sun.jpg" alt="Configuration panel opening on the sizes step — sunglasses" />
+        </div>
+        <figcaption>Sunglasses — the panel opens on sizes.</figcaption>
+      </figure>
+      <figure class="img-trio-figure">
+        <div class="img-trio-item js-lightbox js-lightbox-wide">
+          <img src="../assets/images/interactiity/panel-eye.jpg" alt="Configuration panel opening on the sizes step — eyeglasses" />
+        </div>
+        <figcaption>Eyeglasses — the same opening, drawn from a different step list.</figcaption>
+      </figure>
+      <figure class="img-trio-figure">
+        <div class="img-trio-item js-lightbox js-lightbox-wide">
+          <img src="../assets/images/interactiity/specs.jpg" alt="Empty state naming the frame and the step that follows" />
+        </div>
+        <figcaption>The empty state names the frame and the step that comes next.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- -- 03 BUILDER · TEXT ------------------------------------- -->
+  <section class="section section-panel wrap reveal context-section">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">31 looks over 10 frames, and the rule that a broken one disappears</h2>
+      </div>
+      <div class="section-body">
+        <p>Presets — "looks" — are pre-composed configurations a customer can start from. Thirty-one of them sit over ten frames, so most looks are not tied to the frame they were designed on.</p>
+        <p>That creates a failure case worth being strict about: a look that names a tint the frame it landed on does not carry. The rule is that an unresolvable look is <strong>dropped whole rather than degraded</strong>. Rendering it as its clear twin would put a tile on screen promising sunglasses and delivering something else, and a tile that lies is worse than a tile that is absent.</p>
+        <p>The frames themselves I modelled in Blender and exported to glTF for the 3D stage, which is the primary view of every product — the customer turns the actual object rather than clicking between flat photographs.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 03 BUILDER · MEDIA ------------------------------------ -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="js-lightbox js-lightbox-wide">
+      <img class="img-full-width" src="../assets/images/interactiity/build.jpg" alt="Product builder — 3D stage with the configuration panel beside it" />
+    </div>
+  </section>
+
+  <!-- -- 04 MOBILE · TEXT -------------------------------------- -->
+  <section class="section section-panel wrap reveal">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">Reflow where reflow works. Swap where it doesn't</h2>
+      </div>
+      <div class="section-body">
+        <p>The store reflows. Four breakpoints do the whole job: the step rail hides, the mosaic goes three columns to two, the navbar links wrap to a second row, and the mosaic goes two to one.</p>
+        <p>The product page does something else. At 900px the app renders a <strong>different shell entirely</strong> — the buy panel and the step rail are not hidden, they do not exist in the document. That is a position rather than an accident: a 400-pixel buy panel standing beside a 3D stage has no phone equivalent. Narrowing it gives you a column too tight to choose in, above a render too small to judge. So it isn't narrowed, it's replaced — and the storefront navigation is replaced too, with a contextual bar carrying a back arrow, the category and the cart.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 04 MOBILE · SCORING ----------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="scoring-wrap" aria-label="Responsive behaviour measured from the DOM">
+      <div class="scoring-diagram">
+        <div class="scoring-mechanism">
+          <div class="scoring-cell">
+            <span class="scoring-label">Store</span>
+            <strong class="scoring-value">Reflows</strong>
+            <p class="scoring-note">Four breakpoints: 1279 &middot; 1000 &middot; 959 &middot; 600</p>
+          </div>
+          <div class="scoring-cell">
+            <span class="scoring-label">Product page</span>
+            <strong class="scoring-value">Swaps</strong>
+            <p class="scoring-note">A second shell renders below 900px</p>
+          </div>
+          <div class="scoring-cell">
+            <span class="scoring-label">Overflow, 1280 → 390</span>
+            <strong class="scoring-value">None</strong>
+            <p class="scoring-note">Measured at 1280, 901, 899 and 390</p>
+          </div>
+          <div class="scoring-cell">
+            <span class="scoring-label">Below the threshold</span>
+            <div class="scoring-band-stack">
+              <div class="scoring-band-row scoring-band--high">
+                <span class="scoring-band-dot" aria-hidden="true"></span>
+                <span class="scoring-band-name">901px</span>
+                <span class="scoring-band-range">aside + rail present</span>
+              </div>
+              <div class="scoring-band-row scoring-band--low">
+                <span class="scoring-band-dot" aria-hidden="true"></span>
+                <span class="scoring-band-name">899px</span>
+                <span class="scoring-band-range">absent from the DOM</span>
+              </div>
+              <div class="scoring-band-row scoring-band--mid">
+                <span class="scoring-band-dot" aria-hidden="true"></span>
+                <span class="scoring-band-name">390px</span>
+                <span class="scoring-band-range">single-column shell</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 04 MOBILE · MEDIA ------------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="img-trio">
+      <figure class="img-trio-figure">
+        <div class="img-trio-item js-lightbox js-lightbox-wide">
+          <img src="../assets/images/interactiity/store.jpg" alt="Storefront mosaic at desktop width" />
+        </div>
+        <figcaption>Store at desktop — the mosaic at three columns.</figcaption>
+      </figure>
+      <figure class="img-trio-figure">
+        <div class="img-trio-item js-lightbox js-lightbox-wide">
+          <img src="../assets/images/interactiity/store-phone.jpg" alt="Storefront on a phone" />
+        </div>
+        <figcaption>Store on a phone — same document, reflowed.</figcaption>
+      </figure>
+      <figure class="img-trio-figure">
+        <div class="img-trio-item js-lightbox js-lightbox-wide">
+          <img src="../assets/images/interactiity/build-phone.jpg" alt="Product builder on a phone" />
+        </div>
+        <figcaption>Builder on a phone — a different shell, not a squeezed one.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- -- 05 CMS · TEXT ----------------------------------------- -->
+  <section class="section section-panel wrap reveal context-section">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">Three kinds of failure, kept apart</h2>
+      </div>
+      <div class="section-body">
+        <p>Most content tools collapse everything that goes wrong into one red box. This one keeps <em>rejected</em>, <em>conflicted</em> and <em>warned</em> separate, because they are three genuinely different situations and the author's next move differs in each.</p>
+        <p>A conflict is the one worth describing. A save carries the version the author started from; if the record moved underneath them, the API answers 409 and returns what it expected. A lost update becomes a refusal instead of a silent overwrite.</p>
+        <p>Two more decisions I'd carry into any editor. The studio tracks <strong>two records rather than a dirty flag</strong> — "3 unsaved changes: name, variants, sizes" stays correct when an author undoes their own edit, which a boolean cannot do. And the schema gate — preview, then read, then backfill — is enforced by the backend independently of the client, with a deliberate carve-out so that fixing a typo in a headline doesn't train people to click through the gate without reading it.</p>
+        <p>The studio also wears the storefront's palette. Both were sampled: identical tokens, distinguished only by mode. A tool for deciding how a store looks, made out of the store's own material.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 05 CMS · MEDIA ---------------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="js-lightbox js-lightbox-wide">
+      <img class="img-full-width" src="../assets/images/interactiity/cms.jpg" alt="The studio — authoring collections, steps and rules" />
+    </div>
+  </section>
+
+  <!-- -- 06 AUDIT · TEXT --------------------------------------- -->
+  <section class="section section-panel wrap reveal">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">Every request returned 200. Only the pixels were wrong</h2>
+      </div>
+      <div class="section-body">
+        <p>Before presenting the work I audited the live deployments with a headless browser rather than reading the source. That decision changed the presentation, and it caught something I would otherwise have been shown from the audience.</p>
+        <p>Twenty-nine of the thirty images on the storefront do not render. The cause is not a missing file: a <strong>colour value is reaching the image source</strong> where a photograph should be. The browser resolves <code>#141414</code> against the origin, requests the page itself, receives 200 and an HTML document, and cannot decode HTML as an image. Failed network responses: zero. Console errors: zero. Nothing anywhere reports a problem — which is precisely the failure mode this codebase's own notes keep warning about. It shipped because the 3D stage, the primary view of every product, renders correctly; you have to know the photograph is supposed to be there to notice it isn't.</p>
+        <p>The audit also found a reviews band shipping invented ratings and quotations attributed to invented customers. That is a legal problem rather than a technical one — fabricated reviews are prohibited outright in the EU and UK — and it does not ship as it stands.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 06 AUDIT · MEDIA -------------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="js-lightbox js-lightbox-wide">
+      <img class="img-full-width" src="../assets/images/interactiity/broken-tiles.jpg" alt="Storefront tiles rendering as empty boxes with alt text showing" />
+    </div>
+  </section>
+
+  <!-- -- 07 OUTCOMES · TEXT ------------------------------------ -->
+  <section class="section section-panel context-section wrap reveal">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">The finding I got wrong, and why it's in here</h2>
+      </div>
+      <div class="section-body">
+        <p>I originally reported that the buy flow had no mobile layout at all. I had read a fixed-width panel with no stacking rule in the local stylesheets and concluded there was nothing underneath it. That was wrong. The local checkouts were behind the deployments, and the real behaviour — a second shell that replaces the panel entirely — is a better story than the one I first told.</p>
+        <p>The lesson is narrow and I keep it: the repository describes intent, the deployment describes production, and a claim about a live product has to be measured against the live product. Every number in this case study was read from the running system, not from source.</p>
+        <p>What I'm proud of: the category model earns its keep, and <code>dependsOn</code> proves it — the same collection asked in two positions with two different obligations, authored by someone who never opens the codebase. What I'd do differently: the image pipeline needed a single test asserting that a rendered tile has non-zero natural width. Every other failure in this system announces itself; that one had no way to.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 07 OUTCOMES · DIAGRAM --------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="kpi-grid" aria-label="Verified against the live deployments">
+      <article class="kpi-card">
+        <span class="kpi-index">Collections</span>
+        <span class="kpi-stat">10</span>
+        <p>Authored in the studio and served through the API to the storefront.</p>
+      </article>
+      <article class="kpi-card">
+        <span class="kpi-index">Frames published</span>
+        <span class="kpi-stat">10</span>
+        <p>Two under sunglasses, eight under eyeglasses. Modelled and exported for the 3D stage.</p>
+      </article>
+      <article class="kpi-card kpi-card--highlight">
+        <span class="kpi-index">Looks published</span>
+        <span class="kpi-stat">31</span>
+        <p>Pre-composed configurations over ten frames. An unresolvable one is dropped whole, never degraded.</p>
+      </article>
+      <article class="kpi-card">
+        <span class="kpi-index">Categories</span>
+        <span class="kpi-stat">2</span>
+        <p>Each carrying its own step order. Adding a third is an authoring act, not a release.</p>
+      </article>
+    </div>
+  </section>
+
+  </div><!-- /.sections-wrapper -->
+
+<!-- -- FOOTER -------------------------------------------------- -->
+  <footer>
+    <div class="nav-inner">
+      <span class="footer-name">Yabin Torres — 2026</span>
+      <span class="footer-links">
+        <a href="https://www.linkedin.com/in/yabintorres/" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp;·&nbsp;
+        <a href="/contact.html">Contact</a>
+      </span>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">×</button>
+    <div class="lightbox-inner">
+      <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+    </div>
+  </div>
+
+  <script src="../js/case-study.js"></script>
+
+</body>
+</html>

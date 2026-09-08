@@ -352,42 +352,22 @@
     }
   }
 
-  function initMobileWorks() {
-    if (window.innerWidth > 600) return;
+  /* The page scrolls now, so the hero is a section to move past rather than a
+     screen to dismiss. Both entry points do the same thing at every width. */
+  function scrollToWork() {
+    var work = document.getElementById('work');
+    if (work) work.scrollIntoView({ behavior: 'smooth' });
+  }
 
+  function initMobileWorks() {
     var cta = document.querySelector('.hero-tap-cta');
     if (!cta) return;
-
-    cta.addEventListener('click', function () {
-      var hero = document.querySelector('.hero');
-      if (hero) {
-        hero.style.transition = 'opacity 0.25s ease';
-        hero.style.opacity = '0';
-      }
-      setTimeout(function () {
-        document.body.classList.add('works-active');
-        window.scrollTo(0, 0);
-      }, 240);
-    });
+    cta.addEventListener('click', scrollToWork);
   }
 
   function initNodeLinks() {
     document.querySelectorAll('.network-node').forEach(function (node) {
-      node.addEventListener('click', function () {
-        if (window.innerWidth <= 600) {
-          var hero = document.querySelector('.hero');
-          if (hero) {
-            hero.style.transition = 'opacity 0.25s ease';
-            hero.style.opacity = '0';
-          }
-          setTimeout(function () {
-            document.body.classList.add('works-active');
-            window.scrollTo(0, 0);
-          }, 240);
-        } else {
-          document.getElementById('work').scrollIntoView({ behavior: 'smooth' });
-        }
-      });
+      node.addEventListener('click', scrollToWork);
     });
   }
 
