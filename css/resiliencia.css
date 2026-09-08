@@ -427,6 +427,123 @@ nav.nav-hidden {
   .col-right { justify-self: start; }
 }
 
+/* -- WIDE TEXT SECTION ---------------------------------------
+   The second arrangement for a text section. .section-split puts a narrow
+   heading against a single column of body copy; when two text sections sit
+   back to back that silhouette repeats and the page flattens. This one runs
+   the heading full width, carries the statement in a lead paragraph, and
+   splits the qualifications into two labelled columns underneath. */
+.section-wide .section-lead {
+  font-family: var(--font-sans);
+  font-size: 26px;
+  line-height: 1.5;
+  color: var(--text);
+  max-width: 46ch;
+  margin: 0 0 64px;
+}
+
+.section-wide .section-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+
+.section-wide .section-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* .section-label is drawn to sit tight above a heading; above body copy it
+   needs its own space back. */
+.section-wide .section-col .section-label { margin-bottom: 0; }
+
+.section-wide .section-col p {
+  font-family: var(--font-sans);
+  font-size: var(--type-body);
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+/* -- DOCUMENT DOWNLOAD ---------------------------------------
+   The source document behind a case, offered at the end. Weight and
+   page count go in the label: a multi-megabyte download that starts
+   without warning is a bad surprise on a phone. */
+.doc-download {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 40px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.doc-download-text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 52ch;
+}
+
+.doc-download-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 1.25;
+  color: var(--text);
+}
+
+.doc-download-meta {
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+  letter-spacing: 0.01em;
+  color: var(--mint);
+}
+
+.doc-download-note {
+  font-family: var(--font-sans);
+  font-size: var(--type-caption);
+  line-height: 1.6;
+  color: var(--muted);
+  opacity: 0.75;
+}
+
+.doc-download-btn {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 28px;
+  background: var(--mint);
+  color: var(--bg);
+  font-family: var(--font-sans);
+  font-size: var(--type-caption);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--mint);
+  transition: filter 0.2s ease;
+}
+
+.doc-download-btn:hover { filter: brightness(1.12); }
+
+/* Down arrow, drawn rather than shipped as an icon file. */
+.doc-download-btn::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+
 /* -- IMAGE PLACEHOLDERS -------------------------------------- */
 .img-placeholder {
   background: var(--surface);
@@ -1322,6 +1439,10 @@ footer .nav-inner {
   }
   .hero-intro-grid { grid-template-columns: 1fr; gap: 40px; }
   .section-split { grid-template-columns: 1fr; gap: 16px; }
+  .section-wide .section-cols { grid-template-columns: 1fr; gap: 40px; }
+  .doc-download { padding: 28px; gap: 24px; }
+  .doc-download-btn { width: 100%; justify-content: center; }
+  .section-wide .section-lead { font-size: 22px; margin-bottom: 40px; }
   .section-body { max-width: 100%; }
   .context-section .logo-trio {
     gap: 32px;
