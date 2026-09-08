@@ -31,6 +31,10 @@
   --space-3xl: 96px;
 
   --pad-x: 64px;
+  /* Las dos rejillas -- las cuatro columnas de servicios y el masonry -- se
+     meten hacia dentro respecto de los titulares, y comparten este ancho para
+     empezar y terminar en la misma linea. */
+  --grid-max: 1200px;
 }
 
 /* -- RESET ---------------------------------------------- */
@@ -406,39 +410,35 @@ nav {
 /* The home only introduces the offer; the full cards live on services.html.
    Image, heavy title, short paragraph, arrow link — in that order. */
 .services-cards {
-  margin-top: var(--space-2xl);
+  max-width: var(--grid-max);
+  margin: var(--space-2xl) auto 0;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--space-xl);
 }
 
+/* No thumbnail here: the title carries the column on its own, so it is set
+   large and sits under a rule that gives the four of them their rhythm. */
 .service-card {
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-lg);
+  transition: border-color 0.25s ease;
 }
 
-.service-card-media {
-  overflow: hidden;
-  background: var(--color-surface);
-  margin-bottom: var(--space-xs);
-}
-
-.service-card-media img {
-  display: block;
-  width: 100%;
-  height: auto;
-  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.3, 1);
-}
-
-.service-card:hover .service-card-media img { transform: scale(1.04); }
+.service-card:hover { border-top-color: var(--color-mint); }
 
 .service-card-title {
-  font-size: clamp(26px, 2.3vw, 38px);
+  font-size: clamp(30px, 3vw, 46px);
   font-weight: 700;
-  line-height: 1.02;
-  letter-spacing: -0.02em;
+  line-height: 1.0;
+  letter-spacing: -0.025em;
+  transition: color 0.25s ease;
 }
+
+.service-card:hover .service-card-title { color: var(--color-mint); }
 
 .service-card p {
   font-size: var(--text-body);
@@ -511,15 +511,50 @@ nav {
   line-height: 1.05;
 }
 
-.feed-note {
-  margin-top: var(--space-sm);
-  color: var(--color-muted);
+/* -- TILE TAGS -----------------------------------------------
+   The disciplines a piece of work belongs to, laid over the top right of
+   its image. A filter menu was tried here first and lost: the masonry is
+   the point, and hiding two thirds of it to answer "is there any branding
+   in there?" costs more than it returns. */
+.feed-tags {
+  list-style: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+  max-width: calc(100% - 20px);
+}
+
+.feed-tags li {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+/* The thumbnails run from white UI screenshots to dark photography, so the
+   chip carries its own ground rather than trusting the image: mint type on
+   the bare thumbnail measured 1.05:1 over the lightest of them. */
+  color: #FFFFFF;
+  background: rgba(15, 15, 14, 0.72);
+  border: 1px solid var(--color-mint);
+  border-radius: 999px;
+  padding: 4px 10px;
+  line-height: 1.3;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.feed-tile a:hover .feed-tags li {
+  background: var(--color-mint);
+  border-color: var(--color-mint);
+  color: #0F0F0E;
 }
 
 /* CSS columns give the staggered masonry without measuring anything in JS.
    Tiles must not break across a column boundary. */
 .feed-masonry {
-  max-width: 1440px;
+  max-width: var(--grid-max);
   margin: 0 auto;
   columns: 4;
   column-gap: var(--space-xl);
@@ -540,6 +575,7 @@ nav {
 }
 
 .feed-media {
+  position: relative;
   overflow: hidden;
   background: var(--color-surface);
   margin-bottom: var(--space-sm);
@@ -712,6 +748,7 @@ nav {
   }
 
   .services-cards { margin-top: var(--space-2xl); gap: var(--space-lg); }
+
 
   .service { padding: var(--space-lg); }
 
