@@ -1536,15 +1536,15 @@ footer .nav-inner {
     grid-template-columns: 56px 1fr;
   }
   .img-pair { grid-template-columns: 1fr; gap: 24px; }
-  .decision-findings,
-  .decision-arrows,
-  .decision-outputs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .profile-header { grid-template-columns: 1fr; gap: 12px; }
-  .profile-data { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .profile-datum:nth-child(4n)        { border-right: 2px solid var(--pb); }
-  .profile-datum:nth-child(2n)        { border-right: none; }
-  .profile-datum:nth-last-child(-n+4) { border-bottom: 2px solid var(--pb); }
-  .profile-datum:nth-last-child(-n+2) { border-bottom: none; }
+
+  /* The hero is pinned and the sections slide up over it. That only works
+     while the hero fits in one screen, and stacked to one column it doesn't:
+     a phone's visible height with the browser bars showing is ~660px and
+     the hero needs up to 715px, so its last rows sat under the first
+     section and could never be scrolled to. Here it scrolls with the page. */
+  .hero-intro-fixed { position: relative; height: auto; }
+  .sections-wrapper { margin-top: 0; }
+  .hero-intro { height: auto; padding-top: 152px; padding-bottom: 0; }
 }
 
 @media (max-width: 560px) {
@@ -1556,20 +1556,6 @@ footer .nav-inner {
   .kpi-grid {
     grid-template-columns: 1fr;
   }
-  .decision-findings,
-  .decision-arrows,
-  .decision-outputs { grid-template-columns: 1fr; }
-  .profile-data { grid-template-columns: 1fr; }
-  .profile-datum:nth-last-child(-n+2) { border-bottom: 2px solid var(--pb); }
-  .profile-datum:nth-child(n)         { border-right: none; }
-  .profile-datum:last-child           { border-bottom: none; }
-
-  .scoring-mechanism                  { grid-template-columns: 1fr; }
-  .scoring-cell                       { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
-  .scoring-cell:last-child            { border-bottom: none; }
-  .scoring-pillars                    { grid-template-columns: 1fr; }
-  .scoring-pillar                     { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
-  .scoring-pillar:last-child          { border-bottom: none; }
 }
 
 /* -- DECISION MAP -------------------------------------------- */
@@ -1893,6 +1879,55 @@ footer .nav-inner {
   opacity: 1;
 }
 
+/* -- DIAGRAMS · RESPONSIVE ----------------------------------
+   These collapses used to live in the RESPONSIVE block, which sits above
+   the decision map, profile card and scoring definitions. Same
+   specificity, earlier in the file: the base rules won, and phones got the
+   desktop grids at 74px a column. They must stay below those components. */
+@media (max-width: 900px) {
+  .profile-header { grid-template-columns: 1fr; gap: 12px; }
+  .profile-data { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .profile-datum:nth-child(4n)        { border-right: 2px solid var(--pb); }
+  .profile-datum:nth-child(2n)        { border-right: none; }
+  .profile-datum:nth-last-child(-n+4) { border-bottom: 2px solid var(--pb); }
+  .profile-datum:nth-last-child(-n+2) { border-bottom: none; }
+
+  /* Stacked row by row, the map printed every finding, then a run of
+     arrows, then every decision, and the column that tied each finding to
+     its decision was gone. Flatten the three rows into one sequence and
+     interleave them: finding, arrow, decision, then the next pair. */
+  .decision-findings,
+  .decision-arrows,
+  .decision-outputs { display: contents; }
+  .decision-findings > :nth-child(1) { order: 1; }
+  .decision-arrows   > :nth-child(1) { order: 2; }
+  .decision-outputs  > :nth-child(1) { order: 3; }
+  .decision-findings > :nth-child(2) { order: 4; }
+  .decision-arrows   > :nth-child(2) { order: 5; }
+  .decision-outputs  > :nth-child(2) { order: 6; }
+  .decision-findings > :nth-child(3) { order: 7; }
+  .decision-arrows   > :nth-child(3) { order: 8; }
+  .decision-outputs  > :nth-child(3) { order: 9; }
+  .decision-findings > :nth-child(4) { order: 10; }
+  .decision-arrows   > :nth-child(4) { order: 11; }
+  .decision-outputs  > :nth-child(4) { order: 12; }
+  .decision-outputs > :not(:last-child) { margin-bottom: 40px; }
+}
+
+@media (max-width: 560px) {
+  .profile-data { grid-template-columns: 1fr; }
+  .profile-datum:nth-last-child(-n+2) { border-bottom: 2px solid var(--pb); }
+  .profile-datum:nth-child(n)         { border-right: none; }
+  .profile-datum:last-child           { border-bottom: none; }
+
+  .scoring-mechanism                  { grid-template-columns: 1fr; }
+  .scoring-cell                       { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+  .scoring-cell:last-child            { border-bottom: none; }
+  .scoring-pillars                    { grid-template-columns: 1fr; }
+  .scoring-pillar                     { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+  .scoring-pillar:last-child          { border-bottom: none; }
+}
+
 /* -- DARK CARD SYSTEM ---------------------------------------- */
 .section-panel--media {
   padding-top: 32px;
@@ -2013,8 +2048,8 @@ footer .nav-inner {
 
   /* Hero intro */
   .hero-intro {
-    padding-top: 72px;
-    padding-bottom: 28px;
+    padding-top: 104px;
+    padding-bottom: 0;
   }
   .hero-intro-grid { gap: 20px; }
   .hero-project-logo { max-width: 100px; }
@@ -2063,20 +2098,42 @@ footer .nav-inner {
 
   /* Diagrams & cards */
   .flow-title,
+  .kpi-title,
   .brand-group-title {
     font-size: 22px;
     margin-bottom: 24px;
   }
   .flow-step strong,
+  .flow-branch-card strong,
+  .decision-card strong,
   .kpi-card strong,
   .stakeholder-card h3 { font-size: 18px; }
   .flow-step p,
+  .flow-branch-card p,
+  .decision-card p,
   .kpi-card p,
   .stakeholder-card p,
   .brand-card p { font-size: 15px; }
+  /* One column wide, the desktop min-height only opens an empty band
+     between the figure and its caption. */
+  .kpi-card { min-height: 0; }
+  .kpi-index,
+  .decision-tag,
+  .flow-branch-card .flow-kicker { margin-bottom: 24px; }
+  #score-pillars .scoring-pillar-header strong,
+  #score-pillars .scoring-module {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .section-wide .section-col p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
 
-  /* Images */
-  .img-trio-item { height: 220px; }
+  /* Images. A fixed 220px box cut phone screenshots off at their first
+     heading and left an empty band under wide ones. Follow the image,
+     capped near the square crop the desktop trio shows. */
+  .img-trio-item { height: auto; max-height: 360px; }
   .img-pair { gap: 16px; }
 
   /* Footer */

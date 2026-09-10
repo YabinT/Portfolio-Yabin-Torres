@@ -21,17 +21,11 @@
   <style>
     /* This case's decision map has two branches, not four. Scoped here so the
        shared stylesheet keeps serving the four-column version it was built for.
-       Mirrors that stylesheet's own 560px collapse, which would otherwise lose
-       to these rules on source order. */
+       Below 900px the shared stylesheet flattens the rows into finding/decision
+       pairs, so no column count applies there and nothing needs mirroring. */
     .decision-findings,
     .decision-arrows,
     .decision-outputs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-
-    @media (max-width: 560px) {
-      .decision-findings,
-      .decision-arrows,
-      .decision-outputs { grid-template-columns: 1fr; }
-    }
   </style>
 </head>
 
