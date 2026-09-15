@@ -16,9 +16,10 @@
   {%- if description %}
   <meta name="description" content="{{ description }}" />
   {%- endif %}
-  {%- if canonical %}
-  <link rel="canonical" href="{{ canonical }}" />
-  {%- endif %}
+  {#- The one official address of this page: always www, and the home as / rather
+      than /index.html, so Google doesn't count the variants as separate pages. #}
+  {%- set pageUrl = "https://www.yabintorres.com" + (page.url | replace("/index.html", "/")) %}
+  <link rel="canonical" href="{{ pageUrl }}" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
