@@ -612,8 +612,10 @@ nav {
 
 .feed-tile a:hover .feed-title { color: var(--color-mint); }
 
+/* Same step below the title as .service-card p, so both sections of the
+   home read with one hierarchy. */
 .feed-desc {
-  color: var(--color-muted);
+  color: rgba(255, 255, 255, 0.72);
   font-size: var(--text-body);
 }
 
