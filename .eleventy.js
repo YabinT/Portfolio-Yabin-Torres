@@ -8,16 +8,18 @@ const casePages = fs
   .filter((file) => file.endsWith(".html") && !file.includes("mockup"));
 
 module.exports = function (eleventyConfig) {
-  // Root HTML pages. Every new top-level page needs a line here or it never
-  // reaches _site and 404s in production.
-  eleventyConfig.addPassthroughCopy("index.html");
-  eleventyConfig.addPassthroughCopy("contact.html");
-  eleventyConfig.addPassthroughCopy("services.html");
-  eleventyConfig.addPassthroughCopy("audit.html");
+  // Every page (the root .html files and cases/*.html) extends
+  // content/_includes/base.njk, which holds the shared <head>. Pages keep the
+  // .html URLs they already had instead of Eleventy's default /page/ folders.
+  eleventyConfig.addGlobalData("permalink", "{{ page.filePathStem }}.html");
 
-  for (const file of casePages) {
-    eleventyConfig.addPassthroughCopy(`cases/${file}`);
-  }
+  eleventyConfig.ignores.add("cases/*mockup*");
+
+  // The CMS draft case and the admin panel stay in the repo but are not
+  // published: the draft duplicated the real Resiliencia case with broken
+  // images, and nothing else is authored through the CMS.
+  eleventyConfig.ignores.add("content/cases/**");
+  eleventyConfig.ignores.add("content/admin/**");
 
   // content/sitemap.njk lists these, so a new case study reaches the sitemap
   // on the next build without touching it.
@@ -34,20 +36,18 @@ module.exports = function (eleventyConfig) {
   // Spanish mirror
   eleventyConfig.addPassthroughCopy("es");
 
-  // The CMS draft case and the admin panel stay in the repo but are not
-  // published: the draft duplicated the real Resiliencia case with broken
-  // images, and nothing else is authored through the CMS.
-  eleventyConfig.ignores.add("content/cases/**");
-  eleventyConfig.ignores.add("content/admin/**");
-
   // Static asset folders
   eleventyConfig.addPassthroughCopy("css");
   eleventyConfig.addPassthroughCopy("assets");
   eleventyConfig.addPassthroughCopy("js");
 
   return {
+    templateFormats: ["html", "njk"],
+    htmlTemplateEngine: "njk",
     dir: {
-      input: "content",
+      input: ".",
+      includes: "content/_includes",
+      data: "content/_data",
       output: "_site",
     },
   };

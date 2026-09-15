@@ -1,27 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5MHWQYG4MV"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+---
+title: "Contact — Yabin Torres"
+description: "Get in touch with Yabin Torres — product design, UX research and interface work."
+bodyClass: "contact-page"
+---
+{% extends "base.njk" %}
 
-    gtag('config', 'G-5MHWQYG4MV');
-  </script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact — Yabin Torres</title>
-  <meta name="description" content="Get in touch with Yabin Torres — product design, UX research and interface work." />
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="css/styles.css?v=23" />
-
+{% block head %}
   <style>
     /* ---- Contact page ---------------------------------------- */
 
@@ -327,9 +311,9 @@
       .contact-submit { width: 100%; }
     }
   </style>
-</head>
+{% endblock %}
 
-<body class="contact-page">
+{% block body %}
 
   <!-- NAV -->
   <nav>
@@ -427,5 +411,4 @@
   <script src="https://web3forms.com/client/script.js" async defer></script>
   <script src="js/contact.js?v=3"></script>
 
-</body>
-</html>
+{% endblock %}
