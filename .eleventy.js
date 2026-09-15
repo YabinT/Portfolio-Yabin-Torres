@@ -19,6 +19,18 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy(`cases/${file}`);
   }
 
+  // content/sitemap.njk lists these, so a new case study reaches the sitemap
+  // on the next build without touching it.
+  eleventyConfig.addGlobalData("sitemapUrls", [
+    "/",
+    "/services.html",
+    "/audit.html",
+    "/contact.html",
+    ...casePages.map((file) => `/cases/${file}`),
+  ]);
+
+  eleventyConfig.addPassthroughCopy("robots.txt");
+
   // Spanish mirror
   eleventyConfig.addPassthroughCopy("es");
 
