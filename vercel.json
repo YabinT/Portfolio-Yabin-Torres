@@ -1,5 +1,22 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "_site",
-  "installCommand": "npm install"
+  "installCommand": "npm install",
+  "redirects": [
+    {
+      "source": "/cases/resilienciaenuncaja-mockup.html",
+      "destination": "/cases/resilienciaenuncaja.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/cases/resilienciaenuncaja-dark-mockup.html",
+      "destination": "/cases/resilienciaenuncaja.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/cases/resilienciaenuncaja/:rest*",
+      "destination": "/cases/resilienciaenuncaja.html",
+      "statusCode": 301
+    }
+  ]
 }
