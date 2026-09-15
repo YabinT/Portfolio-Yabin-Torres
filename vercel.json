@@ -4,6 +4,12 @@
   "installCommand": "npm install",
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "portfolio-yabin-torres.vercel.app" }],
+      "destination": "https://www.yabintorres.com/:path*",
+      "statusCode": 301
+    },
+    {
       "source": "/cases/resilienciaenuncaja-mockup.html",
       "destination": "/cases/resilienciaenuncaja.html",
       "statusCode": 301
