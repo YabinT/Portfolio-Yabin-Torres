@@ -1,0 +1,378 @@
+---
+title: "ARISE MX Newsletter — Yabin Torres"
+description: "The monthly newsletter of a Mexican disaster-response network, turned from a layout rebuilt every month into a fixed template. Open rate up from 20.3% to 27.6%."
+---
+{% extends "base.njk" %}
+
+{% block head %}
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet" />
+  <style>
+    /* Component board for section 03. Values are copied from the template's own
+       stylesheet (June 2026 edition), so the board shows what was
+       sent, not an approximation. Scoped under .nl- to stay out of the shared sheet. */
+    /* Hero composite reads small at the shared size: 15% larger here only. */
+    .hero-project-logo { max-width: 442px; }
+    @media (max-width: 560px) { .hero-project-logo { max-width: 115px; } }
+
+    /* Before / After titles over the opening image pair. */
+    .nl-pair-title { margin-bottom: 24px; }
+
+    .nl-board {
+      --nl-page: #CFE0D7; --nl-card: #EAF2EE; --nl-dark: #12352D; --nl-primary: #1E6D55;
+      --nl-accent: #66E39D; --nl-tint: #DFF2E8; --nl-ink: #0B1F3B; --nl-text: #22303A;
+      background: var(--nl-page);
+      border-radius: 2px;
+      padding: 48px;
+      font-family: 'Lato', Helvetica, Arial, sans-serif;
+      color: var(--nl-text);
+    }
+    .nl-label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.4;
+      color: #3F5A50;
+      margin-top: 10px;
+    }
+    .nl-group-title {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--nl-dark);
+      margin: 0 0 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(18, 53, 45, .18);
+    }
+    .nl-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; }
+    .nl-stack > * + * { margin-top: 28px; }
+
+    /* Palettes */
+    .nl-palettes { margin-bottom: 48px; }
+    .nl-swatches { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+    .nl-swatch { height: 56px; border-radius: 8px; box-shadow: inset 0 0 0 1px rgba(18,53,45,.22); }
+    .nl-swatch-hex { display: block; font-family: var(--font-mono); font-size: 11px; color: #3F5A50; margin-top: 6px; }
+
+    /* Type */
+    .nl-h1 { font-size: 36px; line-height: 1.05; font-weight: 900; color: var(--nl-ink); margin: 0; }
+    .nl-h2 { font-size: 22px; line-height: 1.2; font-weight: 900; color: var(--nl-ink); margin: 0; }
+    .nl-p { font-size: 16px; line-height: 1.7; color: var(--nl-text); margin: 0; }
+    .nl-highlight { display: inline-block; padding: 0 6px 2px; border-radius: 8px; background: var(--nl-tint); box-shadow: inset 0 0 0 2px var(--nl-accent); }
+
+    /* Actions and labels */
+    .nl-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .nl-btn { display: inline-block; padding: 12px 16px; border-radius: 24px; font-size: 16px; font-weight: 800; line-height: 1.4; white-space: nowrap; }
+    .nl-btn--primary { background: var(--nl-primary); color: #FFFFFF; }
+    .nl-btn--secondary { background: #FFFFFF; color: var(--nl-dark); border: 1px solid #D6E6DE; }
+    .nl-kicker { display: inline-block; font-size: 14px; letter-spacing: .14em; font-weight: 900; color: var(--nl-primary); background: var(--nl-tint); padding: 6px 10px; border-radius: 999px; box-shadow: inset 0 0 0 2px var(--nl-accent); }
+    .nl-tag-dark { display: inline-block; font-size: 14px; letter-spacing: .12em; font-weight: 900; color: #CFF6E4; background: #163F35; padding: 6px 10px; border-radius: 999px; box-shadow: inset 0 0 0 2px var(--nl-accent); }
+
+    /* Cards */
+    .nl-card { background: var(--nl-card); border-radius: 8px; padding: 24px; }
+    .nl-card--dark { background: var(--nl-dark); }
+    .nl-card--dark .nl-card-title { font-size: 28px; line-height: 1.12; font-weight: 900; color: #FFFFFF; margin: 12px 0 10px; }
+    .nl-card--dark .nl-p { color: #D4E7E2; margin-bottom: 14px; }
+    .nl-card .nl-h2 { margin-top: 10px; }
+    .nl-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .nl-metric { background: #FFFFFF; border-radius: 8px; padding: 14px; box-shadow: inset 0 0 0 2px var(--nl-accent); }
+    .nl-metric-num { display: block; font-size: 26px; line-height: 1; font-weight: 900; color: var(--nl-ink); }
+    .nl-metric-lbl { display: block; font-size: 14px; line-height: 1.3; font-weight: 900; color: var(--nl-dark); text-transform: uppercase; letter-spacing: .12em; margin-top: 6px; }
+
+    @media (max-width: 900px) {
+      .nl-board { padding: 28px 20px; }
+      .nl-grid { grid-template-columns: 1fr; gap: 36px; }
+      .nl-h1 { font-size: 30px; }
+    }
+    @media (max-width: 560px) {
+      .nl-swatches { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .nl-metrics { grid-template-columns: 1fr; }
+      .nl-metric-lbl { font-size: 12px; }
+      .nl-btn { white-space: normal; }
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+
+  <!-- -- NAV ---------------------------------------------------- -->
+  <nav>
+    <a href="../index.html" class="nav-return">
+      <span class="back-arrow"></span> Return
+    </a>
+    <ul class="nav-links">
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- -- HERO INTRO --------------------------------------------- -->
+  <div class="hero-intro-fixed">
+  <section class="hero-intro wrap reveal">
+    <div class="hero-intro-grid">
+      <div class="hero-visual">
+        <img src="../assets/images/newsletter/hero-editions.webp" alt="The March, June and August 2026 editions, stacked — three months on one template" class="hero-project-logo" />
+      </div>
+      <div class="hero-content">
+        <h1 class="hero-title">ARISE MX<br>Newsletter</h1>
+        <p class="hero-para">The monthly newsletter of a disaster-response network in Mexico, shared by ARISE MX and Unidos por Ellxs. I took it over in October 2025 and replaced a layout rebuilt every month with a template the team fills. Open rate went from 20.3% to 27.6%.</p>
+        <div class="case-info-table" aria-label="Case study information">
+          <div class="case-info-row">
+            <span class="case-info-label">Role</span>
+            <span class="case-info-value">Email Design &middot; Editorial Production</span>
+          </div>
+          <div class="case-info-row">
+            <span class="case-info-label">Type</span>
+            <span class="case-info-value">Email &middot; Nonprofit &middot; Disaster Response</span>
+          </div>
+          <div class="case-info-row">
+            <span class="case-info-label">Tools</span>
+            <span class="case-info-value">Mailchimp &middot; Hand-coded HTML email</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- -- SECTIONS WRAPPER -------------------------------------- -->
+  <div class="sections-wrapper">
+
+  <!-- -- 00 BEFORE / AFTER ------------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="img-pair">
+      <figure class="img-trio-figure">
+        <h2 class="section-heading nl-pair-title">Before</h2>
+        <div class="img-placeholder img-half js-lightbox js-lightbox-wide">
+          <img src="../assets/images/newsletter/before-2025.jpg" alt="An edition from June 2025, before the redesign" />
+        </div>
+        <figcaption>June 2025</figcaption>
+      </figure>
+      <figure class="img-trio-figure">
+        <h2 class="section-heading nl-pair-title">After</h2>
+        <div class="img-placeholder img-half js-lightbox js-lightbox-wide">
+          <img src="../assets/images/newsletter/system-feb-2026.jpg" alt="The February 2026 edition, the first built on the template" />
+        </div>
+        <figcaption>February 2026</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- -- 01 FIRST MONTHS · TEXT -------------------------------- -->
+  <section class="section section-panel wrap reveal context-section">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">The content changed first</h2>
+      </div>
+      <div class="section-body">
+        <p>The newsletter I inherited opened with an illustration and a date, then pasted the first lines of each article between brackets and sent the reader elsewhere to finish it. Nothing said what the edition was about or what to do next.</p>
+        <p>My first editions fixed the message: impact figures at the top and one donation button. The design did not follow. Each month was built from scratch — teal in November, blue in December, a different grid in January.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 01 FIRST MONTHS · TRIO -------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="img-trio">
+      <figure class="img-trio-figure">
+        <div class="img-trio-item js-lightbox js-lightbox-wide">
+          <img src="../assets/images/newsletter/first-nov-2025.jpg" alt="November 2025 edition" />
+        </div>
+        <figcaption>November 2025</figcaption>
+      </figure>
+      <figure class="img-trio-figure">
+        <div class="img-trio-item js-lightbox js-lightbox-wide">
+          <img src="../assets/images/newsletter/first-dec-2025.jpg" alt="December 2025 edition" />
+        </div>
+        <figcaption>December 2025</figcaption>
+      </figure>
+      <figure class="img-trio-figure">
+        <div class="img-trio-item js-lightbox js-lightbox-wide">
+          <img src="../assets/images/newsletter/first-jan-2026.jpg" alt="January 2026 edition" />
+        </div>
+        <figcaption>January 2026</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- -- 02 TEMPLATE · TEXT ------------------------------------ -->
+  <section class="section section-panel wrap reveal context-section">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">A template the team fills, not a layout I redraw</h2>
+      </div>
+      <div class="section-body">
+        <p>In February 2026 the newsletter got a fixed anatomy: menu, a label on top, one headline, two buttons — donate and volunteer — the partner strip, and dark sections tagged by topic.</p>
+        <p>Each area of the organization owns a section and sends its content; I edit it and assemble the edition. A new month now changes the stories, not the layout. Every edition since is built on it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 02 TEMPLATE · ROW ------------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <figure class="img-trio-figure">
+      <div class="js-lightbox js-lightbox-wide">
+        <img class="img-full-width" src="../assets/images/newsletter/system-mar-aug-2026.jpg" alt="Six editions from March to August 2026, all built on the same template" />
+      </div>
+      <figcaption>March to August 2026 — same template, six editions</figcaption>
+    </figure>
+  </section>
+
+  <!-- -- 03 COMPONENTS · TEXT ---------------------------------- -->
+  <section class="section section-panel wrap reveal context-section">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">Few parts, fixed values</h2>
+      </div>
+      <div class="section-body">
+        <p>The template is a short list of components with fixed values: 8px corners on cards, 24px padding, pill buttons, one typeface. Colour lives in a handful of values: when August featured partner CADENA, the edition took their blue without touching the layout.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 03 COMPONENTS · BOARD --------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="nl-board" aria-label="Newsletter components and values">
+
+      <div class="nl-palettes">
+        <div>
+          <h3 class="nl-group-title">Palette</h3>
+          <div class="nl-swatches">
+            <div><div class="nl-swatch" style="background:#CFE0D7"></div><span class="nl-swatch-hex">#CFE0D7</span></div>
+            <div><div class="nl-swatch" style="background:#EAF2EE"></div><span class="nl-swatch-hex">#EAF2EE</span></div>
+            <div><div class="nl-swatch" style="background:#12352D"></div><span class="nl-swatch-hex">#12352D</span></div>
+            <div><div class="nl-swatch" style="background:#1E6D55"></div><span class="nl-swatch-hex">#1E6D55</span></div>
+            <div><div class="nl-swatch" style="background:#66E39D"></div><span class="nl-swatch-hex">#66E39D</span></div>
+            <div><div class="nl-swatch" style="background:#DFF2E8"></div><span class="nl-swatch-hex">#DFF2E8</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nl-grid">
+        <div class="nl-stack">
+          <h3 class="nl-group-title">Type · Lato</h3>
+          <div>
+            <p class="nl-h1">La ayuda continúa. La <span class="nl-highlight">solidaridad</span> también.</p>
+            <span class="nl-label">Headline · 36 / 1.05 · 900 · highlight: 2px accent outline</span>
+          </div>
+          <div>
+            <p class="nl-h2">Topos Azteca: cuando la experiencia salva vidas</p>
+            <span class="nl-label">Card title · 22 / 1.2 · 900</span>
+          </div>
+          <div>
+            <p class="nl-p">Historias de quienes responden, se preparan y colaboran para fortalecer la atención humanitaria.</p>
+            <span class="nl-label">Body · 16 / 1.7 · 400</span>
+          </div>
+
+          <h3 class="nl-group-title">Actions and labels</h3>
+          <div>
+            <div class="nl-row">
+              <span class="nl-btn nl-btn--primary">Dona ahora</span>
+              <span class="nl-btn nl-btn--secondary">Únete como voluntario</span>
+            </div>
+            <span class="nl-label">Buttons · 16 · 800 · 12×16 padding · 24px radius</span>
+          </div>
+          <div>
+            <div class="nl-row">
+              <span class="nl-kicker">BOLETÍN RESILIENCIA JULIO 2026</span>
+            </div>
+            <span class="nl-label">Kicker · 14 · 900 · tracking .14em · pill</span>
+          </div>
+        </div>
+
+        <div class="nl-stack">
+          <h3 class="nl-group-title">Cards</h3>
+          <div>
+            <div class="nl-card">
+              <span class="nl-kicker">COMUNIDAD Y RESILIENCIA</span>
+              <p class="nl-h2">Zilacayota: la comunidad donde la resiliencia forma parte de su historia</p>
+            </div>
+            <span class="nl-label">Light card · 8px radius · 24px padding</span>
+          </div>
+          <div>
+            <div class="nl-metrics">
+              <div class="nl-metric"><span class="nl-metric-num">3</span><span class="nl-metric-lbl">Capacitaciones</span></div>
+              <div class="nl-metric"><span class="nl-metric-num">2</span><span class="nl-metric-lbl">Municipios</span></div>
+              <div class="nl-metric"><span class="nl-metric-num">105</span><span class="nl-metric-lbl">Negocios</span></div>
+            </div>
+            <span class="nl-label">Metric card · 26 · 900 · 2px accent outline</span>
+          </div>
+          <div>
+            <div class="nl-card nl-card--dark">
+              <span class="nl-tag-dark">EMERGENCIA ACTIVA</span>
+              <p class="nl-card-title">Unidos por Venezuela: la solidaridad frente a la emergencia</p>
+              <p class="nl-p">La Red Unidos por Ellos activó sus mecanismos de coordinación para impulsar ayuda humanitaria inmediata.</p>
+              <span class="nl-btn nl-btn--primary">Lee la nota completa</span>
+            </div>
+            <span class="nl-label">Dark story card · title 28 · 900 · body on #D4E7E2</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- -- 03 RESULTS · TEXT ------------------------------------- -->
+  <section class="section section-panel context-section wrap reveal">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">More people open it. Clicks didn't follow</h2>
+      </div>
+      <div class="section-body">
+        <p>Open rate rose 36% and stopped swinging: every edition since November has landed between 25% and 32%.</p>
+        <p>Clicks went the other way: 2.0% on average, down from 2.3%, with two editions at 5.7% and 4.2%. The newsletter now gets opened; it doesn't yet get people to act. That is the next problem.</p>
+        <p><em>Mailchimp data: 5 newsletters from June to August 2025, against 11 from November 2025 to August 2026. Meeting invitations and alerts excluded.</em></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 03 RESULTS · KPI ------------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="kpi-grid" aria-label="Newsletter results">
+      <article class="kpi-card kpi-card--highlight">
+        <span class="kpi-index">Open rate</span>
+        <span class="kpi-stat">27.6%</span>
+        <p>Average across 11 editions. It was 20.3% before.</p>
+      </article>
+      <article class="kpi-card">
+        <span class="kpi-index">Change</span>
+        <span class="kpi-stat">+36%</span>
+        <p>7.3 percentage points more opens per edition.</p>
+      </article>
+      <article class="kpi-card">
+        <span class="kpi-index">Range</span>
+        <span class="kpi-stat">25–32%</span>
+        <p>Every edition since November. Before, editions ranged from 18% to 27%.</p>
+      </article>
+      <article class="kpi-card">
+        <span class="kpi-index">Click rate</span>
+        <span class="kpi-stat">2.0%</span>
+        <p>Down from 2.3%. The next thing to fix.</p>
+      </article>
+    </div>
+  </section>
+
+  </div><!-- /.sections-wrapper -->
+
+<!-- -- FOOTER -------------------------------------------------- -->
+  <footer>
+    <div class="nav-inner">
+      <span class="footer-name">Yabin Torres — 2026</span>
+      <span class="footer-links">
+        <a href="https://www.linkedin.com/in/yabintorres/" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp;·&nbsp;
+        <a href="https://www.behance.net/YabinTorres" target="_blank" rel="noopener noreferrer">Behance</a> &nbsp;·&nbsp;
+        <a href="/contact.html">Contact</a>
+      </span>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">×</button>
+    <div class="lightbox-inner">
+      <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+    </div>
+  </div>
+
+  <script src="../js/case-study.js"></script>
+
+{% endblock %}
