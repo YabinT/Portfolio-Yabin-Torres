@@ -4,6 +4,15 @@ description: "A visual-first builder for customizable prescription eyewear, and 
 ---
 {% extends "base.njk" %}
 
+{% block head %}
+  <style>
+    /* Hero composite reads small at the shared size: 32% larger here only,
+       15% over the newsletter case. */
+    .hero-project-logo { max-width: 508px; }
+    @media (max-width: 560px) { .hero-project-logo { max-width: 132px; } }
+  </style>
+{% endblock %}
+
 {% block body %}
 
   <!-- -- NAV ---------------------------------------------------- -->
@@ -21,7 +30,7 @@ description: "A visual-first builder for customizable prescription eyewear, and 
   <section class="hero-intro wrap reveal">
     <div class="hero-intro-grid">
       <div class="hero-visual">
-        <img src="../assets/images/interactiity/perspective.png" alt="Eyewear frame modelled in Blender" class="hero-project-logo" />
+        <img src="../assets/images/interactiity/hero-screens.webp" alt="The CMS, the eyewear builder and the store on mobile" class="hero-project-logo" />
       </div>
       <div class="hero-content">
         <h1 class="hero-title">M14 ID</h1>

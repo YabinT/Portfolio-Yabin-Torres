@@ -6,6 +6,11 @@ description: "Site redesign for a Mexican civil society organization that coordi
 
 {% block head %}
   <style>
+    /* Hero composite reads small at the shared size: 32% larger here only,
+       15% over the newsletter case. */
+    .hero-project-logo { max-width: 508px; }
+    @media (max-width: 560px) { .hero-project-logo { max-width: 132px; } }
+
     /* This case's decision map has two branches, not four. Scoped here so the
        shared stylesheet keeps serving the four-column version it was built for.
        Below 900px the shared stylesheet flattens the rows into finding/decision
@@ -13,6 +18,13 @@ description: "Site redesign for a Mexican civil society organization that coordi
     .decision-findings,
     .decision-arrows,
     .decision-outputs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    /* Jobs to be done has three cards, not four: three columns so the row
+       spans the same width as the text above it. Below 900px the shared
+       stylesheet already drops to two columns, then one. */
+    @media (min-width: 901px) {
+      [aria-label="Jobs to be done"] .kpi-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
   </style>
 {% endblock %}
 
@@ -33,7 +45,7 @@ description: "Site redesign for a Mexican civil society organization that coordi
   <section class="hero-intro wrap reveal">
     <div class="hero-intro-grid">
       <div class="hero-visual">
-        <img src="../assets/images/unidosporellxs/logo-uxe-blanco.webp" alt="Unidos por Ellxs" class="hero-project-logo" />
+        <img src="../assets/images/unidosporellxs/hero-screens.webp" alt="The donation page on desktop and mobile, and the campaign homepage" class="hero-project-logo" />
       </div>
       <div class="hero-content">
         <h1 class="hero-title">Unidos<br>por Ellxs</h1>

@@ -6,6 +6,11 @@ description: "Digital strategy for a Mexican trends-research agency with the bes
 
 {% block head %}
   <style>
+    /* Hero composite reads small at the shared size: 32% larger here only,
+       15% over the newsletter case. */
+    .hero-project-logo { max-width: 508px; }
+    @media (max-width: 560px) { .hero-project-logo { max-width: 132px; } }
+
     /* Status notice — scoped to this case study, which documents an approved
        proposal rather than a shipped site. */
     .status-note {
@@ -51,7 +56,7 @@ description: "Digital strategy for a Mexican trends-research agency with the bes
   <section class="hero-intro wrap reveal">
     <div class="hero-intro-grid">
       <div class="hero-visual">
-        <img src="../assets/images/trendo/wordmark.jpg" alt="Trendo.mx" class="hero-project-logo" />
+        <img src="../assets/images/trendo/hero-screens.webp" alt="Prototype screens: services, homepage and the study download card" class="hero-project-logo" />
       </div>
       <div class="hero-content">
         <h1 class="hero-title">Trendo.mx</h1>

@@ -4,6 +4,15 @@ description: "An online learning platform that helps small and medium-sized busi
 ---
 {% extends "base.njk" %}
 
+{% block head %}
+  <style>
+    /* Hero composite reads small at the shared size: 45% larger here only.
+       This composite is wider than tall, so it gets 10% over the other cases. */
+    .hero-project-logo { max-width: 559px; }
+    @media (max-width: 560px) { .hero-project-logo { max-width: 145px; } }
+  </style>
+{% endblock %}
+
 {% block body %}
 
   <!-- -- NAV ---------------------------------------------------- -->
@@ -21,7 +30,7 @@ description: "An online learning platform that helps small and medium-sized busi
   <section class="hero-intro wrap reveal">
     <div class="hero-intro-grid">
       <div class="hero-visual">
-        <img src="../assets/images/resilienciaenuncaja/LogoSVG B&W.svg" alt="Resiliencia en una Caja" class="hero-project-logo" />
+        <img src="../assets/images/resilienciaenuncaja/hero-screens.webp" alt="Diagnostic results on desktop and the homepage on mobile" class="hero-project-logo" />
       </div>
       <div class="hero-content">
         <h1 class="hero-title">Resiliencia<br>en una caja</h1>
