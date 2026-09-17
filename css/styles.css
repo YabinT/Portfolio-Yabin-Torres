@@ -651,6 +651,51 @@ nav {
   background: rgba(37, 196, 126, 0.06);
 }
 
+/* Closing call to action, full width under the masonry. It was the last
+   tile of the grid; as a banner it no longer depends on which column the
+   masonry happens to leave it in. */
+.feed-cta {
+  max-width: var(--grid-max);
+  margin: var(--space-xl) auto 0;
+  padding: var(--space-xl);
+  border: 1px solid var(--color-mint);
+  background: rgba(37, 196, 126, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xl);
+}
+
+/* A multi-column layout drops the bottom margin of whichever tile ends each
+   column, but a single column keeps it. Zeroing the last one gives the banner
+   the same --space-xl above it at every width. */
+.feed-masonry > .feed-tile:last-child { margin-bottom: 0; }
+
+.feed-cta-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  max-width: 64ch;
+}
+
+.feed-cta-title {
+  font-size: var(--text-h2);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.feed-cta .btn-primary { flex-shrink: 0; }
+
+@media (max-width: 900px) {
+  .feed-cta {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--space-lg);
+    gap: var(--space-lg);
+  }
+  .feed-cta-title { font-size: 28px; }
+}
+
 /* -- SITE FOOTER ---------------------------------------- */
 .site-footer {
   padding: var(--space-lg) var(--pad-x);
