@@ -54,8 +54,7 @@ body {
 
 a { color: inherit; text-decoration: none; }
 
-/* Read by search engines and screen readers, takes no space on screen. The
-   home's H1 lives here: its hero is an interaction, not a headline. */
+/* Read by search engines and screen readers, takes no space on screen. */
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -124,6 +123,40 @@ nav {
   height: calc(100svh - 96px);
   min-height: 480px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The line that says who this is for sits above the bubbles, not on top of
+   them: the stage below takes whatever height is left, so the physics never
+   push a bubble under the text. */
+.hero-intro {
+  position: relative;
+  z-index: 1;
+  padding: var(--space-xl) var(--pad-x) 0;
+}
+
+.hero-title {
+  max-width: 22ch;
+  text-wrap: balance;
+  font-size: clamp(30px, 3.4vw, 52px);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+}
+
+.hero-title .nowrap { white-space: nowrap; }
+
+.hero-sub {
+  margin-top: var(--space-md);
+  font-size: var(--text-h3);
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.hero-stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
 }
 
 .hero-network {
@@ -875,9 +908,11 @@ nav {
   /* "See work" already does this job here, and the two overlap at the bottom. */
   .hero-scroll-cue { display: none; }
 
-  .nav-links { gap: var(--space-lg); }
+  /* Four links since Bio joined the menu: tighter gaps keep the name on
+     one line at 390px. */
+  .nav-links { gap: var(--space-md); }
   .nav-links a,
-  .nav-logo { font-size: var(--text-h4); }
+  .nav-logo { font-size: var(--text-h4); white-space: nowrap; }
 
   /* The page-head keeps its line breaks as a desktop composition; below this
      width they strand single words, so let the heading wrap on its own. */
@@ -885,7 +920,48 @@ nav {
 
   .services-grid  { grid-template-columns: 1fr; }
   .feed-masonry   { columns: 1; }
-  .services-cards { grid-template-columns: 1fr; gap: var(--space-2xl); }
+  .services .services-heading br { display: none; }
+
+  /* Four stacked cards pushed the work ~3,300px down. Here they become a
+     list of tappable rows — the paragraphs live on services.html anyway. */
+  .services-cards { grid-template-columns: 1fr; gap: 0; margin-top: var(--space-xl); }
+
+  .service-card {
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-md) 0;
+  }
+
+  .service-card:last-child { border-bottom: 1px solid var(--color-border); }
+
+  .service-card-title { font-size: 26px; }
+  .service-card-title br { display: none; }
+
+  .service-card p { display: none; }
+
+  .service-card-link {
+    align-self: center;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 0;
+  }
+
+  .service-card-link::before {
+    font-size: var(--text-h2);
+    margin: 0;
+  }
+
+  /* The whole row is the target, not just the arrow. */
+  .service-card-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .service-card:hover .service-card-link { color: var(--color-mint); }
 
   .site-footer-inner {
     flex-direction: column;
@@ -893,6 +969,111 @@ nav {
     gap: var(--space-sm);
     font-size: var(--text-body);
   }
+}
+
+/* -- BIO PAGE (bio.html) --------------------------------- */
+/* Same bones as the services page: page-head on top, then sections under a
+   rule, each holding the inset width the home grids use. */
+.bio-section {
+  padding: var(--space-2xl) var(--pad-x);
+  border-top: 1px solid var(--color-border);
+}
+
+.bio-inner {
+  max-width: var(--grid-max);
+  margin: 0 auto;
+}
+
+.bio-title {
+  font-size: var(--text-h2);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-xl);
+}
+
+/* The through-line reads as a statement beside its explanation. */
+.bio-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: var(--space-2xl);
+}
+
+.bio-split .bio-title { margin-bottom: 0; }
+
+.bio-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.bio-body p,
+.bio-item p {
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 62ch;
+}
+
+.bio-list { list-style: none; }
+
+/* Dates in their own column so the eye can run down the timeline. */
+.bio-item {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: var(--space-lg);
+  padding: var(--space-lg) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.bio-item:last-child { border-bottom: 1px solid var(--color-border); }
+
+.bio-when {
+  font-size: var(--text-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+  padding-top: 5px;
+}
+
+.bio-role {
+  font-size: var(--text-h3);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.bio-org {
+  display: block;
+  margin: var(--space-xs) 0 var(--space-sm);
+  font-size: var(--text-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mint);
+}
+
+.bio-note {
+  margin-top: var(--space-lg);
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.bio-skills {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-xl) var(--space-lg);
+}
+
+.bio-skills dt {
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+}
+
+.bio-skills dd { color: rgba(255, 255, 255, 0.72); }
+
+.bio-section--cta { padding-bottom: var(--space-3xl); }
+.bio-section--cta .feed-cta { margin-top: 0; }
+
+@media (max-width: 900px) {
+  .bio-split { grid-template-columns: 1fr; gap: var(--space-lg); }
+  .bio-item  { grid-template-columns: 1fr; gap: var(--space-xs); }
+  .bio-when  { padding-top: 0; }
 }
 
 /* -- SOFT CTA ------------------------------------------------
