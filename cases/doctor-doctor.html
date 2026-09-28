@@ -1,0 +1,869 @@
+---
+title: "Doctor, doctor!? — Yabin Torres"
+description: "A service design concept for CatSalut: people in Barcelona who cannot register an address are locked out of primary care. The fix runs through the nonprofits they already trust."
+bodyClass: "case-light dd-case"
+---
+{% extends "base.njk" %}
+
+{% block head %}
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Doctor, doctor!? takes the visual language of its own pitch deck:
+       Figtree, ink instead of black, a soft grey ground for cards, pill
+       shapes and the lilac / sky / lime / coral palette. Everything is
+       scoped to body.dd-case or the .dd- prefix, on top of .case-light. */
+    body.case-light.dd-case {
+      --bg:        #FFFFFF;
+      --surface:   #F3F4F6;
+      --border:    rgba(43, 42, 76, 0.14);
+      --border-sec:#2B2A4C;
+      --text:      #2B2A4C;
+      --muted:     #2B2A4C;
+      --dim:       #2B2A4C;
+      /* The deck's royal (#3E6CE6) darkened one step so 13px labels
+         clear AA on both white and the grey card ground. */
+      --mint:      #2F56C9;
+      --mint-line: rgba(47, 86, 201, 0.35);
+      --font-serif: 'Figtree', 'DM Sans', system-ui, sans-serif;
+      --font-sans:  'Figtree', 'DM Sans', system-ui, sans-serif;
+      --font-mono:  'Figtree', 'DM Sans', system-ui, sans-serif;
+
+      --dd-ink: #2B2A4C; --dd-muted: #5E5C78; --dd-faint: #8A89A0; --dd-rule: #DCDDE3;
+      --dd-grey: #F3F4F6; --dd-paper: #FFFFFF;
+      --dd-lilac: #D895EE; --dd-lilac-soft: #F0D9F9;
+      --dd-sky: #7FCBEF;   --dd-sky-soft: #D9EFFA;
+      --dd-coral: #F47E57; --dd-coral-soft: #FDDDD0;
+      --dd-lime: #A5B81E;  --dd-lime-soft: #E8EDC4;
+      --dd-sage: #B9D9C3;  --dd-royal: #3E6CE6; --dd-slate: #5E7F86;
+    }
+    .dd-case .hero-title,
+    .dd-case .section-heading { font-weight: 600; letter-spacing: -0.02em; }
+    .dd-case .hero-title { line-height: 1.02; }
+    .dd-case .case-info-label { border-bottom-color: var(--dd-ink); }
+    .dd-case .decision-card--source,
+    .dd-case .kpi-card--highlight { border-color: rgba(47, 86, 201, 0.4); }
+    .dd-case .section-body a { color: var(--text); }
+
+    /* Pill highlight behind words, as in the deck */
+    .dd-hl { border-radius: 999px; padding: 0 .28em; margin: 0 -.05em;
+      -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+    .dd-hl--lilac { background: var(--dd-lilac); } .dd-hl--sky { background: var(--dd-sky); }
+    .dd-hl--lime  { background: var(--dd-lime); }
+
+    /* -- Hero: the deck's cover, bands and a ringed portrait ------ */
+    .dd-cover { position: relative; width: 100%; max-width: 440px; aspect-ratio: 1; }
+    .dd-cover::before, .dd-cover::after { content: ""; position: absolute; border-radius: 999px; }
+    .dd-cover::before { left: 18%; top: 4%; width: 44%; height: 104%; background: var(--dd-sage); opacity: .75; transform: rotate(-38deg); }
+    .dd-cover::after  { left: 42%; top: -6%; width: 34%; height: 80%; background: var(--dd-lime); transform: rotate(-38deg); }
+    .dd-cover-portrait { position: absolute; z-index: 1; inset: 14%; border-radius: 50%;
+      border: 12px solid #8C9E14; background: center 22% / cover no-repeat; }
+    .dd-credit { font-size: 13px; line-height: 1.4; color: var(--dd-muted); margin-top: -16px; }
+
+    /* -- Boards: one "slide" per diagram ------------------------- */
+    .dd-board { background: var(--dd-grey); border-radius: 20px; padding: 56px; color: var(--dd-ink);
+      font-family: 'Figtree', system-ui, sans-serif; display: grid; gap: 36px; position: relative; overflow: hidden; }
+    .dd-board--lilac { background: var(--dd-lilac); }
+    .dd-board--dark  { background: var(--dd-ink); color: #F5F3FB; }
+    .dd-label { display: flex; align-items: center; gap: 12px; margin-left: -56px; font-size: 14px; font-weight: 600; }
+    .dd-label::before { content: ""; width: 34px; height: 20px; border-radius: 0 999px 999px 0; background: var(--c, var(--dd-sky)); }
+    .dd-display { margin: 0; font-size: 40px; line-height: 1.16; font-weight: 600; letter-spacing: -0.025em; max-width: 22ch; text-wrap: balance; }
+    .dd-sub { margin: 0; font-size: 19px; line-height: 1.45; color: var(--dd-muted); max-width: 58ch; }
+    .dd-board--lilac .dd-sub { color: #3A3060; }
+    .dd-board--dark .dd-sub { color: #C7C3E0; }
+    .dd-board--dark .dd-hl { color: var(--dd-ink); }
+    .dd-tag { justify-self: start; border-radius: 999px; padding: 4px 12px; font-size: 13px; font-weight: 700; background: var(--dd-lilac-soft); }
+
+    /* The care ladder */
+    .dd-ladder { display: grid; grid-template-columns: repeat(6, 1fr); align-items: end; gap: 16px; max-width: 760px; }
+    .dd-ladder > div { display: grid; gap: 8px; justify-items: center; text-align: center; }
+    .dd-cap { width: 60px; border-radius: 999px; background: var(--k); }
+    .dd-code { font-size: 20px; font-weight: 700; }
+    .dd-ladder p { margin: 0; font-size: 14px; line-height: 1.3; color: var(--dd-muted); }
+    .dd-ladder .last .dd-code { color: #C9532D; }
+
+    /* Vision shifts */
+    .dd-shifts { display: grid; gap: 10px; }
+    .dd-shift { display: grid; grid-template-columns: 76px 1fr 24px 1.25fr; align-items: center; gap: 14px;
+      background: var(--dd-paper); border-radius: 16px; padding: 14px 20px; }
+    .dd-shift .k { border-radius: 999px; background: var(--c); font-size: 13px; font-weight: 700; text-align: center; padding: 4px 0; }
+    .dd-shift s { font-size: 16px; color: var(--dd-faint); }
+    .dd-shift .ar { color: var(--dd-faint); text-align: center; }
+    .dd-shift b { font-size: 17px; line-height: 1.3; font-weight: 700; }
+
+    /* Service safari path */
+    .dd-path { display: grid; grid-template-columns: repeat(5, 1fr) 1.3fr; align-items: start; }
+    .dd-st { display: grid; justify-items: center; text-align: center; gap: 10px; position: relative; padding: 0 8px; }
+    .dd-st::after { content: ""; position: absolute; top: 25px; left: calc(50% + 32px); right: calc(-50% + 32px); height: 4px; border-radius: 4px; background: var(--dd-rule); }
+    .dd-dot { width: 52px; height: 52px; border-radius: 50%; background: var(--dd-sky-soft); display: grid; place-items: center; font-size: 18px; font-weight: 700; }
+    .dd-st.warn .dd-dot { background: var(--dd-coral); color: #fff; }
+    .dd-st span:last-child { font-size: 15px; line-height: 1.3; font-weight: 600; }
+    .dd-st.warn::after { right: -8px; }
+    .dd-end { margin: 4px 0 0 10px; background: var(--dd-coral); border-radius: 999px; padding: 14px 18px; font-size: 18px; font-weight: 700; text-align: center; }
+    .dd-obs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .dd-obs > div, .dd-tint { background: var(--t); border-radius: 18px; padding: 20px 22px; display: grid; gap: 6px; align-content: start; }
+    .dd-obs h3, .dd-kicker { margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+    .dd-obs p { margin: 0; font-size: 16px; line-height: 1.45; }
+
+    /* The chain on the lilac board */
+    .dd-chain { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .dd-link { background: var(--dd-paper); border-radius: 999px; padding: 10px 20px; font-size: 16px; font-weight: 700; letter-spacing: .04em; }
+    .dd-link.locked { background: transparent; border: 2px dashed var(--dd-ink); }
+    .dd-chain .ar { font-size: 22px; opacity: .6; }
+    .dd-rings { position: absolute; right: -90px; top: 50%; width: 380px; transform: translateY(-50%); pointer-events: none; }
+    .dd-board--lilac > *:not(.dd-rings) { position: relative; z-index: 1; max-width: 640px; }
+
+    /* Insights */
+    .dd-ins { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .dd-ins > div { background: var(--dd-paper); border-radius: 18px; padding: 18px 16px; display: grid; gap: 10px; align-content: start; grid-template-rows: auto auto auto 1fr; }
+    .dd-n { width: 34px; height: 34px; border-radius: 50%; background: var(--c); display: grid; place-items: center; font-weight: 700; font-size: 14px; }
+    .dd-ins .saw { margin: 0; min-height: 84px; font-size: 16px; line-height: 1.32; font-weight: 700; }
+    .dd-ins .bc { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--dd-faint); border-top: 1px solid var(--dd-rule); padding-top: 10px; }
+    .dd-ins .why { margin: 0; font-size: 14px; line-height: 1.42; color: var(--dd-muted); }
+    .dd-band { background: var(--dd-ink); color: #F5F3FB; border-radius: 999px; padding: 16px 28px; font-size: 22px; font-weight: 600; text-align: center; margin: 0; }
+    .dd-band .dd-hl { color: var(--dd-ink); }
+
+    /* How might we */
+    .dd-hmw { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 16px; }
+    .dd-hmw > div { background: var(--dd-paper); border-radius: 18px; padding: 22px; display: grid; gap: 12px; align-content: start; }
+    .dd-hmw > div.win { background: var(--dd-lilac); }
+    .dd-hmw .win .dd-tag { background: var(--dd-paper); }
+    .dd-hmw .no { font-size: 13px; font-weight: 700; color: var(--dd-muted); }
+    .dd-hmw .win .no { color: var(--dd-ink); }
+    .dd-hmw h3 { margin: 0; font-size: 17px; line-height: 1.32; font-weight: 600; }
+    .dd-hmw .win h3 { font-size: 22px; font-weight: 700; line-height: 1.22; }
+    .dd-hmw p { margin: 0; font-size: 15px; line-height: 1.42; color: var(--dd-muted); }
+    .dd-hmw .win p { color: #3A3060; }
+    .dd-keyline { display: flex; align-items: center; gap: 16px; margin: 0; font-size: 22px; font-weight: 600; }
+    .dd-keyline .ic { flex: none; width: 48px; height: 48px; border-radius: 50%; background: var(--dd-lime); display: grid; place-items: center; }
+
+    /* Idea matrix */
+    .dd-split { display: grid; grid-template-columns: 7fr 5fr; gap: 48px; align-items: center; }
+    .dd-split--num { grid-template-columns: 5fr 7fr; }
+    .dd-stack { display: grid; gap: 18px; align-content: center; }
+    .dd-mx { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; background: var(--dd-paper); border-radius: 18px; overflow: hidden; min-height: 360px; }
+    .dd-mx > div { padding: 16px; display: flex; flex-wrap: wrap; align-content: flex-start; gap: 8px; border: 0 solid var(--dd-rule); }
+    .dd-mx > div:nth-child(1) { border-right-width: 2px; border-bottom-width: 2px; }
+    .dd-mx > div:nth-child(2) { border-bottom-width: 2px; background: #F8F3FC; }
+    .dd-mx > div:nth-child(3) { border-right-width: 2px; }
+    .dd-mx > div:nth-child(4) { background: #F8F3FC; }
+    .dd-mx .q { flex-basis: 100%; font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--dd-muted); }
+    .dd-mx .d { width: 28px; height: 28px; border-radius: 50%; background: var(--c); }
+    .dd-mx .d.in { width: auto; height: auto; border-radius: 999px; padding: 6px 12px; font-size: 13px; font-weight: 700; }
+    .dd-axis { display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--dd-faint); margin-top: 8px; }
+    .dd-bar { display: flex; height: 18px; border-radius: 999px; overflow: hidden; gap: 3px; }
+    .dd-legend { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+    .dd-legend li { display: grid; grid-template-columns: 18px 1fr auto; gap: 10px; align-items: center; font-size: 15px; }
+    .dd-legend i { width: 18px; height: 18px; border-radius: 50%; background: var(--c); }
+    .dd-note { background: var(--dd-lime); border-radius: 20px; padding: 22px 24px; display: grid; gap: 10px; }
+    .dd-note .dd-tag { background: var(--dd-paper); }
+    .dd-note h3 { margin: 0; font-size: 22px; line-height: 1.1; font-weight: 700; }
+    .dd-note p { margin: 0; font-size: 16px; line-height: 1.4; }
+
+    /* 88, on the dark board */
+    .dd-num { font-weight: 700; font-size: 160px; line-height: .82; letter-spacing: -0.05em; color: var(--dd-lilac); }
+    .dd-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .dd-duo > div { display: grid; gap: 8px; align-content: start; background: rgba(255,255,255,.08); border-radius: 18px; padding: 20px 22px; }
+    .dd-duo h3 { margin: 0; font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+    .dd-duo h3::before { content: ""; width: 16px; height: 10px; border-radius: 999px; background: var(--d); flex: none; }
+    .dd-duo p { margin: 0; font-size: 15px; line-height: 1.45; color: #C7C3E0; }
+
+    /* Metric cards */
+    .dd-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .dd-metrics > div { background: var(--t); border-radius: 18px; padding: 20px 22px; display: grid; gap: 4px; }
+    .dd-metrics b { font-size: 40px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
+    .dd-metrics span { font-size: 15px; line-height: 1.4; color: var(--dd-muted); }
+
+    /* Concept cards and partners */
+    .dd-cards3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .dd-cards3 > div { background: var(--dd-paper); border-radius: 18px; padding: 22px; display: grid; gap: 10px; align-content: start; }
+    .dd-cards3 .ic { width: 48px; height: 48px; border-radius: 50%; background: var(--t); display: grid; place-items: center; }
+    .dd-cards3 h3 { margin: 0; font-size: 18px; line-height: 1.25; font-weight: 700; }
+    .dd-cards3 p { margin: 0; font-size: 15px; line-height: 1.45; color: var(--dd-muted); }
+    .dd-partners { display: flex; flex-wrap: wrap; gap: 8px; }
+    .dd-partner { display: flex; align-items: center; gap: 10px; border-radius: 999px; padding: 8px 16px; background: var(--dd-paper); }
+    .dd-partner b { font-size: 15px; } .dd-partner span { font-size: 13px; color: var(--dd-muted); }
+    .dd-partner.host { background: var(--dd-lilac-soft); }
+    .dd-small { margin: 0; font-size: 13px; font-weight: 600; color: var(--dd-muted); }
+
+    /* Prototype mocks */
+    .dd-mocks { display: grid; grid-template-columns: 1fr 1fr .8fr; gap: 22px; align-items: end; }
+    .dd-mock { display: grid; gap: 10px; margin: 0; }
+    .dd-mock figcaption { font-size: 14px; font-weight: 600; color: var(--dd-muted); }
+    .dd-mock figcaption b { color: var(--dd-ink); }
+    .dd-scr { background: var(--dd-paper); border-radius: 16px; padding: 16px; display: grid; gap: 8px; box-shadow: 0 4px 14px rgba(43,42,76,.08); }
+    .dd-scr .top { font-size: 14px; font-weight: 700; display: flex; justify-content: space-between; gap: 10px; }
+    .dd-scr .top span { font-weight: 500; color: var(--dd-muted); }
+    .dd-proto { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; counter-reset: p; }
+    .dd-proto li { display: grid; grid-template-columns: 24px 1fr; gap: 8px; align-items: center; font-size: 14px; font-weight: 600; }
+    .dd-proto li::before { counter-increment: p; content: counter(p); width: 24px; height: 24px; border-radius: 50%; background: var(--dd-lime-soft); display: grid; place-items: center; font-size: 11px; font-weight: 700; }
+    .dd-row { display: grid; grid-template-columns: 14px 1fr; gap: 10px; align-items: start; background: var(--dd-grey); border-radius: 12px; padding: 8px 10px; }
+    .dd-row i { width: 14px; height: 14px; border-radius: 50%; background: var(--c); margin-top: 3px; }
+    .dd-row b { display: block; font-size: 14px; } .dd-row span { font-size: 12px; color: var(--dd-muted); }
+    .dd-btns { display: flex; gap: 8px; }
+    .dd-btns span { border-radius: 999px; padding: 6px 12px; font-size: 12px; font-weight: 700; background: var(--dd-ink); color: #fff; }
+    .dd-btns span + span { background: var(--dd-grey); color: var(--dd-ink); }
+    .dd-phone { background: var(--dd-ink); border-radius: 28px; padding: 10px; }
+    .dd-phone .dd-scr { border-radius: 20px; background: #EDEBE6; box-shadow: none; }
+    .dd-bub { max-width: 88%; border-radius: 12px; padding: 7px 10px; font-size: 12.5px; line-height: 1.35; background: var(--dd-paper); }
+    .dd-bub.me { justify-self: end; background: var(--dd-lime-soft); }
+    .dd-bub.voice { display: flex; align-items: center; gap: 8px; }
+    .dd-bub.voice::before { content: "▶"; font-size: 10px; }
+    .dd-bub.voice i { flex: 1; height: 6px; border-radius: 999px; background: repeating-linear-gradient(90deg, var(--dd-ink) 0 3px, transparent 3px 6px); opacity: .45; }
+
+    /* Blueprint, three layers */
+    .dd-bp { display: grid; grid-template-columns: 140px repeat(3, 1fr); gap: 10px; }
+    .dd-bp .hd { font-size: 14px; font-weight: 700; text-align: center; padding: 7px; border-radius: 999px; background: var(--dd-paper); }
+    .dd-bp .rl { display: grid; align-content: center; gap: 2px; font-size: 15px; font-weight: 700; }
+    .dd-bp .rl small { font-size: 12px; font-weight: 500; color: var(--dd-muted); }
+    .dd-bp .c { border-radius: 14px; padding: 14px 16px; font-size: 14.5px; line-height: 1.42; }
+    .dd-bp .c.front { background: var(--dd-lilac-soft); font-weight: 600; }
+    .dd-bp .c.touch { background: var(--dd-paper); }
+    .dd-bp .c.back { background: var(--dd-ink); color: #E9E6F5; }
+    .dd-bp .vis { grid-column: 1 / -1; display: flex; align-items: center; gap: 12px; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--dd-royal); }
+    .dd-bp .vis::after { content: ""; flex: 1; border-top: 2px dashed var(--dd-royal); }
+
+    /* ROI */
+    .dd-roi { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; }
+    .dd-cost { display: grid; gap: 16px; }
+    .dd-cost .row { display: grid; gap: 6px; }
+    .dd-cost .row b { font-size: 16px; } .dd-cost .row span { font-size: 14px; color: var(--dd-muted); }
+    .dd-track { height: 32px; border-radius: 999px; background: var(--dd-paper); position: relative; overflow: hidden; }
+    .dd-track i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 999px; }
+    .dd-ratio { display: flex; align-items: baseline; gap: 16px; }
+    .dd-ratio .big { font-size: 72px; font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #C24A22; white-space: nowrap; }
+    .dd-ratio span { font-size: 16px; line-height: 1.4; max-width: 26ch; }
+    .dd-measure { display: grid; gap: 8px; }
+    .dd-measure > div { display: grid; grid-template-columns: 120px 1fr; gap: 14px; align-items: center; background: var(--dd-paper); border-radius: 999px; padding: 8px 10px; }
+    .dd-measure .k { border-radius: 999px; background: var(--c); text-align: center; font-size: 13px; font-weight: 700; padding: 5px 8px; }
+    .dd-measure p { margin: 0; font-size: 14.5px; line-height: 1.3; }
+
+    /* Impact chain */
+    .dd-chain5 { display: grid; grid-template-columns: repeat(5, 1fr); align-items: end; gap: 12px; }
+    .dd-chain5 > div { display: grid; grid-template-rows: auto 120px auto; justify-items: center; align-items: center; text-align: center; gap: 10px; position: relative; }
+    .dd-chain5 .step { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--dd-muted); }
+    .dd-ball { border-radius: 50%; background: var(--c); display: grid; place-items: center; font-weight: 700; letter-spacing: -0.03em; width: var(--s); height: var(--s); font-size: calc(var(--s) * .42); }
+    .dd-chain5 > div:not(:last-child)::after { content: "→"; position: absolute; right: -14px; top: 78px; font-size: 20px; color: var(--dd-faint); }
+    .dd-chain5 p { margin: 0; font-size: 14.5px; line-height: 1.38; min-height: 60px; max-width: 20ch; }
+    .dd-closer { background: var(--dd-ink); color: #F5F3FB; border-radius: 20px; padding: 24px 30px; display: grid; gap: 6px; }
+    .dd-closer p { margin: 0; font-size: 24px; line-height: 1.25; font-weight: 600; }
+    .dd-closer .dd-hl { color: var(--dd-ink); }
+
+    /* Photos and canvases get the deck's rounded corners */
+    .dd-case .img-full-width,
+    .dd-case .img-half img { border-radius: 16px; }
+    .dd-fig { min-width: 0; }
+    .dd-fig .dd-canvas { aspect-ratio: 16 / 10; display: flex; }
+    .dd-fig .dd-canvas img { height: 100%; object-fit: contain; }
+    .dd-canvas { background: var(--dd-grey); border-radius: 20px; padding: 20px; }
+    .dd-canvas img { width: 100%; height: auto; display: block; border-radius: 10px; background: #fff; }
+    .dd-cap-text { font-size: 14px; line-height: 1.45; color: var(--dd-muted); margin-top: 12px; }
+
+    @media (max-width: 1100px) {
+      .dd-ins { grid-template-columns: repeat(3, 1fr); }
+      .dd-mocks { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 900px) {
+      .dd-board { padding: 40px 24px 32px; gap: 28px; border-radius: 16px; }
+      .dd-label { margin-left: -24px; }
+      .dd-display { font-size: 30px; }
+      .dd-sub { font-size: 17px; }
+      .dd-split, .dd-split--num, .dd-roi, .dd-hmw, .dd-obs, .dd-cards3, .dd-duo, .dd-metrics, .dd-mocks { grid-template-columns: 1fr; }
+      .dd-ins { grid-template-columns: 1fr 1fr; }
+      .dd-ins .saw { min-height: 0; }
+      .dd-path { grid-template-columns: 1fr; gap: 10px; }
+      .dd-st { grid-template-columns: 40px 1fr; justify-items: start; text-align: left; align-items: center; }
+      .dd-st::after { display: none; }
+      .dd-dot { width: 40px; height: 40px; font-size: 15px; }
+      .dd-end { margin: 6px 0 0; }
+      .dd-shift { grid-template-columns: 64px 1fr; row-gap: 4px; }
+      .dd-shift .ar { display: none; }
+      .dd-shift b { grid-column: 2; }
+      .dd-bp { grid-template-columns: 1fr; }
+      .dd-bp .hd { display: none; }
+      .dd-bp .c::before { content: attr(data-stage); display: block; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; opacity: .6; margin-bottom: 4px; }
+      .dd-chain5 { grid-template-columns: 1fr; }
+      .dd-chain5 > div { grid-template-columns: 90px 1fr; grid-template-rows: auto; text-align: left; justify-items: start; }
+      .dd-chain5 .step { grid-column: 1 / -1; }
+      .dd-chain5 > div::after { display: none; }
+      .dd-chain5 p { min-height: 0; max-width: none; }
+      .dd-ball { --s: 72px !important; }
+      .dd-num { font-size: 110px; }
+      .dd-rings { display: none; }
+      .dd-band { border-radius: 20px; font-size: 18px; }
+      .dd-keyline, .dd-closer p { font-size: 19px; }
+    }
+    @media (max-width: 560px) {
+      .dd-cover { max-width: 200px; }
+      .dd-cover-portrait { border-width: 7px; }
+      .dd-ins { grid-template-columns: 1fr; }
+      .dd-ladder { gap: 6px; }
+      .dd-cap { width: 30px; }
+      .dd-code { font-size: 14px; }
+      .dd-ladder p { font-size: 11px; }
+      .dd-ratio .big { font-size: 52px; }
+      .dd-measure > div { grid-template-columns: 1fr; border-radius: 16px; }
+      .dd-measure .k { justify-self: start; padding: 5px 12px; }
+      .dd-mx { min-height: 0; }
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+
+  <!-- -- NAV ---------------------------------------------------- -->
+  <nav>
+    <a href="../index.html" class="nav-return">
+      <span class="back-arrow"></span> Return
+    </a>
+    <ul class="nav-links">
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- -- HERO INTRO --------------------------------------------- -->
+  <div class="hero-intro-fixed">
+  <section class="hero-intro wrap reveal">
+    <div class="hero-intro-grid">
+      <div class="hero-visual">
+        <div class="dd-cover">
+          <div class="dd-cover-portrait" style="background-image:url('../assets/images/doctor-doctor/amina-cover.jpg')" role="img" aria-label="Portrait used for Amina, the fictional persona: a young woman in a black hijab, smiling, in a city at dusk"></div>
+        </div>
+      </div>
+      <div class="hero-content">
+        <h1 class="hero-title">Doctor, doctor!?</h1>
+        <p class="hero-para">Amina has had a cough for three weeks. She lives twenty minutes from one of the best public health systems in Europe and has not seen a doctor, because every door into it starts with an address she cannot register. A service design concept for CatSalut that opens that door through the organisations she already trusts.</p>
+        <div class="case-info-table" aria-label="Case study information">
+          <div class="case-info-row">
+            <span class="case-info-label">Role</span>
+            <span class="case-info-value">Research &middot; Service design &middot; Concept</span>
+          </div>
+          <div class="case-info-row">
+            <span class="case-info-label">Type</span>
+            <span class="case-info-value">Course project &middot; Public health &middot; Social impact</span>
+          </div>
+          <div class="case-info-row">
+            <span class="case-info-label">Context</span>
+            <span class="case-info-value">Design Thinking &middot; Barcelona &middot; 2026</span>
+          </div>
+        </div>
+        <p class="dd-credit">Amina is a fictional persona built from the research. Photo: Achraf Talha, Unsplash.</p>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- -- SECTIONS WRAPPER -------------------------------------- -->
+  <div class="sections-wrapper">
+
+  <!-- -- 01 BRIEF · TEXT --------------------------------------- -->
+  <section class="section section-panel wrap reveal context-section">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">A brief about knowing where to go</h2>
+      </div>
+      <div class="section-body">
+        <p>This was Design Challenge 03 of a three-week Design Thinking course in Barcelona, taken through the full double diamond with CatSalut, the Catalan public health service, as the client in the brief. It is a course project: CatSalut set no requirements and saw no presentation.</p>
+        <p>The brief asked how to help everyone in Barcelona <strong>recognise when they need help, understand where to go, and receive the right care before a manageable problem becomes a crisis</strong>. Read that way, it is a wayfinding problem: pharmacy or CAP, the 061 line or A&amp;E. My first vision, written in week one before any fieldwork, was exactly that — a guide that helps people understand the process.</p>
+        <p>The research took that vision apart. Barcelona is not short of information about where to go. The people who end up in the wrong place are mostly not confused about the options; they are locked out of all but two of them.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 01 BRIEF · LADDER -------------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="dd-board">
+      <p class="dd-label" style="--c:var(--dd-sky)">Discover &middot; The official map</p>
+      <h3 class="dd-display">Barcelona gives her six ways to get care.</h3>
+      <div class="dd-ladder">
+        <div><div class="dd-cap" style="height:54px;--k:var(--dd-sage)"></div><span class="dd-code">+</span><p>Pharmacy</p></div>
+        <div><div class="dd-cap" style="height:76px;--k:var(--dd-sky)"></div><span class="dd-code">CAP</span><p>Primary care</p></div>
+        <div><div class="dd-cap" style="height:98px;--k:var(--dd-lilac)"></div><span class="dd-code">061</span><p>Advice, 24/7</p></div>
+        <div><div class="dd-cap" style="height:120px;--k:var(--dd-royal)"></div><span class="dd-code">CUAP</span><p>Urgent care</p></div>
+        <div><div class="dd-cap" style="height:142px;--k:var(--dd-slate)"></div><span class="dd-code">A&amp;E</span><p>Hospital</p></div>
+        <div class="last"><div class="dd-cap" style="height:164px;--k:var(--dd-coral)"></div><span class="dd-code">112</span><p>Emergency</p></div>
+      </div>
+      <p class="dd-sub">Free at the point of care, open around the clock, answered in ninety languages on the phone line. On paper, the system is not the problem.</p>
+    </div>
+  </section>
+
+  <!-- -- 02 FIELDWORK · TEXT ----------------------------------- -->
+  <section class="section section-panel wrap reveal">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">The CAP works well. Getting past the desk does not</h2>
+      </div>
+      <div class="section-body">
+        <p>The research started with a research plan built around six questions from the brief, and then a service safari: I walked into a primary care centre (CAP) and followed the path a newcomer would, from the door to the first request for a health card.</p>
+        <p>What I found was a well-run centre. The information desk faces the entrance, the ticket keeps the queue orderly, and the receptionist is well prepared. The path fails at step five, and it fails the same way every time: <strong>to get a health card you need the padró</strong>, the municipal register of where you live, and to be on the padró you need an address someone will let you register.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 02 FIELDWORK · SAFARI --------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="dd-board">
+      <p class="dd-label" style="--c:var(--dd-sky)">Discover &middot; Service safari at a CAP</p>
+      <div class="dd-path">
+        <div class="dd-st"><span class="dd-dot">1</span><span>Walk in</span></div>
+        <div class="dd-st"><span class="dd-dot">2</span><span>Take a ticket</span></div>
+        <div class="dd-st"><span class="dd-dot">3</span><span>Ask for the health card</span></div>
+        <div class="dd-st"><span class="dd-dot">4</span><span>No card? Register on the spot</span></div>
+        <div class="dd-st warn"><span class="dd-dot">5</span><span>Show your padró and ID</span></div>
+        <div class="dd-end">No padró, no card.</div>
+      </div>
+      <div class="dd-obs">
+        <div style="--t:var(--dd-lime-soft)"><h3>What works</h3><p>The information desk faces the entrance and the ticket keeps the queue clear.</p></div>
+        <div style="--t:var(--dd-coral-soft)"><h3>What doesn&rsquo;t</h3><p>Everything is in Catalan. Staff switch to Spanish if asked; the signs never do.</p></div>
+        <div style="--t:var(--dd-lilac-soft)"><h3>What surprised me</h3><p>Well prepared, full of information, and one receptionist doing it all. You only reach it if you speak the language and know to ask.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 02 FIELDWORK · THE TURN ------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="dd-board dd-board--lilac">
+      <svg class="dd-rings" viewBox="-100 -100 200 200" aria-hidden="true">
+        <circle r="100" fill="#1E6B45"/><circle r="80" fill="#F47E57"/><circle r="60" fill="#7FCBEF"/>
+        <circle r="40" fill="#E7B8F5" stroke="#2B2A4C" stroke-width="1.2"/><circle r="20" fill="#1E4D4A"/>
+      </svg>
+      <p class="dd-label" style="--c:var(--dd-paper)">Discover &middot; The turn</p>
+      <h3 class="dd-display">Only two of them will treat her without a card.</h3>
+      <div class="dd-chain">
+        <span class="dd-link">ADDRESS</span><span class="ar">&rarr;</span>
+        <span class="dd-link">PADR&Oacute;</span><span class="ar">&rarr;</span>
+        <span class="dd-link">HEALTH CARD</span><span class="ar">&rarr;</span>
+        <span class="dd-link locked">CARE</span>
+      </div>
+      <p class="dd-sub">The pharmacy counter and emergency care. Everything in between starts with an address, and Amina&rsquo;s landlord will not register her at the flat where she actually lives.</p>
+    </div>
+  </section>
+
+  <!-- -- 03 INSIGHTS · TEXT ------------------------------------ -->
+  <section class="section section-panel wrap reveal">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">Five things I saw. One pattern</h2>
+      </div>
+      <div class="section-body">
+        <p>The insight wall came from the workshop, desk research and the safari, and each note went through the same template: what I saw or heard, and why that was the case. Written that way, five separate observations turned out to have the same cause.</p>
+        <p>People are not waiting too long because they misjudge their symptoms. They wait because A&amp;E is the only door that never asks for a card, so it becomes the door they use — late, and at the highest cost to the system.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 03 INSIGHTS · BOARD ----------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="dd-board">
+      <p class="dd-label" style="--c:var(--dd-lilac)">Define &middot; Insights</p>
+      <div class="dd-ins">
+        <div><span class="dd-n" style="--c:var(--dd-coral-soft)">1</span><p class="saw">People wait until symptoms are severe, then go to A&amp;E.</p><span class="bc">Because</span><p class="why">A&amp;E is the only door that does not ask for a health card.</p></div>
+        <div><span class="dd-n" style="--c:var(--dd-lilac-soft)">2</span><p class="saw">Only 88 cards in six months through the legal route.</p><span class="bc">Because</span><p class="why">Institutions know the routes. The people who need them do not.</p></div>
+        <div><span class="dd-n" style="--c:var(--dd-sky-soft)">3</span><p class="saw">Caseworkers repeat the same explanation and track letters in a notebook.</p><span class="bc">Because</span><p class="why">There is no shared system, so the knowledge lives in individuals.</p></div>
+        <div><span class="dd-n" style="--c:var(--dd-lime-soft)">4</span><p class="saw">Health information comes in ten languages. The padró in none.</p><span class="bc">Because</span><p class="why">Institutions translate their own service, not the path into it.</p></div>
+        <div><span class="dd-n" style="--c:var(--dd-sage)">5</span><p class="saw">People fear that registering anywhere will reach the police.</p><span class="bc">Because</span><p class="why">Nothing in the process tells them what happens to their data.</p></div>
+      </div>
+      <p class="dd-band">The system works once you are inside. <span class="dd-hl dd-hl--lilac">Getting in is the hard part.</span></p>
+    </div>
+  </section>
+
+  <!-- -- 04 REFRAME · TEXT ------------------------------------- -->
+  <section class="section section-panel wrap reveal">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">Three ways to frame the problem. Only one removes the wall</h2>
+      </div>
+      <div class="section-body">
+        <p>I wrote three How Might We questions straight after the insights, and judged them on one thing: does the question accept the wall, or take it down?</p>
+        <p>Helping CatSalut identify vulnerable people fixes the institution's blind spot, but being identified is exactly what people fear. Reaching people without an address keeps the person at the centre, but works around the wall instead of removing it. The first question was the only one that went at the cause — and it held up, because the law already allows it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 04 REFRAME · HMW --------------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="dd-board">
+      <p class="dd-label" style="--c:var(--dd-lilac)">Define &middot; How might we</p>
+      <div class="dd-hmw">
+        <div class="win"><span class="dd-tag">Taken forward</span><span class="no">HMW 01</span><h3>How might we help people have a proper address, so they can receive health care?</h3><p>The law already lets an organisation lend its address. The problem was never the document; it is who holds it.</p></div>
+        <div><span class="no">HMW 02</span><h3>How might we help CatSalut identify people in a vulnerable situation, so they can be included?</h3><p>Fixes the blind spot, but being identified is exactly what people fear.</p></div>
+        <div><span class="no">HMW 03</span><h3>How might we reach people without an address, so they can receive care?</h3><p>Keeps the person at the centre, but works around the wall instead of removing it.</p></div>
+      </div>
+      <p class="dd-keyline"><span class="ic"><svg width="26" height="26" viewBox="0 0 28 28" fill="none" stroke="#2B2A4C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="14" r="5"/><path d="M14 14h11M21 14v4M25 14v3"/></svg></span>The address is the lock. An organisation can hold the key.</p>
+    </div>
+  </section>
+
+  <!-- -- 05 IDEAS · TEXT --------------------------------------- -->
+  <section class="section section-panel wrap reveal">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">Fifteen ideas, and eleven solved the wrong problem</h2>
+      </div>
+      <div class="section-body">
+        <p>Ideation ran as a Rapid 8 — eight ideas in eight minutes, volume over quality — and then onto a wall matrix: innovative or conventional, and whether each idea met our challenge or another one.</p>
+        <p>The matrix was humbling. <strong>Eleven of fifteen ideas fixed translation inside the doctor's office</strong>, a problem I had already ruled out in the insights. Only four went at getting into the system, and the strongest of those was not new at all: nonprofits holding an address for the people they support. It had been happening quietly in Barcelona for years.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 05 IDEAS · MATRIX ------------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="dd-board">
+      <p class="dd-label" style="--c:var(--dd-lime)">Design &middot; Ideas</p>
+      <div class="dd-split">
+        <div>
+          <div class="dd-mx" role="img" aria-label="Two by two matrix of fifteen ideas. Four ideas sit in the two quadrants that meet the challenge: an ambulance as a registration booth, a health admin kiosk, a phone number as an address, and shelters as a postal address.">
+            <div><span class="q">Innovative &middot; another challenge</span><i class="d" style="--c:var(--dd-sky)"></i><i class="d" style="--c:var(--dd-sky)"></i><i class="d" style="--c:var(--dd-sky)"></i></div>
+            <div><span class="q">Innovative &middot; on target</span><span class="d in" style="--c:var(--dd-lime)">Ambulance as a registration booth</span><span class="d in" style="--c:var(--dd-lime)">Health admin kiosk</span><i class="d" style="--c:var(--dd-sky)"></i><i class="d" style="--c:var(--dd-sky)"></i></div>
+            <div><span class="q">Conventional &middot; another challenge</span><i class="d" style="--c:#CFD1DA"></i><i class="d" style="--c:var(--dd-sky)"></i><i class="d" style="--c:var(--dd-coral)"></i><i class="d" style="--c:var(--dd-coral)"></i></div>
+            <div><span class="q">Conventional &middot; on target</span><span class="d in" style="--c:var(--dd-lime)">Phone number as an address</span><span class="d in" style="--c:var(--dd-lime)">Shelters as a postal address</span><i class="d" style="--c:var(--dd-sky)"></i><i class="d" style="--c:var(--dd-coral)"></i></div>
+          </div>
+          <div class="dd-axis"><span>&larr; Solves another problem</span><span>Solves our challenge &rarr;</span></div>
+        </div>
+        <div class="dd-stack">
+          <h3 class="dd-display" style="font-size:30px">15 ideas. 11 solved the wrong problem.</h3>
+          <div class="dd-bar"><span style="flex:4;background:var(--dd-lime)"></span><span style="flex:7;background:var(--dd-sky)"></span><span style="flex:3;background:var(--dd-coral)"></span><span style="flex:1;background:#CFD1DA"></span></div>
+          <ul class="dd-legend">
+            <li style="--c:var(--dd-lime)"><i></i>Getting into the system<b>4</b></li>
+            <li style="--c:var(--dd-sky)"><i></i>Translation in the consultation<b>7</b></li>
+            <li style="--c:var(--dd-coral)"><i></i>Support for professionals<b>3</b></li>
+            <li style="--c:#CFD1DA"><i></i>Outside the challenge<b>1</b></li>
+          </ul>
+          <div class="dd-note">
+            <span class="dd-tag">The one we take forward</span>
+            <h3>Organisations as an address</h3>
+            <p>Let the nonprofits people already trust hold the registered address again, so the padró stops being a wall.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 05 IDEAS · WORKSHOP PHOTO ----------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="js-lightbox js-lightbox-wide">
+      <img class="img-full-width" src="../assets/images/doctor-doctor/workshop-matrix.jpg" alt="The innovation and impact matrix on the workshop wall, sticky notes sorted into four hand-drawn quadrants" loading="lazy" />
+    </div>
+    <p class="dd-cap-text">The matrix as it was built in the workshop, 16 September 2026, before being redrawn above.</p>
+  </section>
+
+  <!-- -- 06 LEGAL GROUND · TEXT -------------------------------- -->
+  <section class="section section-panel wrap reveal context-section">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">This does not need a new law</h2>
+      </div>
+      <div class="section-body">
+        <p>Before building on "organisations as an address" I checked whether it was legal. It is. An <strong>INE resolution of 17 February 2020</strong> lets a person with no housing be registered at the address of a social service, if that service reports she lives in the city and agrees to pass on her post. There is one condition, and the whole concept turns on it: the service must be public, or coordinated and supervised by a public body.</p>
+        <p>Barcelona used that route more widely than any other city in the metropolitan area — until 1 February 2025, when it closed the version run through social organisations. About 1,500 people lost their registration.</p>
+        <p>So the proposal is not an invention. It asks CatSalut and the city to bring those organisations back under public supervision, and gives them the service to do it well.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 06 LEGAL GROUND · METRICS ----------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="dd-board">
+      <p class="dd-label" style="--c:var(--dd-lilac)">Define &middot; The legal ground</p>
+      <h3 class="dd-display">The law already lets an organisation <span class="dd-hl dd-hl--sky">lend its address.</span></h3>
+      <div class="dd-metrics">
+        <div style="--t:var(--dd-sky-soft)"><b>100+</b><span>nonprofits in Barcelona&rsquo;s reception network, any of which could hold an address</span></div>
+        <div style="--t:var(--dd-lime-soft)"><b>47,000</b><span>people already registered in the city with no fixed address</span></div>
+        <div style="--t:var(--dd-coral-soft)"><b>1,500</b><span>people who lost that registration when the entity route closed in February 2025</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 06 LEGAL GROUND · 88 ---------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="dd-board dd-board--dark">
+      <p class="dd-label" style="--c:var(--dd-lilac)">Define &middot; The discovery that changed the project</p>
+      <div class="dd-split dd-split--num">
+        <div class="dd-stack">
+          <span class="dd-num">88</span>
+          <p class="dd-sub">health cards issued in six months through the route built for exactly her situation.</p>
+          <p class="dd-sub">Emergency care, meanwhile, is guaranteed to everyone by law. It is the only door that never asks, so it is the door people end up using.</p>
+        </div>
+        <div class="dd-stack">
+          <h3 class="dd-display" style="font-size:34px">Everything she needs already exists. <span class="dd-hl dd-hl--lilac">Nobody owns the path to it.</span></h3>
+          <div class="dd-duo">
+            <div style="--d:var(--dd-lime)"><h3>Already legal</h3><p>A card without a padr&oacute;, through CatSalut and the Red Cross. Registration without the landlord. Registration with no fixed address.</p></div>
+            <div style="--d:var(--dd-sky)"><h3>Already translated</h3><p>Guides in ten languages, a helpline in ninety. None of it covers the paperwork that opens the door.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 07 CONCEPT · TEXT ------------------------------------- -->
+  <section class="section section-panel wrap reveal">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">Give the keys to the people who already have her trust</h2>
+      </div>
+      <div class="section-body">
+        <p>The vision after research reads differently from the week-one version: <em>a shared access service that opens the door to primary care before a crisis, for people in Barcelona who cannot register an address, through the organisations they already trust.</em></p>
+        <p>I explored six concept variations on a morphological chart — who holds the case, which channel, where the address lives — and dot-voted them down to three, which became one concept. It has three parts, one for each person in the service: <strong>a protocol for the nonprofit team, a case tool for the caseworker, and a message thread for Amina.</strong> Nothing for her to install, nothing to log into, and a clear promise about her data in the first message she receives.</p>
+        <p>The MVP is deliberately small: train one team, give them one number, run it for eight weeks.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 07 CONCEPT · CARDS ------------------------------------ -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="dd-board">
+      <p class="dd-label" style="--c:var(--dd-coral)">Deliver &middot; The concept</p>
+      <div class="dd-cards3">
+        <div><span class="ic" style="--t:var(--dd-sky-soft)"><svg width="26" height="26" viewBox="0 0 28 28" fill="none" stroke="#2B2A4C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="5" width="14" height="19" rx="2"/><path d="M11 4h6v3h-6zM11 12h6M11 16h6M11 20h3"/></svg></span>
+          <h3>Before she arrives, the team is ready</h3><p>A protocol card and one training session: the three questions to ask, what to say about her data, and which route fits her case.</p></div>
+        <div><span class="ic" style="--t:var(--dd-lilac-soft)"><svg width="26" height="26" viewBox="0 0 28 28" fill="none" stroke="#2B2A4C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h7l2 2.5h11V22H4z"/><path d="M9 16l2.5 2.5L17 13"/></svg></span>
+          <h3>The organisation gets a tool</h3><p>One case, three steps: card, padr&oacute;, appointment. It replaces the spreadsheet and the notebook.</p></div>
+        <div><span class="ic" style="--t:var(--dd-coral-soft)"><svg width="26" height="26" viewBox="0 0 28 28" fill="none" stroke="#2B2A4C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h20v13H13l-5 4v-4H4z"/><path d="M9 11h10M9 14.5h6"/></svg></span>
+          <h3>Amina gets a message</h3><p>WhatsApp or SMS in her language, from someone she knows. No app, no login. Her letters reach her as a voice note.</p></div>
+      </div>
+      <div class="dd-stack" style="gap:10px">
+        <p class="dd-small">Proposed partners for the pilot &middot; none approached</p>
+        <div class="dd-partners">
+          <span class="dd-partner host"><b>A Raval nonprofit</b><span>host &middot; trust &middot; address</span></span>
+          <span class="dd-partner"><b>CatSalut</b><span>client &middot; health card</span></span>
+          <span class="dd-partner"><b>Red Cross</b><span>route without padr&oacute;</span></span>
+          <span class="dd-partner"><b>Barcelona City Council</b><span>padr&oacute;</span></span>
+          <span class="dd-partner"><b>Local CAP</b><span>first appointment</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 07 CONCEPT · PROTOTYPE -------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="dd-board">
+      <p class="dd-label" style="--c:var(--dd-coral)">Deliver &middot; What we prototype</p>
+      <h3 class="dd-display">A tool for the team. A thread for Amina. Nothing to install.</h3>
+      <div class="dd-mocks">
+        <figure class="dd-mock">
+          <div class="dd-scr" style="border-top:6px solid var(--dd-lime)">
+            <div class="top">Protocol card<span>on the desk</span></div>
+            <p class="dd-small">When someone arrives without papers</p>
+            <ol class="dd-proto">
+              <li>Ask three questions only</li>
+              <li>Say what happens to the data</li>
+              <li>Pick the route</li>
+              <li>Open the case and the channel</li>
+              <li>Offer the address</li>
+            </ol>
+          </div>
+          <figcaption><b>Before she arrives</b> &middot; one 90-minute training</figcaption>
+        </figure>
+        <figure class="dd-mock">
+          <div class="dd-scr">
+            <div class="top">A. B. &middot; Arabic<span>opened 14 Sep</span></div>
+            <div class="dd-row" style="--c:var(--dd-lime)"><i></i><div><b>1 Health card</b><span>Sent via Red Cross &middot; 16 Sep</span></div></div>
+            <div class="dd-row" style="--c:var(--dd-coral)"><i></i><div><b>2 Padr&oacute;</b><span>Needs an address</span></div></div>
+            <div class="dd-row" style="--c:#CFD1DA"><i></i><div><b>3 CAP appointment</b><span>Waiting for the card</span></div></div>
+            <div class="dd-row" style="--c:var(--dd-sky);background:var(--dd-sky-soft)"><i></i><div><b>Mailbox &middot; 1 new letter</b><span>Summary sent in Arabic</span></div></div>
+            <div class="dd-btns"><span>Send update</span><span>Scan a letter</span></div>
+          </div>
+          <figcaption><b>The caseworker</b> &middot; one case, three steps</figcaption>
+        </figure>
+        <figure class="dd-mock">
+          <div class="dd-phone"><div class="dd-scr">
+            <div class="top">Assoc. Raval &middot; Health help</div>
+            <div class="dd-bub">Hello Amina, this is Nadia. I will write to you about your health card.</div>
+            <div class="dd-bub">Your information is only used to help you. We never share it.</div>
+            <div class="dd-bub me">Thank you. What do I do now?</div>
+            <div class="dd-bub">A letter arrived: your padr&oacute; appointment is 14 October.</div>
+            <div class="dd-bub voice"><i></i></div>
+          </div></div>
+          <figcaption><b>Amina</b> &middot; WhatsApp, no app, no login</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 08 BLUEPRINT · TEXT ----------------------------------- -->
+  <section class="section section-panel wrap reveal">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">Amina talks to one person. Five organisations pass her case</h2>
+      </div>
+      <div class="section-body">
+        <p>This was the first time I designed something that was not a product, and the service blueprint is where that became concrete. Above the line of visibility there is almost nothing: one caseworker, one thread, in her language. Below it sit the Red Cross route for the card, the city's padró office, CatSalut, the CAP and the training that makes the nonprofit ready.</p>
+        <p>The blueprint also showed where the service would break: a CAP front desk that has never heard of the route, an address rejected by the padró office, and a padró wait that can run past six months. Those are the points the pilot has to watch first.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 08 BLUEPRINT · BOARD ---------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="dd-board">
+      <p class="dd-label" style="--c:var(--dd-coral)">Deliver &middot; Service blueprint</p>
+      <h3 class="dd-display">Most of the work happens where Amina never sees it.</h3>
+      <div class="dd-bp">
+        <span></span><span class="hd">Before</span><span class="hd">During</span><span class="hd">After</span>
+        <span class="rl">Amina<small>what she does</small></span>
+        <div class="c front" data-stage="Before">Asks the nonprofit for legal advice and mentions her cough.</div>
+        <div class="c front" data-stage="During">Registers on the padr&oacute; at the nonprofit&rsquo;s address, gets her card and a CAP appointment.</div>
+        <div class="c front" data-stage="After">Treated at her CAP with a mediator. Tells a friend.</div>
+        <span class="rl">Touchpoints<small>what she sees</small></span>
+        <div class="c touch" data-stage="Before">Poster in Arabic, French and Urdu. WhatsApp welcome with a privacy promise.</div>
+        <div class="c touch" data-stage="During">Checklist in her language. &ldquo;You have a new letter.&rdquo; SMS with map and what to bring.</div>
+        <div class="c touch" data-stage="After">Interpreter at the visit. La Meva Salut invite. Referral card for a friend.</div>
+        <span class="vis">Line of visibility</span>
+        <span class="rl">Behind the scenes<small>what makes it work</small></span>
+        <div class="c back" data-stage="Before">CatSalut trains the nonprofit. Data agreement signed. A checklist picks the route.</div>
+        <div class="c back" data-stage="During">Red Cross sends documents; CatSalut issues the card. The city processes the padr&oacute;. Letters scanned into her case.</div>
+        <div class="c back" data-stage="After">Case closed and reported. The CAP continues her care. Learning goes back to CatSalut.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 08 BLUEPRINT · CANVASES ------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="dd-canvas js-lightbox js-lightbox-wide">
+      <img src="../assets/images/doctor-doctor/blueprint-full.png" alt="The full service blueprint: stages zero to seven across customer actions, touchpoints, backstage and support processes, with fail and wait points marked" loading="lazy" />
+    </div>
+    <p class="dd-cap-text">The full blueprint, stages 0 to 7, with fail (F) and wait (W) points. Click to enlarge.</p>
+  </section>
+
+  <!-- -- 09 VALUE · TEXT --------------------------------------- -->
+  <section class="section section-panel wrap reveal context-section">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">Every person who reaches a CAP instead of A&amp;E is a cost avoided</h2>
+      </div>
+      <div class="section-body">
+        <p>A service asked of a public health system has to argue in the system's own terms. An A&amp;E visit costs three to five times a primary care visit, before counting the later, sicker episode that arriving late tends to bring.</p>
+        <p>The pilot's arithmetic is modest on purpose: one nonprofit, ten people guided, ten card applications where today there are none, six people who see a GP before an emergency room. At public price lists, those six visits alone are <strong>&euro;630&ndash;1,236 saved in eight weeks</strong> — and Barcelona has more than a hundred organisations that could do the same.</p>
+        <p>These figures are illustrative. The prices come from other Spanish regions' public price lists; the Catalan tariff was still to be sourced from CatSalut.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 09 VALUE · ROI ---------------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="dd-board">
+      <p class="dd-label" style="--c:var(--dd-coral)">Deliver &middot; CX metrics &amp; ROI</p>
+      <div class="dd-roi">
+        <div class="dd-cost">
+          <div class="row"><b>Primary care visit</b><div class="dd-track"><i style="width:27%;background:var(--dd-lime);opacity:.45"></i><i style="width:19.5%;background:var(--dd-lime)"></i></div><span>&euro;50 &ndash; &euro;69</span></div>
+          <div class="row"><b>A&amp;E visit</b><div class="dd-track"><i style="width:100%;background:var(--dd-coral);opacity:.45"></i><i style="width:68%;background:var(--dd-coral)"></i></div><span>&euro;174 &ndash; &euro;256</span></div>
+          <div class="dd-ratio"><span class="big">3&ndash;5&times;</span><span>An A&amp;E visit costs three to five times a primary care visit.</span></div>
+        </div>
+        <div class="dd-stack" style="gap:10px">
+          <p class="dd-small" style="color:var(--dd-ink)">What we measure</p>
+          <div class="dd-measure">
+            <div style="--c:var(--dd-coral-soft)"><span class="k">Cost to serve</span><p>Cases redirected from A&amp;E to primary care</p></div>
+            <div style="--c:var(--dd-lilac-soft)"><span class="k">Equity</span><p>Days from first contact to health card</p></div>
+            <div style="--c:var(--dd-lime-soft)"><span class="k">Health</span><p>Problems treated at first stage, not as emergencies</p></div>
+            <div style="--c:var(--dd-sky-soft)"><span class="k">Effort</span><p>Caseworker minutes per case</p></div>
+            <div style="--c:var(--dd-sage)"><span class="k">Trust</span><p>Reply rate, and drop-off after first contact</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 09 VALUE · IMPACT ------------------------------------- -->
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="dd-board">
+      <p class="dd-label" style="--c:var(--dd-coral)">Deliver &middot; Impact framework</p>
+      <div class="dd-chain5">
+        <div><span class="step">Inputs</span><span class="dd-ball" style="--c:var(--dd-sage);--s:76px">1</span><p>organisation, one number, one contact</p></div>
+        <div><span class="step">Activities</span><span class="dd-ball" style="--c:var(--dd-sky);--s:86px">10</span><p>people walked through routes that already exist</p></div>
+        <div><span class="step">Outputs</span><span class="dd-ball" style="--c:var(--dd-lilac);--s:96px">10</span><p>health-card applications in eight weeks, where today there are none</p></div>
+        <div><span class="step">Outcomes</span><span class="dd-ball" style="--c:var(--dd-lime);--s:106px">6</span><p>of them see a GP before an emergency room</p></div>
+        <div><span class="step">Impact</span><span class="dd-ball" style="--c:var(--dd-coral);--s:116px">6</span><p>crises, and bills, that never happen</p></div>
+      </div>
+      <div class="dd-closer">
+        <p>The fastest way into Barcelona&rsquo;s health system is not a new front door.</p>
+        <p>It is <span class="dd-hl dd-hl--lime">the people who already hold the keys.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 10 CANVASES ------------------------------------------- -->
+  <section class="section section-panel wrap reveal">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">The working canvases</h2>
+      </div>
+      <div class="section-body">
+        <p>The boards above are rebuilt from the course canvases. These are four of the originals: the persona and journey map that put Amina and her caseworker side by side, the six concept variations and how they were scored, and the test kit for checking the riskiest assumption first — that people will answer a health message from a nonprofit they already know.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-panel section-panel--media wrap reveal">
+    <div class="img-pair" style="margin-top:0">
+      <div class="dd-fig">
+        <div class="dd-canvas js-lightbox js-lightbox-wide"><img src="../assets/images/doctor-doctor/persona-amina.png" alt="Persona canvas for Amina: background, goals, frustrations and the people she relies on" loading="lazy" /></div>
+        <p class="dd-cap-text">Persona &middot; Amina</p>
+      </div>
+      <div class="dd-fig">
+        <div class="dd-canvas js-lightbox js-lightbox-wide"><img src="../assets/images/doctor-doctor/journey-map.png" alt="Customer journey map across seven stages with an emotion curve, pains and opportunities" loading="lazy" /></div>
+        <p class="dd-cap-text">Customer journey map</p>
+      </div>
+      <div class="dd-fig">
+        <div class="dd-canvas js-lightbox js-lightbox-wide"><img src="../assets/images/doctor-doctor/variations.png" alt="Morphological chart and six concept variations with dot-vote evaluation" loading="lazy" /></div>
+        <p class="dd-cap-text">Concept variations</p>
+      </div>
+      <div class="dd-fig">
+        <div class="dd-canvas js-lightbox js-lightbox-wide"><img src="../assets/images/doctor-doctor/test-kit.png" alt="Test kit: the assumption to test, the prototype, the script and the success signal" loading="lazy" /></div>
+        <p class="dd-cap-text">Test kit</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 11 LIMITS --------------------------------------------- -->
+  <section class="section section-panel section-wide wrap reveal">
+    <h2 class="section-heading full">What it was, and what it wasn't</h2>
+    <p class="section-lead">This is a three-week course project. CatSalut was the client in the brief, not a commission; none of the partners named above were approached; the pilot never ran, and the cost figures come from other regions' price lists. What it does have is a problem traced to its cause, a legal route that already exists, and a pilot small enough to run next month.</p>
+    <div class="section-cols">
+      <div class="section-col">
+        <span class="section-label">What I'd keep</span>
+        <p>Not settling for the first idea. The week-one vision was a reasonable answer to the brief as written, and it would have produced a well-made guide to a door most of the people in trouble cannot open. Every step after that — the safari, the insight template, the matrix — kept adding inputs until the obvious answer stopped holding up.</p>
+      </div>
+      <div class="section-col">
+        <span class="section-label">What I'd do next</span>
+        <p>Talk to the people it is about. Amina, Nadia and Montse are personas built from desk research, a workshop and one CAP visit. The riskiest assumption — that someone without papers will trust a message about her data — can only be tested with them, and the test kit was written so that the first week of the pilot does exactly that.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- 12 THROUGH-LINE --------------------------------------- -->
+  <section class="section section-panel context-section wrap reveal">
+    <div class="section-split">
+      <div class="section-left">
+        <h2 class="section-heading">The same question, in a health system</h2>
+      </div>
+      <div class="section-body">
+        <p>In <a href="refugios-temporales.html">Refugios Temporales</a> it was a civil protection manual that specified everything except how to lay out the room. Here it is a health system where every right Amina needs is already written down — a card without a padró, registration without a landlord, emergency care for everyone — and no one owns the path between them.</p>
+        <p>The job is the same one: the expertise exists, and the form it is stored in keeps it from the person who needs it under pressure. What was new for me was designing the answer as a service rather than an object — deciding who holds the case, what crosses the line of visibility, and how one conversation becomes a health card.</p>
+      </div>
+    </div>
+  </section>
+
+  </div><!-- /.sections-wrapper -->
+
+<!-- -- FOOTER -------------------------------------------------- -->
+  <footer>
+    <div class="nav-inner">
+      <span class="footer-name">Yabin Torres — 2026</span>
+      <span class="footer-links">
+        <a href="https://www.linkedin.com/in/yabintorres/" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp;·&nbsp;
+        <a href="https://www.behance.net/YabinTorres" target="_blank" rel="noopener noreferrer">Behance</a> &nbsp;·&nbsp;
+        <a href="/contact.html">Contact</a>
+      </span>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">×</button>
+    <div class="lightbox-inner">
+      <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+    </div>
+  </div>
+
+  <script src="../js/case-study.js"></script>
+
+{% endblock %}
