@@ -5,7 +5,9 @@ description: "Product designer in Barcelona working with social-impact organizat
 {% extends "base.njk" %}
 
 {% block head %}
-  <script src="js/home.js?v=13" defer></script>
+  {#- Caveat is the chalk handwriting of the hero labels; only the home uses it. #}
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet" />
+  <script src="js/chalk-hero.js?v=1" defer></script>
 {% endblock %}
 
 {% block body %}
@@ -23,39 +25,50 @@ description: "Product designer in Barcelona working with social-impact organizat
     </ul>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero">
+  <!-- HERO — a chalkboard where a boy draws the practice diagram, stop-motion
+       style. The drawing itself is built by js/chalk-hero.js. -->
+  <section class="hero hero--chalk">
     <div class="hero-intro">
       <h1 class="hero-title"><span class="visually-hidden">Yabin Torres — </span>Product designer for <span class="nowrap">social-impact</span> organisations</h1>
       <p class="hero-sub">Research, digital products and brand. Based in Barcelona, working internationally.</p>
     </div>
-    <div class="hero-stage">
-    <div class="hero-network" aria-label="Design practice network">
-      <svg class="network-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-        <line id="line-ir" x1="8" y1="40" x2="82" y2="8" vector-effect="non-scaling-stroke" />
-        <line id="line-ib" x1="8" y1="40" x2="74" y2="80" vector-effect="non-scaling-stroke" />
-        <line id="line-rb" x1="82" y1="8" x2="74" y2="80" vector-effect="non-scaling-stroke" />
-        <line id="line-bi" x1="8" y1="40" x2="40" y2="92" vector-effect="non-scaling-stroke" />
-        <line id="line-bb" x1="74" y1="80" x2="40" y2="92" vector-effect="non-scaling-stroke" />
-      </svg>
-      <div class="network-node network-node-industrial" data-node="industrial">
-        <span class="node-label">Product design</span>
-      </div>
-      <div class="network-node network-node-research" data-node="research">
-        <span class="node-label">UX</span>
-      </div>
-      <div class="network-node network-node-interface" data-node="interface">
-        <span class="node-label">UI</span>
-      </div>
-      <div class="network-node network-node-branding" data-node="branding">
-        <span class="node-label">Branding</span>
-      </div>
-    </div>
-    <button class="hero-tap-cta" aria-label="View my work">See work</button>
-    <button class="tilt-prompt" aria-label="Enable tilt interaction">Enable tilt</button>
-    <a class="hero-scroll-cue" href="#services" aria-label="Scroll to services">
-      <span class="hero-scroll-arrow" aria-hidden="true"></span>
-    </a>
+
+    <svg class="chalk-scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax meet"
+         role="img" aria-label="Animation: a curly-haired boy draws Product design, UX, UI and Branding on a chalkboard and links them together">
+      <defs>
+        <!-- Three versions of the chalk texture, swapped every other frame so
+             the lines "boil" the way redrawn frames do in stop motion. -->
+        <filter id="chalk0" x="-200" y="-200" width="2000" height="1300" filterUnits="userSpaceOnUse">
+          <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2" seed="2" result="w" />
+          <feDisplacementMap in="SourceGraphic" in2="w" scale="5" xChannelSelector="R" yChannelSelector="G" result="d" />
+          <feTurbulence type="fractalNoise" baseFrequency="1.3" numOctaves="1" seed="5" result="g" />
+          <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  3.2 0 0 0 -0.75" result="ga" />
+          <feComposite in="d" in2="ga" operator="in" />
+        </filter>
+        <filter id="chalk1" x="-200" y="-200" width="2000" height="1300" filterUnits="userSpaceOnUse">
+          <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2" seed="9" result="w" />
+          <feDisplacementMap in="SourceGraphic" in2="w" scale="5" xChannelSelector="R" yChannelSelector="G" result="d" />
+          <feTurbulence type="fractalNoise" baseFrequency="1.3" numOctaves="1" seed="11" result="g" />
+          <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  3.2 0 0 0 -0.75" result="ga" />
+          <feComposite in="d" in2="ga" operator="in" />
+        </filter>
+        <filter id="chalk2" x="-200" y="-200" width="2000" height="1300" filterUnits="userSpaceOnUse">
+          <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2" seed="17" result="w" />
+          <feDisplacementMap in="SourceGraphic" in2="w" scale="5" xChannelSelector="R" yChannelSelector="G" result="d" />
+          <feTurbulence type="fractalNoise" baseFrequency="1.3" numOctaves="1" seed="23" result="g" />
+          <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  3.2 0 0 0 -0.75" result="ga" />
+          <feComposite in="d" in2="ga" operator="in" />
+        </filter>
+      </defs>
+      <g class="chalk-art" filter="url(#chalk0)"></g>
+      <g class="chalk-ledge"></g>
+      <g class="chalk-boy" filter="url(#chalk1)"></g>
+      <g class="chalk-dust"></g>
+    </svg>
+
+    <div class="chalk-controls">
+      <button type="button" class="chalk-pause">Pause</button>
+      <button type="button" class="chalk-replay">Replay</button>
     </div>
   </section>
 

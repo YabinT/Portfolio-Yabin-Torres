@@ -314,6 +314,79 @@ nav {
   50%      { transform: translateY(1px)  rotate(45deg); }
 }
 
+/* -- CHALKBOARD HERO ------------------------------------ */
+/* The hero is a charcoal chalkboard where a boy draws the practice diagram,
+   stop-motion style (js/chalk-hero.js). The board is CSS; the drawing is the
+   SVG on top, scaled to fit and pinned to the bottom so he stands on the ledge. */
+.hero--chalk {
+  background:
+    radial-gradient(ellipse 40% 26% at 24% 36%, rgba(255,255,255,0.05), transparent 70%),
+    radial-gradient(ellipse 28% 20% at 72% 24%, rgba(255,255,255,0.04), transparent 70%),
+    radial-gradient(ellipse 50% 24% at 58% 80%, rgba(255,255,255,0.035), transparent 70%),
+    radial-gradient(ellipse 120% 90% at 50% 50%, transparent 55%, rgba(0,0,0,0.5)),
+    #1C1D1C;
+}
+
+/* Board grain, so the slate never reads as a flat fill. */
+.hero--chalk::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.28;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.chalk-scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.hero--chalk .hero-intro { pointer-events: none; }
+
+.chalk-controls {
+  position: absolute;
+  right: var(--pad-x);
+  top: 24px;
+  z-index: 3;
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.chalk-controls button {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 100px;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.chalk-controls button:hover {
+  border-color: var(--color-mint);
+  background: rgba(37, 196, 126, 0.08);
+}
+
+/* The board keeps a full screen at every width, unlike the old bubble hero
+   that dropped to 62svh on tablets. */
+@media (max-width: 900px) {
+  .hero.hero--chalk { height: calc(100svh - 96px); }
+}
+
+@media (max-width: 600px) {
+  .hero.hero--chalk { height: calc(100svh - 64px); }
+  .chalk-controls { top: 8px; right: 12px; }
+  .chalk-controls button { padding: 7px 14px; }
+}
+
 /* -- SERVICES ------------------------------------------- */
 .services {
   padding: var(--space-3xl) var(--pad-x);
