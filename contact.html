@@ -124,6 +124,12 @@ bodyClass: "contact-page"
       margin-top: calc(var(--space-lg) * -1 + var(--space-xs));
     }
 
+    .contact-reassure a {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .contact-reassure a:hover { color: var(--color-mint); }
+
     .contact-channels {
       list-style: none;
       border-top: 1px solid var(--color-border);
@@ -402,7 +408,7 @@ bodyClass: "contact-page"
 
       <button type="submit" class="contact-submit" id="contact-submit">Send message</button>
       <!-- Reassurance sits with the button, where the hesitation happens. -->
-      <p class="contact-reassure">No pitch deck, no mailing list. Your details are only used to reply to you.</p>
+      <p class="contact-reassure">No pitch deck, no mailing list. Your details are only used to reply to you. <a href="privacy.html">Privacy policy</a>.</p>
 
       <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
     </form>
