@@ -29,6 +29,7 @@ module.exports = function (eleventyConfig) {
     "/audit.html",
     "/bio.html",
     "/contact.html",
+    "/privacy.html",
     ...casePages.map((file) => `/cases/${file}`),
   ]);
 

@@ -1166,6 +1166,47 @@ nav {
   .bio-boy { width: 150px; order: -1; }
 }
 
+/* -- PRIVACY (privacy.html) ----------------------------- */
+/* Reuses the bio sections; only the label/value lists and inline links are new. */
+.privacy-updated {
+  margin-top: var(--space-md);
+  font-size: var(--text-label);
+  color: rgba(255, 255, 255, 0.56);
+}
+
+.bio-body strong { color: var(--color-text); font-weight: 500; }
+
+.bio-body p a,
+.privacy-facts a {
+  border-bottom: 1px solid var(--color-mint);
+  transition: color 0.2s ease;
+}
+
+.bio-body p a:hover,
+.privacy-facts a:hover { color: var(--color-mint); }
+
+.privacy-facts {
+  display: grid;
+  grid-template-columns: minmax(0, 14em) minmax(0, 1fr);
+  max-width: 62ch;
+  border-top: 1px solid var(--color-border);
+}
+
+.privacy-facts dt,
+.privacy-facts dd {
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.privacy-facts dt { padding-right: var(--space-md); font-weight: 500; }
+.privacy-facts dd { color: rgba(255, 255, 255, 0.72); }
+.privacy-facts code { font-family: ui-monospace, Consolas, monospace; font-size: 0.9em; }
+
+@media (max-width: 600px) {
+  .privacy-facts { grid-template-columns: 1fr; }
+  .privacy-facts dt { border-bottom: 0; padding-bottom: 0; }
+}
+
 /* -- SOFT CTA ------------------------------------------------
    The low-commitment exit for visitors who are interested but not
    ready to start an engagement. Class 07: every money page needs a

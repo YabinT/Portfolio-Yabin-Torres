@@ -1,0 +1,148 @@
+---
+title: "Privacy, cookies and legal notice — Yabin Torres"
+description: "What yabintorres.com collects, why, who else handles it, and how to ask for it to be deleted. Includes the cookie policy and the legal notice required by Spanish law."
+# Legal identity — the LSSI (art. 10) requires these to be published.
+legalName: "TODO_LEGAL_NAME"
+taxId: "TODO_NIF"
+address: "TODO_ADDRESS"
+email: "TODO_EMAIL"
+updated: "4 October 2026"
+---
+{% extends "base.njk" %}
+
+{% block body %}
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">
+      <span>Yabin Torres</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="services.html">Services</a></li>
+      <li><a href="/#work">Work</a></li>
+      <li><a href="bio.html">Bio</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEAD -->
+  <header class="page-head">
+    <div class="services-inner">
+      <span class="page-kicker">Privacy</span>
+      <h1 class="services-heading">Privacy, cookies <br />and legal notice</h1>
+      <p class="services-lede">This site collects very little: what you write in a form, so I can reply, and &mdash; only if you accept &mdash; anonymous statistics about which pages get read. Nothing is sold, shared for advertising or added to a mailing list.</p>
+      <p class="privacy-updated">Last updated {{ updated }}</p>
+    </div>
+  </header>
+
+  <!-- CONTROLLER / LEGAL NOTICE -->
+  <section class="bio-section" id="legal-notice">
+    <div class="bio-inner bio-split">
+      <h2 class="bio-title">Who is responsible</h2>
+      <div class="bio-body">
+        <p>yabintorres.com is run by an individual, not a company. I am the data controller for everything described on this page, under the EU General Data Protection Regulation (GDPR) and Spain&rsquo;s Organic Law 3/2018 (LOPDGDD). This section is also the legal notice required by Spain&rsquo;s Law 34/2002 (LSSI).</p>
+        <dl class="privacy-facts">
+          <dt>Name</dt><dd>{{ legalName }}</dd>
+          <dt>Tax ID (NIF)</dt><dd>{{ taxId }}</dd>
+          <dt>Address</dt><dd>{{ address }}</dd>
+          <dt>Email</dt><dd><a href="mailto:{{ email }}">{{ email }}</a></dd>
+        </dl>
+        <p>Write to that address for anything on this page, including the rights listed below.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT AND WHY -->
+  <section class="bio-section">
+    <div class="bio-inner bio-split">
+      <h2 class="bio-title">What I collect and why</h2>
+      <div class="bio-body">
+        <p><strong>When you write to me.</strong> The <a href="contact.html">contact</a> and <a href="audit.html">page teardown</a> forms ask for your name, email and message, and the teardown form also for the page you want reviewed and its goal. I use them only to answer you and, if we agree to work together, to prepare that work. Legal basis: steps you ask for before a possible contract, and my legitimate interest in replying to messages (GDPR art. 6.1.b and 6.1.f).</p>
+        <p><strong>Statistics, only with your consent.</strong> If you click &ldquo;Accept&rdquo; in the cookie banner, Google Analytics records which pages you visit, roughly where from, the device and browser, and how you arrived. It does not tell me who you are. If you decline or ignore the banner, it never loads. Legal basis: your consent (GDPR art. 6.1.a), which you can withdraw at any time.</p>
+        <p><strong>Technical logs.</strong> Like any server, the hosting provider records IP addresses and requests briefly to deliver the site and protect it from abuse. Legal basis: legitimate interest in keeping the site running and secure (GDPR art. 6.1.f).</p>
+        <p>I don&rsquo;t make automated decisions about anyone, and I don&rsquo;t build profiles.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESSORS -->
+  <section class="bio-section">
+    <div class="bio-inner bio-split">
+      <h2 class="bio-title">Who else handles it</h2>
+      <div class="bio-body">
+        <p>A few services do part of the work for me. Each one only receives what it needs for its task.</p>
+        <dl class="privacy-facts">
+          <dt>Vercel Inc. (USA)</dt><dd>Hosts the site and keeps its server logs.</dd>
+          <dt>Web3Forms (outside the EU)</dt><dd>Receives what you send through a form and forwards it to my inbox.</dd>
+          <dt>hCaptcha &mdash; Intuition Machines Inc. (USA)</dt><dd>Checks that a form is sent by a person and not a bot. It only loads on the two pages with a form.</dd>
+          <dt>Google Ireland Ltd. / Google LLC (USA)</dt><dd>Google Analytics, only after consent. Google Fonts also serves the typefaces this site uses.</dd>
+        </dl>
+        <p>Some of these providers process data in the United States. Transfers rely on the EU&ndash;US Data Privacy Framework where the provider is certified, and otherwise on the European Commission&rsquo;s Standard Contractual Clauses (GDPR art. 45 and 46).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RETENTION -->
+  <section class="bio-section">
+    <div class="bio-inner bio-split">
+      <h2 class="bio-title">How long I keep it</h2>
+      <div class="bio-body">
+        <p><strong>Messages</strong> stay in my inbox while the conversation is useful, and are deleted at the latest two years after the last exchange &mdash; unless they become part of a project, in which case they are kept as long as tax and accounting law requires.</p>
+        <p><strong>Analytics data</strong> is kept by Google for a maximum of 14 months, then deleted automatically.</p>
+        <p><strong>Server logs</strong> are kept by Vercel for a short period set by their own policy, and are not used by me.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COOKIES -->
+  <section class="bio-section" id="cookies">
+    <div class="bio-inner bio-split">
+      <h2 class="bio-title">Cookies</h2>
+      <div class="bio-body">
+        <p>A cookie is a small file a site stores in your browser. This site only uses analytics cookies, and only after you accept them.</p>
+        <dl class="privacy-facts">
+          <dt><code>yt-cookie-consent</code></dt><dd>Remembers whether you accepted or declined, so the banner doesn&rsquo;t ask again. Stored in your browser&rsquo;s local storage, never sent anywhere. Necessary; kept until you clear your browser data.</dd>
+          <dt><code>_ga</code></dt><dd>Google Analytics. Tells visits from the same browser apart. Analytics; 2 years. Only after consent.</dd>
+          <dt><code>_ga_5MHWQYG4MV</code></dt><dd>Google Analytics. Keeps track of the current visit. Analytics; 2 years. Only after consent.</dd>
+        </dl>
+        <p>hCaptcha, on the contact and teardown pages, may store technical data needed to tell people from bots. It is part of the form you choose to send, not tracking.</p>
+        <p>You can change your choice whenever you want: <a href="#" data-cookie-settings class="privacy-link">change cookie settings</a>. Declining after having accepted deletes the Google Analytics cookies. You can also block or delete cookies from your browser&rsquo;s settings.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RIGHTS -->
+  <section class="bio-section">
+    <div class="bio-inner bio-split">
+      <h2 class="bio-title">Your rights</h2>
+      <div class="bio-body">
+        <p>You can ask me to show you the data I have about you, correct it, delete it, limit how I use it, send it to you in a reusable format, or stop using it. Where I rely on your consent, you can withdraw it at any time without affecting what was done before.</p>
+        <p>Write to <a href="mailto:{{ email }}">{{ email }}</a>. I&rsquo;ll answer within one month. I may ask you to confirm it&rsquo;s really you before handing over any data.</p>
+        <p>If you think I haven&rsquo;t handled your data properly, you can complain to the Spanish Data Protection Agency (<a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer">aepd.es</a>) or to the authority in your own EU country.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TERMS -->
+  <section class="bio-section">
+    <div class="bio-inner bio-split">
+      <h2 class="bio-title">Use of this site</h2>
+      <div class="bio-body">
+        <p>The texts, images and case studies on this site are my work or are published with the permission of the organisations involved. Please ask before reusing them. Third-party names and logos belong to their owners.</p>
+        <p>If this page changes, the date at the top will change with it. These terms are governed by Spanish law.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <span class="footer-name">Yabin Torres — 2026</span>
+      <span class="footer-links">
+        <a href="https://www.linkedin.com/in/yabintorres/" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp;·&nbsp;
+        <a href="https://www.behance.net/YabinTorres" target="_blank" rel="noopener noreferrer">Behance</a> &nbsp;·&nbsp;
+        <a href="contact.html">Contact</a>
+      </span>
+    </div>
+  </footer>
+
+{% endblock %}
