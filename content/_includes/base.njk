@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5MHWQYG4MV"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-5MHWQYG4MV');
-  </script>
   <meta charset="UTF-8" />
+  {#- Google Analytics is loaded by consent.js, and only after the visitor
+      accepts. Don't paste the gtag snippet back here. #}
+  <link rel="stylesheet" href="/css/consent.css?v=1" />
+  <script src="/js/consent.js?v=1" defer></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{ title }}</title>
   {%- if description %}

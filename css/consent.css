@@ -1,0 +1,64 @@
+/* Cookie banner — loaded on every page, so it can't lean on the tokens of
+   styles.css or resiliencia.css: the values below mirror both. Accept and
+   Decline look identical on purpose; the AEPD guide asks that declining be
+   as easy as accepting. */
+.cookie-banner {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 1000;
+  max-width: 420px;
+  padding: 20px 24px;
+  background: #1A1A18;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 2px;
+  color: #FFFFFF;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.cookie-banner[hidden] { display: none; }
+
+.cookie-banner-text a {
+  color: #25C47E;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cookie-banner-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.cookie-btn {
+  flex: 1;
+  padding: 10px 16px;
+  background: transparent;
+  border: 1px solid #FFFFFF;
+  border-radius: 2px;
+  color: #FFFFFF;
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.cookie-btn:hover,
+.cookie-btn:focus-visible {
+  background: #FFFFFF;
+  color: #0F0F0E;
+}
+
+.cookie-btn:focus-visible { outline: 2px solid #25C47E; outline-offset: 2px; }
+
+@media (max-width: 600px) {
+  .cookie-banner {
+    right: 16px;
+    bottom: 16px;
+    left: 16px;
+    max-width: none;
+  }
+}
