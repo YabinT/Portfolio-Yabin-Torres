@@ -1,6 +1,11 @@
 ---
 title: "ARISE MX Newsletter — Yabin Torres"
 description: "The monthly newsletter of a Mexican disaster-response network, turned from a layout rebuilt every month into a fixed template. Open rate up from 20.3% to 27.6%."
+card:
+  title: "ARISE MX Newsletter"
+  label: "Email template"
+  thumb: "newsletter-editions.jpg"
+  order: 4
 ---
 {% extends "base.njk" %}
 
@@ -352,6 +357,8 @@ description: "The monthly newsletter of a Mexican disaster-response network, tur
   </section>
 
   </div><!-- /.sections-wrapper -->
+
+  {% include "related.njk" %}
 
 <!-- -- FOOTER -------------------------------------------------- -->
   <footer>

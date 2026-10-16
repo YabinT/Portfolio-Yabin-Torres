@@ -2,6 +2,11 @@
 title: "Benotto — Yabin Torres"
 description: "Brand strategy and visual identity proposal for Benotto, the 1931 racing house that became Mexico's bicycle: one signature recovered from its own archive, three worlds for three kinds of riders."
 bodyClass: "case-light bx-page"
+card:
+  title: "Benotto"
+  label: "Brand identity"
+  thumb: "benotto.jpg"
+  order: 2
 ---
 {% extends "base.njk" %}
 
@@ -283,12 +288,6 @@ bodyClass: "case-light bx-page"
     .bx-credits dl { margin: 0; display: grid; gap: 4px; font-size: 15px; line-height: 1.5; }
     .bx-credits dl div { display: flex; flex-wrap: wrap; gap: 0 8px; } .bx-credits dt { color: var(--gray); } .bx-credits dd { margin: 0; }
     .bx-credits .fine { margin-top: 18px; font-size: 13px; color: var(--gray); max-width: 52ch; line-height: 1.5; }
-    .bx-more { padding: 72px 0 120px; }
-    .bx-more h2 { margin: 0 0 18px; font-size: clamp(20px, 1.8vw, 28px); font-weight: 400; }
-    .bx-more .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); }
-    .bx-more a { color: var(--ink); text-decoration: none; display: grid; gap: 10px; }
-    .bx-more img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--r); display: block; }
-    .bx-more b { font-size: 15px; font-weight: 500; } .bx-more span { font-size: 14px; color: var(--gray); margin-top: -6px; }
 
 
     /* -- Text sections: numbered kicker, heading left, body right --- */
@@ -306,8 +305,7 @@ bodyClass: "case-light bx-page"
       .bx-arch .cells { grid-template-columns: 1fr; }
       .bx-arch .cell + .cell { border-left: 0; border-top: 1px solid var(--steel-100); }
       .bx-mission { grid-template-columns: 1fr; gap: 32px; padding: 40px 32px 44px; }
-      .bx-more .grid { grid-template-columns: 1fr 1fr; }
-    }
+      }
     @media (max-width: 760px) {
       .bx-head { padding: 104px 0 28px; }
       .bx-row.c2, .bx-row.c3, .bx-credits { grid-template-columns: 1fr; }
@@ -340,8 +338,7 @@ bodyClass: "case-light bx-page"
       .bx-browser .sc { max-height: 620px; }
       .bx-close { aspect-ratio: auto; min-height: 320px; padding: 48px 20px; }
       .bx-manual { aspect-ratio: auto; padding: 28px 20px; gap: 12px; }
-      .bx-more .grid { grid-template-columns: 1fr; }
-
+  
       /* Swipe rows: posters, phones, Instagram and price tags slide sideways
          instead of stacking full width. Each card snaps to the centre. */
       .bx-swipe { display: flex !important; overflow-x: auto; scroll-snap-type: x mandatory; gap: 12px;
@@ -743,18 +740,10 @@ bodyClass: "case-light bx-page"
       </div>
     </section>
 
-    <!-- Other projects -->
-    <section class="bx-more">
-      <h2>Other projects</h2>
-      <div class="grid">
-        <a href="doctor-doctor.html"><img src="../assets/thumbnails/doctor-doctor.jpg" alt="" loading="lazy" /><b>Doctor, doctor!?</b><span>Service design</span></a>
-        <a href="resilienciaenuncaja.html"><img src="../assets/thumbnails/riab-screens.jpg" alt="" loading="lazy" /><b>Resiliencia en una Caja</b><span>Learning platform</span></a>
-        <a href="unidosporellxs.html"><img src="../assets/thumbnails/uxe-screens.jpg" alt="" loading="lazy" /><b>Unidos por Ellxs</b><span>Campaign platform</span></a>
-        <a href="trendo.html"><img src="../assets/thumbnails/trendo-screens.jpg" alt="" loading="lazy" /><b>Trendo.mx</b><span>Website proposal</span></a>
-      </div>
-    </section>
 
   </main>
+
+  {% include "related.njk" %}
 
 <!-- -- FOOTER -------------------------------------------------- -->
   <footer>

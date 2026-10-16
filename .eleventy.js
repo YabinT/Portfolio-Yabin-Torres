@@ -33,6 +33,18 @@ module.exports = function (eleventyConfig) {
     ...casePages.map((file) => `/cases/${file}`),
   ]);
 
+  // "Other projects" at the end of every case: the n cases that follow
+  // the current one in card.order, wrapping around, so each page shows a
+  // different set and a new case with a card joins without editing this.
+  eleventyConfig.addFilter("relatedCases", (cases, url, n = 4) => {
+    const list = (cases || [])
+      .filter((c) => c.data.card)
+      .sort((a, b) => (a.data.card.order ?? 99) - (b.data.card.order ?? 99));
+    const at = list.findIndex((c) => c.url === url);
+    const rest = at < 0 ? list : [...list.slice(at + 1), ...list.slice(0, at)];
+    return rest.slice(0, n);
+  });
+
   eleventyConfig.addPassthroughCopy("robots.txt");
 
   // Spanish mirror

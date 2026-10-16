@@ -1,0 +1,18 @@
+{#- Other projects: the next cases after this one, read from the "case"
+    collection. A case joins automatically when its front matter has a
+    card (title, label, thumb, order); mockups are ignored by Eleventy. -#}
+{%- set related = collections.case | relatedCases(page.url, 4) -%}
+{%- if related.length %}
+  <section class="related wrap" aria-labelledby="related-heading">
+    <h2 class="related-heading" id="related-heading">Other projects</h2>
+    <div class="related-grid">
+      {%- for item in related %}
+      <a class="related-card" href="{{ item.url }}">
+        <img src="/assets/thumbnails/{{ item.data.card.thumb }}" alt="" loading="lazy" width="900" height="675" />
+        <b>{{ item.data.card.title }}</b>
+        <span>{{ item.data.card.label }}</span>
+      </a>
+      {%- endfor %}
+    </div>
+  </section>
+{%- endif %}
