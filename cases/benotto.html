@@ -1,0 +1,752 @@
+---
+title: "Benotto — Yabin Torres"
+description: "Brand strategy and visual identity proposal for Benotto, the 1931 racing house that became Mexico's bicycle: one signature recovered from its own archive, three worlds for three kinds of riders."
+bodyClass: "case-light bx-page"
+---
+{% extends "base.njk" %}
+
+{% block head %}
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* Benotto is presented as a brand showcase, not a case study: few
+       words, large panels, and every panel built for the screen in the
+       brand's own system (Outfit, DM Mono, Benotto Blue, Eagle Gold
+       only as graphic). The logo is drawn with CSS masks over the
+       original vectors, so one source gives every colour version.
+       Everything is scoped to body.bx-page or the .bx- prefix. */
+    body.bx-page {
+      --bg: #FFFFFF; --text: #15171C; --muted: #15171C; --dim: #15171C;
+      --surface: #F4F5F6; --border: rgba(21,23,28,.14); --border-sec: #15171C;
+      --mint: #2F3594; --mint-line: rgba(47,53,148,.35);
+      --font-serif: 'Outfit', system-ui, sans-serif; --font-sans: 'Outfit', system-ui, sans-serif; --font-mono: 'Outfit', system-ui, sans-serif;
+      --blue: #2F3594; --gold: #94732E; --ink: #15171C; --gray: #454A52;
+      --steel-300: #C5C9CF; --steel-100: #E6E8EB; --steel-50: #F4F5F6;
+      --sky: #C8DBEA; --forest: #22302A; --sand: #D6CAB0; --moss: #5E6B4E;
+      --mono: 'DM Mono', ui-monospace, monospace;
+      --gap: 16px; --r: 14px;
+      background: #fff;
+    }
+    /* Width and side margins come from .wrap, shared with every case study */
+    .bx { font-family: 'Outfit', system-ui, sans-serif; color: var(--ink); }
+    .bx p { margin: 0; }
+
+    /* -- Header and short texts ------------------------------------ */
+    .bx-head { text-align: center; padding: 132px 0 48px; }
+    .bx-head h1 { margin: 0; font-size: clamp(34px, 3.4vw, 52px); font-weight: 400; letter-spacing: -0.01em; }
+    .bx-head p { margin-top: 10px; font-size: clamp(17px, 1.4vw, 22px); color: var(--gray); font-weight: 300; }
+    .bx-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; padding: 80px 0 96px; }
+    .bx-cols h2 { margin: 0 0 12px; font-size: 16px; font-weight: 500; }
+    .bx-cols p { font-size: 15.5px; line-height: 1.55; color: var(--gray); }
+    .bx-note { max-width: 700px; padding: 96px 0 24px; }
+    .bx-note h2 { margin: 0 0 6px; font-size: 16px; font-weight: 500; }
+    .bx-note p { font-size: 15.5px; line-height: 1.55; color: var(--gray); }
+    .bx-label { font-size: 15px; font-weight: 500; margin: 0 0 14px; }
+
+    /* -- Grid and panels -------------------------------------------- */
+    .bx-row { display: grid; gap: var(--gap); margin-top: var(--gap); }
+    .bx-row.c2 { grid-template-columns: 1fr 1fr; }
+    .bx-row.c3 { grid-template-columns: repeat(3, 1fr); }
+    .bx-p { border-radius: var(--r); overflow: hidden; position: relative; background: var(--steel-50); min-width: 0; }
+    .bx-p > img.cover, .bx-p img.cover { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .r-wide { aspect-ratio: 16 / 8; }
+    .r-169 { aspect-ratio: 16 / 9; }
+    .r-43 { aspect-ratio: 4 / 3; }
+    .r-sq { aspect-ratio: 1 / 1; }
+    .bx-cap { position: absolute; left: 20px; bottom: 18px; font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.4); }
+
+    /* -- The logo, drawn from the vectors --------------------------- */
+    .lk { --size: 280px; --e: var(--gold); --w: var(--blue); width: var(--size); display: flex; flex-direction: column; align-items: center; gap: calc(var(--size) * .083); }
+    .lk .e { width: 53%; aspect-ratio: 604.774 / 862.654; background: var(--e);
+      -webkit-mask: url("../assets/images/benotto/mark-eagle.svg") center / contain no-repeat; mask: url("../assets/images/benotto/mark-eagle.svg") center / contain no-repeat; }
+    .lk .w, .wm { width: 100%; aspect-ratio: 1137.12 / 223.873; background: var(--w);
+      -webkit-mask: url("../assets/images/benotto/mark-wordmark.svg") center / contain no-repeat; mask: url("../assets/images/benotto/mark-wordmark.svg") center / contain no-repeat; }
+    .wm { --w: var(--blue); display: block; }
+    .bm { aspect-ratio: 926.047 / 895.271; background: var(--c, var(--blue)); display: block;
+      -webkit-mask: url("../assets/images/benotto/mark-b.svg") center / contain no-repeat; mask: url("../assets/images/benotto/mark-b.svg") center / contain no-repeat; }
+    .eg { aspect-ratio: 604.774 / 862.654; background: var(--c, var(--gold)); display: block;
+      -webkit-mask: url("../assets/images/benotto/mark-eagle.svg") center / contain no-repeat; mask: url("../assets/images/benotto/mark-eagle.svg") center / contain no-repeat; }
+    .center { display: grid; place-items: center; }
+
+    /* -- Motion: plays once when the panel enters the screen -------- */
+    @keyframes bx-up { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+    @keyframes bx-wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+    @keyframes bx-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+    @keyframes bx-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+    @keyframes bx-drift { from { background-position: 0% 40%; } to { background-position: 100% 60%; } }
+    @keyframes bx-marquee { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+    .reveal.visible .a-up { animation: bx-up 1s cubic-bezier(.2,.7,.2,1) both; }
+    .reveal.visible .a-up.d1 { animation-delay: .25s; } .reveal.visible .a-up.d2 { animation-delay: .5s; } .reveal.visible .a-up.d3 { animation-delay: .75s; }
+    .reveal.visible .a-wipe { animation: bx-wipe 1.2s .55s cubic-bezier(.6,0,.2,1) both; }
+    .reveal.visible .a-grow { animation: bx-grow 3.6s .3s linear both; }
+    .a-grow { transform-origin: left; }
+    .reveal.visible .a-draw path { animation: bx-draw 3.2s .3s ease-in-out both; }
+    .a-draw path { stroke-dasharray: 1; stroke-dashoffset: 0; }
+
+    /* -- Hero --------------------------------------------------------- */
+    .bx-hero { aspect-ratio: 16 / 8; min-height: 420px; background: var(--ink); color: #fff; }
+    .bx-hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .55; }
+    .bx-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(21,23,28,.85) 0%, rgba(21,23,28,.25) 60%, rgba(47,53,148,.35) 100%); }
+    .bx-hero .in { position: absolute; inset: 0; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 0 7%; }
+    .bx-hero .lk { --size: clamp(200px, 22vw, 380px); --e: #fff; --w: #fff; }
+    .bx-hero .side { justify-self: end; text-align: right; font-family: var(--mono); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; line-height: 2; color: rgba(255,255,255,.88); }
+    .bx-hero .slogan { position: absolute; left: 7%; bottom: 7%; z-index: 1; font-size: clamp(18px, 1.6vw, 24px); font-weight: 400; }
+
+    /* -- Before the rebrand ------------------------------------------- */
+    .bx-before { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: minmax(180px, 15vw); gap: var(--gap); }
+    .bx-before .bx-p img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .bx-before .w2 { grid-column: span 2; }
+    .bx-before .h2 { grid-row: span 2; }
+    .bx-handles { background: var(--ink); color: #fff; display: grid; align-content: center; gap: 10px; padding: 24px; }
+    .bx-handles span { font-family: var(--mono); font-size: clamp(12px, .95vw, 15px); }
+    .bx-handles span:nth-child(odd) { color: rgba(255,255,255,.6); }
+    .bx-handles small { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.6); margin-bottom: 6px; font-family: var(--mono); }
+
+    /* -- Brand architecture: before / after --------------------------- */
+    .bx-arch { border-top: 1px solid var(--steel-100); }
+    .bx-arch .stage { display: grid; grid-template-columns: 56px 1fr; border-bottom: 1px solid var(--steel-100); }
+    .bx-arch .side { writing-mode: vertical-rl; transform: rotate(180deg); justify-self: center; align-self: center; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--gray); }
+    .bx-arch .cells { display: grid; grid-template-columns: 1.1fr 1fr 1.4fr; }
+    .bx-arch .cell { padding: 36px 28px 40px; display: grid; gap: 18px; align-content: start; justify-items: center; text-align: center; }
+    .bx-arch .cell + .cell { border-left: 1px solid var(--steel-100); }
+    .bx-arch .k { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--gray); justify-self: start; }
+    .bx-arch .tl { display: grid; gap: 8px; font-size: 15px; color: var(--gray); }
+    .bx-arch .tl span { border: 1px dashed var(--steel-300); padding: 6px 10px; }
+    .bx-arch .lines { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; width: 100%; }
+    .bx-arch .ln { display: grid; gap: 8px; justify-items: center; }
+    .bx-arch .ln .wm { width: 100%; max-width: 150px; }
+    .bx-arch .ln b { font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; }
+    .bx-arch .sig { width: 100%; max-width: 150px; height: 18px; }
+    .sig-ruta { border-bottom: 5px solid var(--gold); }
+    .sig-mont { background: repeating-radial-gradient(ellipse at 30% 140%, transparent 0 5px, var(--moss) 5px 6px); }
+    .sig-e { background: url("../assets/images/benotto/le-horizon.svg") left bottom / contain no-repeat; }
+
+    /* -- Mission ------------------------------------------------------- */
+    .bx-mission { background: #F3F1EC; display: grid; grid-template-columns: 1fr 300px; gap: 56px; padding: 56px 64px 64px; }
+    .bx-mission .k { font-family: var(--mono); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--blue); margin-bottom: 18px; }
+    .bx-mission h2 { margin: 0; font-size: clamp(34px, 4.4vw, 76px); line-height: 1.04; font-weight: 400; letter-spacing: -0.025em; color: var(--blue); }
+    .bx-mission sup { font-family: var(--mono); font-size: .22em; vertical-align: super; background: var(--blue); color: #fff; border-radius: 99px; padding: .15em .45em; margin: 0 .1em; letter-spacing: 0; }
+    .bx-mission ol { list-style: none; margin: 0; padding: 0; align-self: end; display: grid; gap: 14px; counter-reset: v; }
+    .bx-mission li { font-size: 13.5px; line-height: 1.45; color: var(--gray); display: grid; grid-template-columns: 22px 1fr; gap: 6px; counter-increment: v; }
+    .bx-mission li::before { content: counter(v) "."; font-family: var(--mono); color: var(--blue); }
+    .bx-mission li b { color: var(--ink); font-weight: 500; }
+
+    /* -- Colour versions ------------------------------------------------ */
+    .bx-tile { aspect-ratio: 4 / 3; }
+    .bx-tile .lk { --size: 38%; }
+    .bx-tile .rule { position: absolute; left: 0; right: 0; bottom: 0; height: 8px; background: var(--gold); }
+
+    /* -- App icons and favicon ------------------------------------------ */
+    .bx-icons { background: var(--blue); display: grid; place-items: center; }
+    .bx-icons .ic { background: #fff; border-radius: 22%; display: grid; place-items: center; }
+    .bx-icons .ic .bm { width: 58%; }
+    .bx-icons .ic.r { border-radius: 50%; }
+    .bx-icons .lab { text-align: center; font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,.8); margin-top: 10px; letter-spacing: .08em; }
+
+    /* -- Stores marquee ------------------------------------------------- */
+    .bx-stores { background: var(--blue); color: #fff; aspect-ratio: 16 / 7; min-height: 360px; display: grid; grid-template-columns: 1fr 2fr 1fr; align-items: center; padding: 0 5%; }
+    .bx-stores .wm { --w: #fff; width: 140px; }
+    .bx-stores .mq { height: 72%; overflow: hidden; -webkit-mask: linear-gradient(transparent, #000 22%, #000 78%, transparent); mask: linear-gradient(transparent, #000 22%, #000 78%, transparent); text-align: center; }
+    .bx-stores .track { animation: bx-marquee 14s linear infinite; }
+    .bx-stores .track p { font-size: clamp(36px, 5vw, 88px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; text-transform: uppercase; }
+    .bx-stores .track small { display: block; font-family: var(--mono); font-size: clamp(11px, .9vw, 14px); letter-spacing: .14em; opacity: .75; margin-bottom: clamp(14px, 2vw, 34px); }
+    .bx-stores .r { justify-self: end; text-align: right; font-family: var(--mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; line-height: 2; opacity: .85; }
+
+    /* -- 1931 and the Hour Record ---------------------------------------- */
+    .bx-1931 { background: var(--ink); container-type: inline-size; }
+    .bx-1931 .n { position: absolute; font-size: 30cqw; font-weight: 600; letter-spacing: -0.04em; line-height: .8; color: var(--blue); }
+    .bx-1931 .n1 { top: 7%; left: 7%; } .bx-1931 .n2 { top: 7%; right: 7%; } .bx-1931 .n3 { bottom: 7%; left: 7%; } .bx-1931 .n4 { bottom: 7%; right: 7%; }
+    .bx-1931 .mid { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.75); line-height: 2; }
+    .bx-hour { container-type: inline-size; background: var(--steel-50); padding: 7%; display: grid; grid-template-rows: auto 1fr auto; }
+    .bx-hour .k { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--gray); max-width: 50%; }
+    .bx-hour .ph { position: absolute; top: 7%; right: 7%; width: 26%; aspect-ratio: 2 / 3; object-fit: cover; filter: grayscale(1) contrast(1.1); }
+    .bx-hour .big { align-self: end; font-size: 14cqw; font-weight: 600; letter-spacing: -0.045em; line-height: .9; }
+    .bx-hour .big small { display: block; font-size: .32em; font-weight: 500; letter-spacing: -0.01em; margin-top: .25em; }
+    .bx-hour .foot { display: flex; justify-content: space-between; align-items: end; margin-top: 22px; gap: 16px; }
+    .bx-hour .foot p { font-size: 14px; color: var(--gray); max-width: 30ch; line-height: 1.45; }
+    .bx-hour .lk { --size: 96px; }
+    .bx-hour .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 8px; background: var(--gold); }
+
+    /* -- The three lines -------------------------------------------------- */
+    .bx-line { aspect-ratio: 16 / 7.4; min-height: 420px; display: grid; grid-template-columns: 1fr 1fr; }
+    .bx-line > div { position: relative; overflow: hidden; }
+    .bx-line .txt { padding: 9% 9% 8%; display: grid; grid-template-rows: auto 1fr auto; }
+    .bx-line .k { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+    .bx-line h3 { margin: 0; align-self: end; font-size: clamp(42px, 5.6vw, 104px); line-height: .95; font-weight: 600; letter-spacing: -0.035em; }
+    .bx-line p.s { margin-top: 18px; font-size: clamp(15px, 1.2vw, 19px); line-height: 1.45; max-width: 34ch; }
+    .bx-ruta { background: var(--ink); color: #fff; }
+    .bx-ruta .k, .bx-ruta p.s { color: rgba(255,255,255,.82); }
+    .bx-ruta .gold { position: absolute; left: 0; right: 0; bottom: 0; height: 12px; background: var(--gold); }
+    .bx-ruta img.cover { filter: grayscale(1) contrast(1.05); }
+    .bx-mont { background: var(--forest); color: var(--sand); }
+    .bx-mont .txt { background: url("../assets/images/benotto/topo.svg") 0% 40% / 160% auto no-repeat; }
+    .reveal.visible .bx-mont .txt, .bx-mont.reveal.visible .txt { animation: bx-drift 24s ease-in-out infinite alternate; }
+    .bx-mont p.s { color: #E9E2D2; }
+    .bx-e { background: var(--blue); color: #fff; }
+    .bx-e .k, .bx-e p.s { color: rgba(255,255,255,.85); }
+    /* The horizon sits in the flow under the copy, never on top of it */
+    .bx-e .txt { grid-template-rows: auto 1fr auto auto; }
+    .bx-e .hz { display: block; width: 100%; max-width: 460px; height: auto; margin-top: clamp(24px, 3vw, 44px); }
+    .bx-e .shot { background: #8FA9C0; }
+    .bx-e .shot img { width: 100%; height: 100%; object-fit: cover; object-position: center 70%; display: block; }
+
+    /* -- Website ----------------------------------------------------------- */
+    .bx-browser { background: #fff; border: 1px solid var(--steel-100); }
+    .bx-browser .bar { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: var(--steel-50); border-bottom: 1px solid var(--steel-100); }
+    .bx-browser .bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--steel-300); }
+    .bx-browser .bar span { margin-left: 12px; font-family: var(--mono); font-size: 12px; color: var(--gray); }
+    .bx-browser .sc { max-height: 760px; overflow-y: auto; }
+    .bx-browser .sc img { width: 100%; height: auto; display: block; }
+    .bx-phones { background: var(--steel-50); display: grid; grid-template-columns: repeat(3, 1fr); gap: 6%; padding: 5% 12%; align-items: start; }
+    .bx-phones .ph { border: 10px solid var(--ink); border-radius: 38px; overflow: hidden; background: var(--ink); }
+    .bx-phones .scr { aspect-ratio: 390 / 844; overflow-y: auto; border-radius: 28px; background: #fff; scrollbar-width: none; }
+    .bx-phones .scr::-webkit-scrollbar { display: none; }
+    .bx-phones img { width: 100%; height: auto; display: block; }
+    .bx-phones-note { grid-column: 1 / -1; text-align: center; font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--gray); margin-top: -2%; }
+
+    /* -- Campaign posters, rebuilt --------------------------------------- */
+    .bx-post { aspect-ratio: 4 / 5; color: #fff; background: var(--ink); }
+    .bx-post > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.05); }
+    .bx-post::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(21,23,28,.2) 30%, rgba(21,23,28,.88) 100%); }
+    .bx-post .in { position: absolute; inset: 0; z-index: 1; padding: 8%; display: grid; grid-template-rows: auto 1fr auto auto; }
+    .bx-post .lk { --size: 24%; --e: #fff; --w: #fff; align-items: flex-start; }
+    .bx-post .lk .e { width: 42%; }
+    .bx-post .k { align-self: end; font-family: var(--mono); font-size: clamp(9px, .7vw, 12px); letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.85); margin-bottom: 10px; }
+    .bx-post h3 { margin: 0; font-size: clamp(26px, 2.8vw, 52px); line-height: 1; font-weight: 600; letter-spacing: -0.03em; }
+    .bx-post p.s { margin-top: 10px; font-size: clamp(12px, .95vw, 16px); color: rgba(255,255,255,.88); }
+    .bx-post .rule { position: absolute; left: 0; right: 0; bottom: 0; height: 8px; background: var(--gold); z-index: 2; }
+    .bx-post--ritter > img { inset: 8% 8% auto auto; width: 46%; height: auto; aspect-ratio: 2 / 3; }
+    .bx-post--ritter::after { display: none; }
+
+    /* -- Instagram ---------------------------------------------------------- */
+    .bx-ig { background: #1B1E5C; padding: 6% 8%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 5%; }
+    .bx-ig .card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+    .bx-ig .hd { display: flex; align-items: center; gap: 10px; padding: 10px 12px; }
+    .bx-ig .av { width: 30px; height: 30px; border-radius: 50%; background: var(--blue); display: grid; place-items: center; flex: none; }
+    .bx-ig .av .bm { --c: #fff; width: 58%; }
+    .bx-ig .hd b { font-size: 13px; font-weight: 600; } .bx-ig .hd div span { display: block; font-size: 11px; color: var(--gray); }
+    .bx-ig .card img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; }
+    .bx-ig .ft { padding: 10px 12px 14px; font-size: 12.5px; line-height: 1.4; color: var(--ink); }
+    .bx-ig .ft .dots { display: flex; gap: 4px; justify-content: center; margin-bottom: 8px; }
+    .bx-ig .ft .dots i { width: 5px; height: 5px; border-radius: 50%; background: var(--steel-300); }
+    .bx-ig .ft .dots i:first-child { background: var(--blue); }
+
+    /* -- Price tags, rebuilt -------------------------------------------------- */
+    /* Price tags rebuilt from the Figma component (360 x 720). Every size
+       is expressed in --u, one 360th of the tag width, so the tag scales
+       as a whole and never crops. The tag height follows the panel. */
+    .bx-tags { background: #1B1D22; display: flex; align-items: center; justify-content: center; gap: 4%; }
+    .tag { --u: calc(100cqw / 360); container-type: inline-size; height: 84%; aspect-ratio: 1 / 2; position: relative; border-radius: 10px;
+      background: linear-gradient(160deg, #FFFFFF 0%, #F4F5F6 45%, #E3E5E9 100%); box-shadow: 0 18px 40px rgba(0,0,0,.35); color: var(--ink); }
+    .tag .in { position: absolute; inset: 0; padding: calc(var(--u) * 64) calc(var(--u) * 28) calc(var(--u) * 24); display: flex; flex-direction: column; }
+    .tag p, .tag dt, .tag dd, .tag .strip { line-height: 1.2; }
+    .tag .ojal { position: absolute; top: calc(var(--u) * 11); left: 50%; width: calc(var(--u) * 30); aspect-ratio: 1; border-radius: 50%; transform: translateX(-50%);
+      background: radial-gradient(circle, #fff 0 53%, #C5C9CF 53% 66%, #E6E8EB 66%); box-shadow: inset 0 1px 2px rgba(0,0,0,.15); }
+    .tag .hd { display: flex; justify-content: space-between; align-items: center; padding-bottom: calc(var(--u) * 18); border-bottom: calc(var(--u) * 2) solid var(--blue); }
+    .tag .hd .wm { width: calc(var(--u) * 128); }
+    .tag .mono { font-family: var(--mono); font-weight: 500; font-size: calc(var(--u) * 10); letter-spacing: .08em; text-transform: uppercase; color: var(--gray); }
+    .tag .cat { color: var(--blue); margin-top: calc(var(--u) * 20); }
+    .tag .model { margin-top: calc(var(--u) * 6); font-size: calc(var(--u) * 40); font-weight: 600; letter-spacing: -0.01em; line-height: 1; }
+    .tag .desc { margin-top: calc(var(--u) * 6); font-family: 'Inter', system-ui, sans-serif; font-size: calc(var(--u) * 12); color: var(--gray); }
+    .tag dl { margin: calc(var(--u) * 18) 0 0; }
+    .tag dl div { display: flex; justify-content: space-between; align-items: baseline; padding: calc(var(--u) * 8) 0; border-bottom: calc(var(--u) * 1.5) solid #D9DCE0; }
+    .tag dt { font-family: var(--mono); font-size: calc(var(--u) * 9); letter-spacing: .06em; text-transform: uppercase; color: var(--gray); }
+    .tag dd { margin: 0; font-family: 'Inter', system-ui, sans-serif; font-weight: 500; font-size: calc(var(--u) * 12); }
+    .tag .pb { margin-top: auto; padding-bottom: calc(var(--u) * 16); border-bottom: calc(var(--u) * 1.5) solid #D9DCE0; }
+    .tag .strip { display: flex; justify-content: space-between; align-items: center; background: var(--ink); color: #fff; border-radius: calc(var(--u) * 4); border-top: calc(var(--u) * 4) solid var(--gold);
+      padding: calc(var(--u) * 10) calc(var(--u) * 14); font-weight: 600; font-size: calc(var(--u) * 18); margin-bottom: calc(var(--u) * 24); }
+    .tag .strip b { font-size: calc(var(--u) * 20); font-weight: 700; }
+    .tag .was { font-family: 'Inter', system-ui, sans-serif; font-weight: 500; font-size: calc(var(--u) * 15); color: var(--gray); text-decoration: line-through; }
+    .tag .price { display: flex; align-items: flex-start; gap: calc(var(--u) * 4); color: var(--blue); line-height: 1; margin-top: calc(var(--u) * 4); }
+    .tag .price span { font-size: calc(var(--u) * 26); font-weight: 600; margin-top: calc(var(--u) * 4); }
+    .tag .price b { font-size: calc(var(--u) * 76); font-weight: 700; letter-spacing: -0.03em; line-height: .95; }
+    .tag .legal { margin-top: calc(var(--u) * 4); font-family: 'Inter', system-ui, sans-serif; font-size: calc(var(--u) * 10); color: var(--gray); }
+    .tag .ft { display: flex; justify-content: space-between; align-items: flex-end; padding-top: calc(var(--u) * 14); }
+    .tag .sku { font-family: var(--mono); font-size: calc(var(--u) * 9); letter-spacing: .04em; color: var(--gray); }
+    .tag .tl { margin-top: calc(var(--u) * 6); font-size: calc(var(--u) * 18); font-weight: 600; letter-spacing: -0.005em; color: var(--blue); }
+    .tag .qr { width: calc(var(--u) * 58); aspect-ratio: 1; background: url("../assets/images/benotto/qr.svg") center / contain no-repeat; }
+    .bx-tags-note { position: absolute; left: 0; right: 0; text-align: center; bottom: 1.5%; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.6); }
+
+    /* -- Manual pages --------------------------------------------------------- */
+    .bx-manual { background: var(--blue); display: grid; grid-template-columns: 1fr 1fr; gap: 4%; padding: 7% 9%; align-content: center; }
+    .bx-manual img { width: 100%; height: auto; display: block; box-shadow: 0 16px 34px rgba(0,0,0,.28); }
+
+    /* -- Closer ------------------------------------------------------------------ */
+    .bx-close { background: var(--blue); color: #fff; aspect-ratio: 16 / 7; min-height: 380px; display: grid; place-items: center; text-align: center; }
+    .bx-close .eg { --c: #fff; width: clamp(70px, 7vw, 120px); margin: 0 auto 28px; }
+    .bx-close h2 { margin: 0; font-size: clamp(42px, 6vw, 112px); font-weight: 600; letter-spacing: -0.035em; line-height: 1; }
+    .bx-close p { margin-top: 14px; font-size: clamp(15px, 1.2vw, 19px); color: rgba(255,255,255,.85); }
+
+    /* -- Credits and other projects ---------------------------------------------- */
+    .bx-credits { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; padding: 96px 0 24px; }
+    .bx-credits h2 { margin: 0; font-size: 16px; font-weight: 500; }
+    .bx-credits dl { margin: 0; display: grid; gap: 4px; font-size: 15px; line-height: 1.5; }
+    .bx-credits dl div { display: flex; flex-wrap: wrap; gap: 0 8px; } .bx-credits dt { color: var(--gray); } .bx-credits dd { margin: 0; }
+    .bx-credits .fine { margin-top: 18px; font-size: 13px; color: var(--gray); max-width: 52ch; line-height: 1.5; }
+    .bx-more { padding: 72px 0 120px; }
+    .bx-more h2 { margin: 0 0 18px; font-size: clamp(20px, 1.8vw, 28px); font-weight: 400; }
+    .bx-more .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); }
+    .bx-more a { color: var(--ink); text-decoration: none; display: grid; gap: 10px; }
+    .bx-more img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--r); display: block; }
+    .bx-more b { font-size: 15px; font-weight: 500; } .bx-more span { font-size: 14px; color: var(--gray); margin-top: -6px; }
+
+
+    /* -- Text sections: numbered kicker, heading left, body right --- */
+    .bx-text { padding: 112px 0 48px; }
+    .bx-text .section-heading { font-weight: 600; letter-spacing: -0.02em; margin: 0; }
+    .bx-text .section-body p { margin: 0; color: var(--gray); }
+    .bx-label { margin-top: 8px; }
+    @media (max-width: 760px) { .bx-text { padding: 72px 0 32px; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bx *, .bx *::before, .bx *::after { animation: none !important; }
+    }
+    @media (max-width: 1100px) {
+      .bx-cols { grid-template-columns: 1fr; gap: 28px; padding: 56px 0 64px; }
+      .bx-arch .cells { grid-template-columns: 1fr; }
+      .bx-arch .cell + .cell { border-left: 0; border-top: 1px solid var(--steel-100); }
+      .bx-mission { grid-template-columns: 1fr; gap: 32px; padding: 40px 32px 44px; }
+      .bx-more .grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 760px) {
+      .bx-head { padding: 104px 0 32px; }
+      .bx-row.c2, .bx-row.c3, .bx-credits { grid-template-columns: 1fr; }
+      .bx-hero { aspect-ratio: auto; min-height: 520px; }
+      .bx-hero .in { grid-template-columns: 1fr; align-content: center; gap: 28px; padding: 0 8%; }
+      .bx-hero .side { justify-self: start; text-align: left; }
+      .bx-before { grid-template-columns: 1fr 1fr; grid-auto-rows: 150px; }
+      .bx-before .h2 { grid-row: span 1; }
+      .bx-stores { grid-template-columns: 1fr; aspect-ratio: auto; min-height: 420px; padding: 32px 24px; gap: 16px; }
+      .bx-stores .r { justify-self: start; text-align: left; }
+      .bx-stores .mq { height: 220px; }
+      .bx-line { grid-template-columns: 1fr; aspect-ratio: auto; }
+      .bx-line > div { min-height: 320px; }
+      .bx-line .txt { min-height: 380px; }
+      .bx-mont .shot-first { order: 2; }
+      .bx-ig { grid-template-columns: 1fr; padding: 32px 16%; gap: 20px; }
+      .bx-phones { grid-template-columns: 1fr; padding: 32px 18%; gap: 24px; }
+      .bx-phones .ph { border-width: 7px; border-radius: 30px; }
+      .bx-phones .scr { border-radius: 23px; }
+      .bx-tags { aspect-ratio: auto; gap: 12px; padding: 36px 12px 48px; }
+      .tag { height: auto; width: 46%; }
+      .tag { width: 44%; }
+      .bx-manual { aspect-ratio: auto; padding: 32px 24px; gap: 16px; }
+      .bx-close { aspect-ratio: auto; min-height: 340px; padding: 48px 20px; }
+      .bx-more .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+
+  <!-- -- NAV ---------------------------------------------------- -->
+  <nav>
+    <a href="../index.html" class="nav-return">
+      <span class="back-arrow"></span> Return
+    </a>
+    <ul class="nav-links">
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="bx wrap">
+
+    <!-- Header -->
+    <header class="bx-head">
+      <h1>Benotto</h1>
+      <p>Brand strategy &amp; visual identity &middot; Proposal</p>
+    </header>
+
+    <!-- Hero -->
+    <section class="bx-p bx-hero reveal" aria-label="Benotto, Turin 1931, Mexico 1952">
+      <img src="../assets/images/benotto/photo-archive.jpg" alt="" />
+      <div class="in">
+        <div class="lk a-up" role="img" aria-label="The proposed Benotto lockup in white"><span class="e"></span><span class="w a-wipe"></span></div>
+        <p class="side a-up d2">Torino 1931<br />M&eacute;xico 1952<br />Casa de carreras</p>
+      </div>
+      <p class="slogan a-up d3">Rueda con orgullo.</p>
+    </section>
+
+    <!-- 01 -->
+    <section class="section bx-text reveal">
+      <div class="section-split">
+        <div class="section-left">
+          <h2 class="section-heading">A 1931 racing house, buried under an outlet</h2>
+        </div>
+        <div class="section-body">
+          <p>Benotto has what most brands spend decades trying to build. It was founded in Turin in 1931 by a racer, Giacinto Benotto, and moved to Guadalajara in 1952. In 1968 Ole Ritter broke the world Hour Record in Mexico City riding one of its bikes. Today it sells around a hundred models through 26 stores of its own, and it has a bigger social audience than Mercurio, the national market leader.</p>
+          <p>None of that reaches the customer. The audit followed a buyer&rsquo;s path, from the first search to the first ride, and found a different company at every step. The problem is not a lack of assets; it is execution. Even in the stores, the blue band with white letters is the one thing people already recognise, and it hangs as an add-on sign over crowded windows.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Before -->
+    <p class="bx-label">Before the rebrand</p>
+    <section class="bx-before">
+      <div class="bx-p w2 h2 js-lightbox js-lightbox-wide"><img src="../assets/images/benotto/before-home.jpg" alt="The current online store: the main banner sells Thule roof racks under a generic italic wordmark" loading="lazy" style="object-position:top left" /></div>
+      <div class="bx-p js-lightbox js-lightbox-wide"><img src="../assets/images/benotto/before-tagline.jpg" alt="A store wall with the tagline Consiéntete y consiente a tu bici over handlebars" loading="lazy" /></div>
+      <div class="bx-p js-lightbox js-lightbox-wide"><img src="../assets/images/benotto/before-sign.jpg" alt="The opening-hours sign on a store door, with the crest used as decoration and the italic wordmark" loading="lazy" /></div>
+      <div class="bx-p bx-handles"><small>Four handles</small><span>@benotto_biciclette</span><span>/BicicletasBenottoMX</span><span>@bicisBENOTTOmx</span><span>@bicicletasbenottomx</span></div>
+      <div class="bx-p js-lightbox js-lightbox-wide"><img src="../assets/images/benotto/before-floor.jpg" alt="A crowded sales floor with bikes and accessories" loading="lazy" /></div>
+      <div class="bx-p w2 js-lightbox js-lightbox-wide"><img src="../assets/images/benotto/before-service.jpg" alt="The current service center counter under the italic wordmark" loading="lazy" style="object-position:center 30%" /></div>
+      <div class="bx-p w2 js-lightbox js-lightbox-wide"><img src="../assets/images/benotto/before-manual.jpg" alt="Pages of the current owner's manual with the old wordmark" loading="lazy" style="object-position:left center" /></div>
+    </section>
+
+    <!-- Identity -->
+    <section class="section bx-text reveal">
+      <div class="section-split">
+        <div class="section-left">
+          <h2 class="section-heading">The brand already had a system. It just stopped using it</h2>
+        </div>
+        <div class="section-body">
+          <p>Collectors&rsquo; badges, period decals and the brand&rsquo;s own anniversary pieces tell the same story: for sixty years, an eagle, the blue and a hand-drawn script. The everyday logo, an italic wordmark in use since at least 1998, is the only one that kept none of them. And for the 80th anniversary in 2011 and the 90th in 2021, the company itself went straight back to the crest.</p>
+          <p>So the new logo is recovered, not invented. The eagle is redrawn from the crest, more open and with fewer lines, so it holds up on a phone screen, over a script wordmark in Benotto Blue. Where the eagle gets lost, at 32 pixels, the monogram B takes over.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bx-arch" aria-label="Brand architecture before and after">
+      <div class="stage">
+        <span class="side">Before</span>
+        <div class="cells">
+          <div class="cell"><span class="k">Primary logo</span><img src="../assets/images/benotto/logo-hist-wordmark.jpg" alt="The current italic wordmark BENOTTO" loading="lazy" style="width:72%;max-width:260px" /></div>
+          <div class="cell"><span class="k">The crest &middot; decoration only</span><img src="../assets/images/benotto/logo-hist-crest.jpg" alt="The 1931 crest" loading="lazy" style="height:150px;width:auto" /></div>
+          <div class="cell"><span class="k">Five taglines at once</span><div class="tl"><span>Tradici&oacute;n y vanguardia</span><span>Tradici&oacute;n y pasi&oacute;n por el ciclismo</span><span>Consi&eacute;ntete y consiente a tu bici</span><span>Pasi&oacute;n y compromiso</span><span>&hellip;</span></div></div>
+        </div>
+      </div>
+      <div class="stage">
+        <span class="side">After</span>
+        <div class="cells">
+          <div class="cell"><span class="k">Primary lockup</span><div class="lk" style="--size:170px" role="img" aria-label="Gold eagle over blue script wordmark"><span class="e"></span><span class="w"></span></div></div>
+          <div class="cell"><span class="k">Wordmark &middot; monogram &middot; eagle</span><span class="wm" style="width:70%;max-width:230px" role="img" aria-label="Script wordmark"></span><div style="display:flex;gap:28px;align-items:center"><span class="bm" style="width:64px" role="img" aria-label="Monogram B"></span><span class="eg" style="width:52px" role="img" aria-label="Eagle"></span></div></div>
+          <div class="cell"><span class="k">Three lines</span>
+            <div class="lines">
+              <div class="ln"><span class="wm"></span><b>Ruta</b><span class="sig sig-ruta"></span></div>
+              <div class="ln"><span class="wm"></span><b>Monta&ntilde;a</b><span class="sig sig-mont"></span></div>
+              <div class="ln"><span class="wm"></span><b>L&iacute;nea E</b><span class="sig sig-e"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 -->
+    <section class="section bx-text reveal">
+      <div class="section-split">
+        <div class="section-left">
+          <h2 class="section-heading">A reason to be chosen that isn&rsquo;t a discount</h2>
+        </div>
+        <div class="section-body">
+          <p>The mission puts Benotto&rsquo;s two lives, the racing house and the bike every family owns, in one sentence. Each value comes from something the brand has actually done: a Turin workshop, the Sunday group ride, Ritter&rsquo;s breakaway, the city as a track. And all of it fits in three words that work as a call to action, in the language the customer speaks.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission -->
+    <section class="bx-p bx-mission reveal">
+      <div>
+        <p class="k">Our mission</p>
+        <h2>To make bicycles with a craftsman&rsquo;s soul<sup>1</sup> that move Mexico<sup>2</sup>, from the velodrome<sup>3</sup> to the streets<sup>4</sup>.</h2>
+      </div>
+      <ol>
+        <li><span><b>Workshop.</b> Born in a Turin workshop in 1931, still a workshop: we build, fit and repair.</span></li>
+        <li><span><b>Wheel to Wheel.</b> Nobody rides alone: the family, the Sunday group, the neighbourhood.</span></li>
+        <li><span><b>Breakaway.</b> Dare to leave the pack, like Ritter alone on the track in 1968.</span></li>
+        <li><span><b>Move to live.</b> The city is our track, and we ride toward one that runs on people.</span></li>
+      </ol>
+    </section>
+
+    <!-- Logo animation -->
+    <section class="bx-p r-wide center reveal" style="margin-top:var(--gap);background:#E9EAEC">
+      <div class="lk" style="--size:clamp(220px,26vw,420px)" role="img" aria-label="The Benotto lockup"><span class="e a-up"></span><span class="w a-wipe"></span></div>
+    </section>
+
+    <!-- Colour versions -->
+    <section class="bx-row c3">
+      <div class="bx-p bx-tile center" style="background:#fff;border:1px solid var(--steel-100)"><div class="lk"><span class="e"></span><span class="w"></span></div></div>
+      <div class="bx-p bx-tile center" style="background:var(--blue)"><div class="lk" style="--e:#fff;--w:#fff"><span class="e"></span><span class="w"></span></div></div>
+      <div class="bx-p bx-tile center" style="background:var(--ink)"><div class="lk" style="--e:var(--gold);--w:#fff"><span class="e"></span><span class="w"></span></div><span class="rule"></span></div>
+      <div class="bx-p bx-tile center" style="background:var(--sky)"><div class="lk" style="--e:var(--blue);--w:var(--blue)"><span class="e"></span><span class="w"></span></div></div>
+      <div class="bx-p bx-tile center" style="background:var(--forest)"><div class="lk" style="--e:var(--sand);--w:var(--sand)"><span class="e"></span><span class="w"></span></div></div>
+      <div class="bx-p bx-tile center" style="background:var(--steel-100)"><div class="lk" style="--e:var(--ink);--w:var(--ink)"><span class="e"></span><span class="w"></span></div></div>
+    </section>
+
+    <!-- Monogram and the source -->
+    <section class="bx-row c2">
+      <div class="bx-p r-43 bx-icons" role="img" aria-label="The monogram B as app icon, avatar and favicon at decreasing sizes">
+        <div style="display:flex;align-items:flex-end;gap:clamp(12px,1.6vw,24px)">
+          <div><div class="ic" style="width:clamp(90px,9vw,160px);aspect-ratio:1"><span class="bm"></span></div><p class="lab">160</p></div>
+          <div><div class="ic r" style="width:clamp(56px,5.4vw,96px);aspect-ratio:1"><span class="bm"></span></div><p class="lab">96</p></div>
+          <div><div class="ic" style="width:clamp(28px,2.7vw,48px);aspect-ratio:1"><span class="bm"></span></div><p class="lab">48</p></div>
+          <div><div class="ic" style="width:clamp(19px,1.8vw,32px);aspect-ratio:1"><span class="bm"></span></div><p class="lab">32</p></div>
+        </div>
+      </div>
+      <div class="bx-p r-43 js-lightbox"><img class="cover" src="../assets/images/benotto/photo-badge.jpg" alt="A period Benotto head badge on a frame: the crest with the eagle, rainbow stripes and Torino" loading="lazy" /><span class="bx-cap">The source &middot; Torino</span></div>
+    </section>
+
+    <!-- Store façade -->
+    <section class="bx-p r-wide js-lightbox js-lightbox-wide" style="margin-top:var(--gap)">
+      <img class="cover" src="../assets/images/benotto/store-facade.jpg" alt="Proposed store façade: a corner building wrapped in a Benotto Blue band" loading="lazy" />
+    </section>
+
+    <!-- Stores marquee -->
+    <section class="bx-p bx-stores" style="margin-top:var(--gap)" aria-label="Stores: Roma, San Pablo, Iztacalco">
+      <span class="wm"></span>
+      <div class="mq" aria-hidden="true">
+        <div class="track">
+          <p><small>Taller &middot; Prueba de manejo &middot; Rodada semanal</small>Roma</p>
+          <p><small>Taller &middot; Prueba de manejo &middot; Rodada semanal</small>San Pablo</p>
+          <p><small>Taller &middot; Prueba de manejo &middot; Rodada semanal</small>Iztacalco</p>
+          <p><small>Taller &middot; Prueba de manejo &middot; Rodada semanal</small>Roma</p>
+          <p><small>Taller &middot; Prueba de manejo &middot; Rodada semanal</small>San Pablo</p>
+          <p><small>Taller &middot; Prueba de manejo &middot; Rodada semanal</small>Iztacalco</p>
+        </div>
+      </div>
+      <p class="r">26 tiendas<br />Desde 1931</p>
+    </section>
+
+    <!-- 1931 and the Hour Record -->
+    <section class="bx-row c2">
+      <div class="bx-p r-sq bx-1931 reveal" role="img" aria-label="1931">
+        <span class="n n1 a-up">1</span><span class="n n2 a-up d1">9</span><span class="n n3 a-up d2">3</span><span class="n n4 a-up d3">1</span>
+        <p class="mid">Fondata a Torino<br />da Giacinto Benotto</p>
+      </div>
+      <div class="bx-p r-sq bx-hour reveal">
+        <p class="k">R&eacute;cord mundial de la hora &middot; 10.10.1968</p>
+        <img class="ph" src="../assets/images/benotto/photo-ritter.jpg" alt="Ole Ritter on the track in 1968, riding a Benotto" loading="lazy" />
+        <p class="big">48.653 km<small>en una hora.</small></p>
+        <div class="foot"><p>Ole Ritter lo rod&oacute; en una Benotto, en la Ciudad de M&eacute;xico.</p><div class="lk" aria-hidden="true" style="--e:var(--ink);--w:var(--ink)"><span class="e"></span><span class="w"></span></div></div>
+        <span class="bar a-grow"></span>
+      </div>
+    </section>
+
+    <!-- Kit -->
+    <section class="bx-p r-wide js-lightbox js-lightbox-wide" style="margin-top:var(--gap)">
+      <img class="cover" src="../assets/images/benotto/kit-rodada.jpg" alt="The ride kit: racing-house jersey, cycling cap, bottle, socks, stickers and pin" loading="lazy" />
+    </section>
+
+    <!-- Lines -->
+    <section class="section bx-text reveal">
+      <div class="section-split">
+        <div class="section-left">
+          <h2 class="section-heading">What belongs to the house, and what belongs to each line</h2>
+        </div>
+        <div class="section-body">
+          <p>Benotto&rsquo;s customers are not one person. The racer, the mountain biker and the city rider want different things from the same shop, and the old catalogue spoke to all of them in one voice: the price.</p>
+          <p>So the system works in two layers. The house signs everything: the eagle, Benotto Blue, the script, Eagle Gold at about five percent and never as text, Neulis for the voice and DM Mono for the data. Each line then gets a world of its own &mdash; a tagline, a photographic language and a graphic signature that never travels to the other two.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bx-p bx-line bx-ruta reveal">
+      <div class="txt"><p class="k">L&iacute;nea 01 &middot; Ruta</p><h3>Esc&aacute;pate.</h3><p class="s">Bicis de ruta de la casa que rod&oacute; la hora m&aacute;s larga.</p><span class="gold a-grow"></span></div>
+      <div><img class="cover" src="../assets/images/benotto/photo-ruta.jpg" alt="Three road cyclists at speed in black and white" loading="lazy" /></div>
+    </section>
+
+    <section class="bx-p bx-line bx-mont reveal" style="margin-top:var(--gap)">
+      <div class="shot-first"><img class="cover" src="../assets/images/benotto/photo-montana.jpg" alt="A mountain biker on a cliff edge facing a snow-capped volcano" loading="lazy" style="object-position:center 30%" /></div>
+      <div class="txt"><p class="k">L&iacute;nea 02 &middot; Monta&ntilde;a</p><h3>Tu camino no se acaba.</h3><p class="s">Bicis de monta&ntilde;a para cuando se termina el asfalto.</p></div>
+    </section>
+
+    <section class="bx-p bx-line bx-e reveal" style="margin-top:var(--gap)">
+      <div class="txt"><p class="k">L&iacute;nea 03 &middot; L&iacute;nea E</p><h3>Carga con orgullo.</h3><p class="s">Cinco bicis el&eacute;ctricas, una para cada carga de tu d&iacute;a.</p>
+        <svg class="hz a-draw" viewBox="0 0 281.6 79.7" fill="none" aria-hidden="true"><path pathLength="1" d="M2.6566 77.0415H18.5962V31.3479L22.8468 29.754V77.0415H34.5358V16.4709L46.4906 9.03245V77.0415H50.4755V24.4408H59.7736V77.0415H77.0415V72.2596H81.2921V68.0091H85.5426V29.2226H83.9487V27.0974H85.5426L82.3547 22.8468L86.074 24.9721L87.6679 20.7215L89.2619 24.9721L92.9811 22.8468L89.7932 27.0974H91.3872V29.2226H89.7932V68.0091H94.0438V72.2596H98.2943V77.0415H115.297V57.3826H114.234V55.2574H120.078L120.158 53.7697L120.397 52.3617L120.796 51.0068L121.327 49.7848L121.965 48.7487L122.735 47.8986L123.585 47.261L124.462 46.8891V44.5512L125.392 42.6385L126.322 44.5512V46.8891L127.198 47.261L128.048 47.8986L128.819 48.7487L129.456 49.7848L129.988 51.0068L130.386 52.3617L130.625 53.7697L130.705 55.2574H136.549V57.3826H135.487V77.0415H151.426V58.9766H159.396V55.2574H162.584L162.664 53.5837L162.876 51.9897L163.222 50.4755L163.7 49.1206L164.284 47.9251L164.975 46.9688L165.719 46.278L166.542 45.8264V43.1964L167.366 41.0445L168.19 43.1964V45.8264L169.013 46.278L169.757 46.9688L170.448 47.9251L171.032 49.1206L171.51 50.4755L171.856 51.9897L172.068 53.5837L172.148 55.2574H175.336V58.9766H183.306V77.0415H196.589V27.0974H198.183V23.3781H199.777V20.1902H202.433V16.4709H202.965V5.31321H203.496V16.4709H204.027V20.1902H206.684V23.3781H208.278V27.0974H209.872V77.0415H225.811L228.176 76.2445L230.434 75.235L232.586 74.013L234.605 72.605L236.517 71.011L238.297 69.2045L239.971 67.2121L241.512 65.0071L242.946 62.5896L244.248 59.9861L245.444 57.1967L246.533 54.1947L248.658 52.6008L250.783 53.6634L252.909 52.3351L255.034 54.1947L256.203 57.1967L257.478 59.9861L258.859 62.5896L260.347 65.0071L261.941 67.2121L263.668 69.2045L265.501 71.011L267.44 72.605L269.486 74.013L271.638 75.235L273.896 76.2445L276.287 77.0415H278.943" stroke="#94732E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="shot"><img src="../assets/images/benotto/photo-eiris.jpg" alt="The E-Iris electric bike in studio on sky blue" loading="lazy" /></div>
+    </section>
+
+    <!-- Website -->
+    <section class="section bx-text reveal">
+      <div class="section-split">
+        <div class="section-left">
+          <h2 class="section-heading">From a campaign page to a brand home</h2>
+        </div>
+        <div class="section-body">
+          <p>benotto.com today only redirects to the online store. The first decision was to turn it into the brand&rsquo;s home, with the store as one section of it. Getting there took five rounds in Figma, and each one fixed something the previous one got wrong.</p>
+          <p>The first round borrowed the campaign&rsquo;s condensed type and invented a heritage city bike to carry the story; it read like an ad. The second let photography lead and used a real flagship, the Da Vinci. By the fourth, the structure that stuck was in place: a house home page that opens three doors, with a world of its own behind each one. The last round swapped the electric line&rsquo;s battery for its new graphic, and then the site left Figma as a working prototype.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bx-p bx-browser">
+      <div class="bar"><i></i><i></i><i></i><span>benotto.com &middot; scroll inside</span></div>
+      <div class="sc" tabindex="0" aria-label="Full home page of the prototype"><img src="../assets/images/benotto/proto-home.webp" alt="The prototype home page: Rueda con orgullo hero, three doors for the lines, the model range, the Línea E band, the club, the Da Vinci record panel and the store finder" loading="lazy" /></div>
+    </section>
+
+    <section class="bx-p bx-phones" style="margin-top:var(--gap)">
+      <div class="ph"><div class="scr" tabindex="0" aria-label="Ruta page on a phone, scroll inside"><img src="../assets/images/benotto/proto-ruta-m.webp" alt="Full Ruta page on a phone: Escápate in black and white" loading="lazy" /></div></div>
+      <div class="ph"><div class="scr" tabindex="0" aria-label="Montaña page on a phone, scroll inside"><img src="../assets/images/benotto/proto-montana-m.webp" alt="Full Montaña page on a phone: Tu camino no se acaba" loading="lazy" /></div></div>
+      <div class="ph"><div class="scr" tabindex="0" aria-label="Línea E page on a phone, scroll inside"><img src="../assets/images/benotto/proto-linea-e-m.webp" alt="Full Línea E page on a phone: Carga con orgullo on blue" loading="lazy" /></div></div>
+      <p class="bx-phones-note">Scroll inside each phone</p>
+    </section>
+
+    <section class="bx-p bx-browser" style="margin-top:var(--gap)">
+      <div class="bar"><i></i><i></i><i></i><span>benotto.com/ruta/da-vinci &middot; scroll inside</span></div>
+      <div class="sc" tabindex="0" aria-label="Full Da Vinci product page of the prototype"><img src="../assets/images/benotto/proto-davinci.webp" alt="The prototype product page for the Da Vinci: hero, configurator with colour, size and price, the details, specs and accessories" loading="lazy" /></div>
+    </section>
+
+    <!-- Campaign -->
+    <section class="section bx-text reveal">
+      <div class="section-split">
+        <div class="section-left">
+          <h2 class="section-heading">From slogans to proof</h2>
+        </div>
+        <div class="section-body">
+          <p>The first proposal for the launch gave each value its own poster, in a condensed face borrowed from sports ads: &ldquo;Alma de artesano&rdquo;, &ldquo;Nadie rueda solo&rdquo;, &ldquo;Esc&aacute;pate&rdquo;, &ldquo;La ciudad es tu pista&rdquo;, &ldquo;Mueve a M&eacute;xico&rdquo;. It looked strong and said little that another brand couldn&rsquo;t say.</p>
+          <p>The second proposal keeps the idea of a first contact and moves it onto the brand&rsquo;s own system and its own archive: Ritter&rsquo;s 48.653 km, a period photo of a Benotto team, and the line every Mexican can finish themselves, &ldquo;Tu primera bici fue una Benotto&rdquo;. Each concept comes in three formats, from the Instagram post to the metro platform, with one rule: black-and-white archive photography, the white lockup, the gold rule underneath.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bx-row c3">
+      <article class="bx-p bx-post reveal">
+        <img src="../assets/images/benotto/photo-archive.jpg" alt="" loading="lazy" style="object-position:40% center" />
+        <div class="in"><div class="lk"><span class="e"></span><span class="w"></span></div><p class="k">En M&eacute;xico desde 1952</p><h3>Tu primera bici fue una Benotto.</h3><p class="s">La siguiente tambi&eacute;n.</p></div>
+        <span class="rule a-grow"></span>
+      </article>
+      <article class="bx-p bx-post bx-post--ritter reveal">
+        <img src="../assets/images/benotto/photo-ritter.jpg" alt="" loading="lazy" />
+        <div class="in"><div class="lk"><span class="e"></span><span class="w"></span></div><p class="k">R&eacute;cord mundial de la hora &middot; 10.10.1968</p><h3 style="font-size:clamp(34px,3.6vw,68px)">48.653 km</h3><p class="s">en una hora. Ole Ritter lo rod&oacute; en una Benotto.</p></div>
+        <span class="rule a-grow"></span>
+      </article>
+      <article class="bx-p bx-post reveal">
+        <img src="../assets/images/benotto/photo-group.jpg" alt="" loading="lazy" />
+        <div class="in"><div class="lk"><span class="e"></span><span class="w"></span></div><p class="k">Casa de carreras &middot; desde 1931</p><h3>Nadie rueda solo.</h3><p class="s">Lo aprendimos en el pelot&oacute;n.</p></div>
+        <span class="rule a-grow"></span>
+      </article>
+    </section>
+
+    <section class="bx-row c2">
+      <div class="bx-p r-43 js-lightbox js-lightbox-wide"><img class="cover" src="../assets/images/benotto/ad-billboard-street.jpg" alt="Street billboard with two cyclists and the white lockup" loading="lazy" /></div>
+      <div class="bx-p r-43 js-lightbox js-lightbox-wide"><img class="cover" src="../assets/images/benotto/ad-billboard-metro.jpg" alt="Escápate billboard on a metro platform at La Viga station" loading="lazy" /></div>
+    </section>
+
+    <!-- 07 -->
+    <section class="section bx-text reveal">
+      <div class="section-split">
+        <div class="section-left">
+          <h2 class="section-heading">One feed, three voices</h2>
+        </div>
+        <div class="section-body">
+          <p>One profile instead of four, signed with the white B. Each line gets a cover per model and a carousel that goes from the full bike to the details anyone can check in store &mdash; the disc brake, the gears, the battery in the frame &mdash; and ends with the same invitation: try it before you decide.</p>
+          <p>L&iacute;nea E launches with a four-week plan: three teaser stories, a carousel for the line, then one model a week, each with its own reason to exist. &ldquo;Carga&rdquo; works twice: the battery that charges, and what you carry every day.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Instagram -->
+    <section class="bx-p bx-ig" aria-label="Instagram carousels, one per line">
+      <div class="card"><div class="hd"><span class="av"><span class="bm"></span></span><div><b>benotto_biciclette</b><span>Ruta &middot; N.&ordm; 01</span></div></div><img src="../assets/images/benotto/ig-cover-davinci.jpg" alt="Da Vinci carousel cover: Tu primera bici de ruta" loading="lazy" /><div class="ft"><div class="dots"><i></i><i></i><i></i><i></i><i></i><i></i></div><b>benotto_biciclette</b> Disco hidr&aacute;ulico adelante y atr&aacute;s. Pru&eacute;bala antes de decidir.</div></div>
+      <div class="card"><div class="hd"><span class="av"><span class="bm"></span></span><div><b>benotto_biciclette</b><span>Monta&ntilde;a &middot; FS 750</span></div></div><img src="../assets/images/benotto/ig-cover-fs750.jpg" alt="FS 750 carousel cover: Para cuando se termina el asfalto" loading="lazy" /><div class="ft"><div class="dots"><i></i><i></i><i></i><i></i><i></i><i></i></div><b>benotto_biciclette</b> Suspensi&oacute;n al frente, 24 velocidades. Tu camino no se acaba.</div></div>
+      <div class="card"><div class="hd"><span class="av"><span class="bm"></span></span><div><b>benotto_biciclette</b><span>L&iacute;nea E &middot; E-Iris</span></div></div><img src="../assets/images/benotto/ig-cover-eiris.jpg" alt="E-Iris carousel cover: Llega como saliste" loading="lazy" /><div class="ft"><div class="dots"><i></i><i></i><i></i><i></i><i></i><i></i></div><b>benotto_biciclette</b> T&uacute; pedaleas, &eacute;l empuja. Carga con orgullo.</div></div>
+    </section>
+
+    <!-- Store -->
+    <section class="section bx-text reveal">
+      <div class="section-split">
+        <div class="section-left">
+          <h2 class="section-heading">Six directions, one matrix, one store</h2>
+        </div>
+        <div class="section-body">
+          <p>The store has to do offline what the website does online: tell the story without a word. Forty-three mockups explored six directions, from façades to interiors to the events outside, and every one was rated on the same six criteria: brand colour, the four values, standing apart from Decathlon, Trek or Mercurio, premium, welcoming for a city family, and cheap enough to roll out to every branch.</p>
+          <p>The matrix pointed to one combination: the blue-stripe fa&ccedil;ade with the Benotto Blue and steel interior. It is the only one recognisable as Benotto without reading the sign, and it is an evolution of today&rsquo;s branches, not a break. It also borrows the best of the others &mdash; the glazed workshop behind the counter, the lit bike wall, wood on tables to warm the steel &mdash; and adds what the renders lacked: the eagle, a zone per line, and white lettering that holds its contrast on blue.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bx-row c2">
+      <div class="bx-p r-169 js-lightbox js-lightbox-wide"><img class="cover" src="../assets/images/benotto/store-floor.jpg" alt="Sales floor with the gold eagle on a blue wall and a Ruta podium" loading="lazy" /></div>
+      <div class="bx-p r-169 js-lightbox js-lightbox-wide"><img class="cover" src="../assets/images/benotto/store-montana.jpg" alt="The Montaña zone on forest green with contour lines" loading="lazy" /></div>
+    </section>
+    <section class="bx-p r-wide js-lightbox js-lightbox-wide" style="margin-top:var(--gap)"><img class="cover" src="../assets/images/benotto/store-workshop.jpg" alt="The workshop on a blue wall, tools in plain sight" loading="lazy" /></section>
+    <section class="bx-row c2">
+      <div class="bx-p r-169 js-lightbox js-lightbox-wide"><img class="cover" src="../assets/images/benotto/store-service-course.jpg" alt="Service Course tent at a Sunday group ride" loading="lazy" /></div>
+      <div class="bx-p r-169 js-lightbox js-lightbox-wide"><img class="cover" src="../assets/images/benotto/store-uniform.jpg" alt="Store uniform: navy shirt and workshop apron with the eagle" loading="lazy" /></div>
+    </section>
+
+    <!-- After purchase -->
+    <section class="section bx-text reveal">
+      <div class="section-split">
+        <div class="section-left">
+          <h2 class="section-heading">The tag, the manual and what you take home</h2>
+        </div>
+        <div class="section-body">
+          <p>The manual is the first thing a customer reads after paying, and today it is a 72-page translated technical document with the old logo. The proposal keeps its content and its 210 &times; 143 mm format, so the printer doesn&rsquo;t change, and moves it onto the system: chapters with a colour and a number, warnings that follow the ANSI Z535 standard, numbered steps beside each figure, and a quick-start sheet that sits on top of the bike in the box.</p>
+          <p>Price tags follow the same ratio as everything else: steel and white, blue for the brand and the price, gold only when there is an offer, and the total with tax always visible. Merch comes in two kits: one for the workshop and the counter, one for the Sunday ride.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bx-row c2">
+      <div class="bx-p bx-tags r-43" aria-label="Price tags, regular and offer">
+        <div class="tag"><div class="in"><span class="ojal"></span><div class="hd"><span class="wm" role="img" aria-label="Benotto"></span><span class="mono">Temporada 2026</span></div><p class="mono cat">Monta&ntilde;a &middot; Rodada 29</p><p class="model">FS-950</p><p class="desc">Para terreno mixto: de la sierra a la ciudad.</p><dl><div><dt>Cuadro</dt><dd>Aluminio</dd></div><div><dt>Rodada</dt><dd>29"</dd></div><div><dt>Velocidades</dt><dd>21</dd></div><div><dt>Frenos</dt><dd>Disco mec&aacute;nico</dd></div><div><dt>Talla</dt><dd>M &middot; 1.65&ndash;1.80 m</dd></div></dl><div class="pb"><p class="price"><span>$</span><b>7,499</b></p><p class="legal">MXN &middot; Precio total con IVA incluido</p></div><div class="ft"><div><p class="sku">SKU&nbsp; BEN-FS950-M29</p><p class="tl">Rueda con orgullo.</p></div><span class="qr" aria-hidden="true"></span></div></div></div>
+        <div class="tag"><div class="in"><span class="ojal"></span><div class="hd"><span class="wm" role="img" aria-label="Benotto"></span><span class="mono">Temporada 2026</span></div><p class="mono cat">Monta&ntilde;a &middot; Rodada 29</p><p class="model">FS-950</p><p class="desc">Para terreno mixto: de la sierra a la ciudad.</p><dl><div><dt>Cuadro</dt><dd>Aluminio</dd></div><div><dt>Rodada</dt><dd>29"</dd></div><div><dt>Velocidades</dt><dd>21</dd></div><div><dt>Frenos</dt><dd>Disco mec&aacute;nico</dd></div><div><dt>Talla</dt><dd>M &middot; 1.65&ndash;1.80 m</dd></div></dl><div class="pb"><div class="strip"><b>Oferta</b><span>Ahorras $1,500</span></div><p class="was">Antes $7,499</p><p class="price"><span>$</span><b>5,999</b></p><p class="legal">MXN &middot; Precio total con IVA incluido</p></div><div class="ft"><div><p class="sku">SKU&nbsp; BEN-FS950-M29</p><p class="tl">Rueda con orgullo.</p></div><span class="qr" aria-hidden="true"></span></div></div></div>
+        <span class="bx-tags-note">Prices illustrative</span>
+      </div>
+      <div class="bx-p bx-manual r-43">
+        <img src="../assets/images/benotto/manual-p04.jpg" alt="Manual chapter opener: a large 1 and Seguridad on blue" loading="lazy" />
+        <img src="../assets/images/benotto/manual-p09.jpg" alt="Maintenance calendar page" loading="lazy" />
+        <img src="../assets/images/benotto/manual-p11.jpg" alt="Warranty page with QR registration" loading="lazy" />
+        <img src="../assets/images/benotto/manual-p12.jpg" alt="Back cover: white eagle and Rueda con orgullo on blue" loading="lazy" />
+      </div>
+    </section>
+    <section class="bx-row c2">
+      <div class="bx-p r-sq js-lightbox"><img class="cover" src="../assets/images/benotto/merch-cap-navy.jpg" alt="Navy cap with the gold eagle and the blue script wordmark embroidered" loading="lazy" /></div>
+      <div class="bx-p r-sq js-lightbox"><img class="cover" src="../assets/images/benotto/merch-cap-white.jpg" alt="White cap with the gold eagle, the blue script wordmark and a blue brim edge" loading="lazy" /></div>
+    </section>
+
+    <!-- Closer -->
+    <section class="bx-p bx-close reveal" style="margin-top:var(--gap)">
+      <div><span class="eg a-up" aria-hidden="true"></span><h2 class="a-up d1">Rueda con orgullo.</h2><p class="a-up d2">Benotto doesn&rsquo;t need a new story. It needs to tell the one it already has.</p></div>
+    </section>
+
+    <!-- Credits -->
+    <section class="bx-credits">
+      <h2>Credits</h2>
+      <div>
+        <dl>
+          <div><dt>Client:</dt><dd>Benotto (concept, not commissioned)</dd></div>
+          <div><dt>Context:</dt><dd>Harbour.Space University &middot; Designing Brand Experiences &middot; 2026</dd></div>
+          <div><dt>Brand strategy, identity and art direction:</dt><dd>Yabin Torres</dd></div>
+          <div><dt>Web prototype:</dt><dd>Yabin Torres</dd></div>
+        </dl>
+        <p class="fine">A solo course project. Benotto is not affiliated with it; everything shown as new is a proposal, and product photography belongs to Benotto.</p>
+      </div>
+    </section>
+
+    <!-- Other projects -->
+    <section class="bx-more">
+      <h2>Other projects</h2>
+      <div class="grid">
+        <a href="doctor-doctor.html"><img src="../assets/thumbnails/doctor-doctor.jpg" alt="" loading="lazy" /><b>Doctor, doctor!?</b><span>Service design</span></a>
+        <a href="resilienciaenuncaja.html"><img src="../assets/thumbnails/riab-screens.jpg" alt="" loading="lazy" /><b>Resiliencia en una Caja</b><span>Learning platform</span></a>
+        <a href="unidosporellxs.html"><img src="../assets/thumbnails/uxe-screens.jpg" alt="" loading="lazy" /><b>Unidos por Ellxs</b><span>Campaign platform</span></a>
+        <a href="trendo.html"><img src="../assets/thumbnails/trendo-screens.jpg" alt="" loading="lazy" /><b>Trendo.mx</b><span>Website proposal</span></a>
+      </div>
+    </section>
+
+  </main>
+
+<!-- -- FOOTER -------------------------------------------------- -->
+  <footer>
+    <div class="nav-inner">
+      <span class="footer-name">Yabin Torres — 2026</span>
+      <span class="footer-links">
+        <a href="https://www.linkedin.com/in/yabintorres/" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp;·&nbsp;
+        <a href="https://www.behance.net/YabinTorres" target="_blank" rel="noopener noreferrer">Behance</a> &nbsp;·&nbsp;
+        <a href="/contact.html">Contact</a> &nbsp;·&nbsp;
+        <a href="/privacy.html">Privacy</a>
+      </span>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">×</button>
+    <div class="lightbox-inner">
+      <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+    </div>
+  </div>
+
+  <script src="../js/case-study.js"></script>
+
+{% endblock %}
