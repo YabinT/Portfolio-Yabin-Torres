@@ -52,6 +52,7 @@ bodyClass: "case-light bx-page"
     .r-169 { aspect-ratio: 16 / 9; }
     .r-43 { aspect-ratio: 4 / 3; }
     .r-sq { aspect-ratio: 1 / 1; }
+    .bx-swipe-hint { display: none; }
     .bx-cap { position: absolute; left: 20px; bottom: 18px; font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.4); }
 
     /* -- The logo, drawn from the vectors --------------------------- */
@@ -195,7 +196,7 @@ bodyClass: "case-light bx-page"
     .bx-browser .bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--steel-300); }
     .bx-browser .bar span { margin-left: 12px; font-family: var(--mono); font-size: 12px; color: var(--gray); }
     .bx-browser .sc { max-height: 760px; overflow-y: auto; }
-    .bx-browser .sc img { width: 100%; height: auto; display: block; }
+    .bx-browser .sc img, .bx-browser .sc picture { width: 100%; height: auto; display: block; }
     .bx-phones { background: var(--steel-50); display: grid; grid-template-columns: repeat(3, 1fr); gap: 6%; padding: 5% 12%; align-items: start; }
     .bx-phones .ph { border: 10px solid var(--ink); border-radius: 38px; overflow: hidden; background: var(--ink); }
     .bx-phones .scr { aspect-ratio: 390 / 844; overflow-y: auto; border-radius: 28px; background: #fff; scrollbar-width: none; }
@@ -308,30 +309,56 @@ bodyClass: "case-light bx-page"
       .bx-more .grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 760px) {
-      .bx-head { padding: 104px 0 32px; }
+      .bx-head { padding: 104px 0 28px; }
       .bx-row.c2, .bx-row.c3, .bx-credits { grid-template-columns: 1fr; }
-      .bx-hero { aspect-ratio: auto; min-height: 520px; }
-      .bx-hero .in { grid-template-columns: 1fr; align-content: center; gap: 28px; padding: 0 8%; }
-      .bx-hero .side { justify-self: start; text-align: left; }
-      .bx-before { grid-template-columns: 1fr 1fr; grid-auto-rows: 150px; }
-      .bx-before .h2 { grid-row: span 1; }
-      .bx-stores { grid-template-columns: 1fr; aspect-ratio: auto; min-height: 420px; padding: 32px 24px; gap: 16px; }
+
+      /* Hero: a tall poster, logo centred, dates and slogan below it */
+      .bx-hero { aspect-ratio: 4 / 5; min-height: 0; }
+      .bx-hero .in { grid-template-columns: 1fr; justify-items: center; align-content: center; gap: 24px; padding: 0 10%; }
+      .bx-hero .lk { --size: 58vw; }
+      .bx-hero .side { justify-self: center; text-align: center; font-size: 11px; }
+      .bx-hero .slogan { left: 0; right: 0; text-align: center; bottom: 6%; font-size: 18px; }
+
+      .bx-before { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+      .bx-before .w2, .bx-before .h2 { grid-column: auto; grid-row: auto; }
+
+      .bx-arch .stage { grid-template-columns: 32px 1fr; }
+      .bx-arch .cell { padding: 24px 12px 28px; gap: 14px; }
+
+      .bx-mission { padding: 32px 24px 36px; }
+      .bx-mission h2 { font-size: 30px; }
+
+      .bx-stores { grid-template-columns: 1fr; aspect-ratio: auto; min-height: 0; padding: 28px 24px; gap: 14px; }
       .bx-stores .r { justify-self: start; text-align: left; }
-      .bx-stores .mq { height: 220px; }
-      .bx-line { grid-template-columns: 1fr; aspect-ratio: auto; }
-      .bx-line > div { min-height: 320px; }
-      .bx-line .txt { min-height: 380px; }
+      .bx-stores .mq { height: 200px; }
+
+      .bx-line { grid-template-columns: 1fr; aspect-ratio: auto; min-height: 0; }
+      .bx-line > div { min-height: 300px; }
+      .bx-line .txt { min-height: 340px; padding: 32px 28px; }
       .bx-mont .shot-first { order: 2; }
-      .bx-ig { grid-template-columns: 1fr; padding: 32px 16%; gap: 20px; }
-      .bx-phones { grid-template-columns: 1fr; padding: 32px 18%; gap: 24px; }
-      .bx-phones .ph { border-width: 7px; border-radius: 30px; }
-      .bx-phones .scr { border-radius: 23px; }
-      .bx-tags { aspect-ratio: auto; gap: 12px; padding: 36px 12px 48px; }
-      .tag { height: auto; width: 46%; }
-      .tag { width: 44%; }
-      .bx-manual { aspect-ratio: auto; padding: 32px 24px; gap: 16px; }
-      .bx-close { aspect-ratio: auto; min-height: 340px; padding: 48px 20px; }
+
+      .bx-browser .sc { max-height: 620px; }
+      .bx-close { aspect-ratio: auto; min-height: 320px; padding: 48px 20px; }
+      .bx-manual { aspect-ratio: auto; padding: 28px 20px; gap: 12px; }
       .bx-more .grid { grid-template-columns: 1fr; }
+
+      /* Swipe rows: posters, phones, Instagram and price tags slide sideways
+         instead of stacking full width. Each card snaps to the centre. */
+      .bx-swipe { display: flex !important; overflow-x: auto; scroll-snap-type: x mandatory; gap: 12px;
+        scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+      .bx-swipe::-webkit-scrollbar { display: none; }
+      .bx-swipe > * { flex: 0 0 78%; scroll-snap-align: center; }
+      .bx-row.bx-swipe { margin-inline: -20px; padding-inline: 20px; scroll-padding-inline: 20px; }
+      .bx-ig.bx-swipe { padding: 28px 20px; aspect-ratio: auto; }
+      .bx-ig.bx-swipe > .card { flex-basis: 72%; }
+      .bx-phones.bx-swipe { padding: 28px 20px 24px; flex-wrap: nowrap; }
+      .bx-phones.bx-swipe > .ph { flex-basis: 64%; border-width: 7px; border-radius: 30px; }
+      .bx-phones .scr { border-radius: 23px; }
+      .bx-phones.bx-swipe > .bx-phones-note { display: none; }
+      .bx-tags.bx-swipe { aspect-ratio: auto; padding: 28px 20px 44px; justify-content: flex-start; }
+      .bx-tags.bx-swipe > .tag { flex-basis: 70%; height: auto; width: auto; }
+      .bx-tags.bx-swipe > .bx-tags-note { position: absolute; flex: none; }
+      .bx-swipe-hint { display: block; margin: 10px 0 0; text-align: center; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--gray); }
     }
   </style>
 {% endblock %}
@@ -461,7 +488,7 @@ bodyClass: "case-light bx-page"
     </section>
 
     <!-- Colour versions -->
-    <section class="bx-row c3">
+    <section class="bx-row c3 bx-tiles">
       <div class="bx-p bx-tile center" style="background:#fff;border:1px solid var(--steel-100)"><div class="lk"><span class="e"></span><span class="w"></span></div></div>
       <div class="bx-p bx-tile center" style="background:var(--blue)"><div class="lk" style="--e:#fff;--w:#fff"><span class="e"></span><span class="w"></span></div></div>
       <div class="bx-p bx-tile center" style="background:var(--ink)"><div class="lk" style="--e:var(--gold);--w:#fff"><span class="e"></span><span class="w"></span></div><span class="rule"></span></div>
@@ -569,19 +596,20 @@ bodyClass: "case-light bx-page"
 
     <section class="bx-p bx-browser">
       <div class="bar"><i></i><i></i><i></i><span>benotto.com &middot; scroll inside</span></div>
-      <div class="sc" tabindex="0" aria-label="Full home page of the prototype"><img src="../assets/images/benotto/proto-home.webp" alt="The prototype home page: Rueda con orgullo hero, three doors for the lines, the model range, the Línea E band, the club, the Da Vinci record panel and the store finder" loading="lazy" /></div>
+      <div class="sc" tabindex="0" aria-label="Full home page of the prototype"><picture><source media="(max-width: 760px)" srcset="../assets/images/benotto/proto-home-m.webp" /><img src="../assets/images/benotto/proto-home.webp" alt="The prototype home page: Rueda con orgullo hero, three doors for the lines, the model range, the Línea E band, the club, the Da Vinci record panel and the store finder" loading="lazy" /></picture></div>
     </section>
 
-    <section class="bx-p bx-phones" style="margin-top:var(--gap)">
+    <section class="bx-p bx-phones bx-swipe" style="margin-top:var(--gap)">
       <div class="ph"><div class="scr" tabindex="0" aria-label="Ruta page on a phone, scroll inside"><img src="../assets/images/benotto/proto-ruta-m.webp" alt="Full Ruta page on a phone: Escápate in black and white" loading="lazy" /></div></div>
       <div class="ph"><div class="scr" tabindex="0" aria-label="Montaña page on a phone, scroll inside"><img src="../assets/images/benotto/proto-montana-m.webp" alt="Full Montaña page on a phone: Tu camino no se acaba" loading="lazy" /></div></div>
       <div class="ph"><div class="scr" tabindex="0" aria-label="Línea E page on a phone, scroll inside"><img src="../assets/images/benotto/proto-linea-e-m.webp" alt="Full Línea E page on a phone: Carga con orgullo on blue" loading="lazy" /></div></div>
       <p class="bx-phones-note">Scroll inside each phone</p>
     </section>
+    <p class="bx-swipe-hint">Swipe &rarr;</p>
 
     <section class="bx-p bx-browser" style="margin-top:var(--gap)">
       <div class="bar"><i></i><i></i><i></i><span>benotto.com/ruta/da-vinci &middot; scroll inside</span></div>
-      <div class="sc" tabindex="0" aria-label="Full Da Vinci product page of the prototype"><img src="../assets/images/benotto/proto-davinci.webp" alt="The prototype product page for the Da Vinci: hero, configurator with colour, size and price, the details, specs and accessories" loading="lazy" /></div>
+      <div class="sc" tabindex="0" aria-label="Full Da Vinci product page of the prototype"><picture><source media="(max-width: 760px)" srcset="../assets/images/benotto/proto-davinci-m.webp" /><img src="../assets/images/benotto/proto-davinci.webp" alt="The prototype product page for the Da Vinci: hero, configurator with colour, size and price, the details, specs and accessories" loading="lazy" /></picture></div>
     </section>
 
     <!-- Campaign -->
@@ -597,7 +625,7 @@ bodyClass: "case-light bx-page"
       </div>
     </section>
 
-    <section class="bx-row c3">
+    <section class="bx-row c3 bx-swipe" aria-label="Campaign posters">
       <article class="bx-p bx-post reveal">
         <img src="../assets/images/benotto/photo-archive.jpg" alt="" loading="lazy" style="object-position:40% center" />
         <div class="in"><div class="lk"><span class="e"></span><span class="w"></span></div><p class="k">En M&eacute;xico desde 1952</p><h3>Tu primera bici fue una Benotto.</h3><p class="s">La siguiente tambi&eacute;n.</p></div>
@@ -614,6 +642,7 @@ bodyClass: "case-light bx-page"
         <span class="rule a-grow"></span>
       </article>
     </section>
+    <p class="bx-swipe-hint">Swipe &rarr;</p>
 
     <section class="bx-row c2">
       <div class="bx-p r-43 js-lightbox js-lightbox-wide"><img class="cover" src="../assets/images/benotto/ad-billboard-street.jpg" alt="Street billboard with two cyclists and the white lockup" loading="lazy" /></div>
@@ -634,11 +663,12 @@ bodyClass: "case-light bx-page"
     </section>
 
     <!-- Instagram -->
-    <section class="bx-p bx-ig" aria-label="Instagram carousels, one per line">
+    <section class="bx-p bx-ig bx-swipe" aria-label="Instagram carousels, one per line">
       <div class="card"><div class="hd"><span class="av"><span class="bm"></span></span><div><b>benotto_biciclette</b><span>Ruta &middot; N.&ordm; 01</span></div></div><img src="../assets/images/benotto/ig-cover-davinci.jpg" alt="Da Vinci carousel cover: Tu primera bici de ruta" loading="lazy" /><div class="ft"><div class="dots"><i></i><i></i><i></i><i></i><i></i><i></i></div><b>benotto_biciclette</b> Disco hidr&aacute;ulico adelante y atr&aacute;s. Pru&eacute;bala antes de decidir.</div></div>
       <div class="card"><div class="hd"><span class="av"><span class="bm"></span></span><div><b>benotto_biciclette</b><span>Monta&ntilde;a &middot; FS 750</span></div></div><img src="../assets/images/benotto/ig-cover-fs750.jpg" alt="FS 750 carousel cover: Para cuando se termina el asfalto" loading="lazy" /><div class="ft"><div class="dots"><i></i><i></i><i></i><i></i><i></i><i></i></div><b>benotto_biciclette</b> Suspensi&oacute;n al frente, 24 velocidades. Tu camino no se acaba.</div></div>
       <div class="card"><div class="hd"><span class="av"><span class="bm"></span></span><div><b>benotto_biciclette</b><span>L&iacute;nea E &middot; E-Iris</span></div></div><img src="../assets/images/benotto/ig-cover-eiris.jpg" alt="E-Iris carousel cover: Llega como saliste" loading="lazy" /><div class="ft"><div class="dots"><i></i><i></i><i></i><i></i><i></i><i></i></div><b>benotto_biciclette</b> T&uacute; pedaleas, &eacute;l empuja. Carga con orgullo.</div></div>
     </section>
+    <p class="bx-swipe-hint">Swipe &rarr;</p>
 
     <!-- Store -->
     <section class="section bx-text reveal">
@@ -677,7 +707,7 @@ bodyClass: "case-light bx-page"
     </section>
 
     <section class="bx-row c2">
-      <div class="bx-p bx-tags r-43" aria-label="Price tags, regular and offer">
+      <div class="bx-p bx-tags r-43 bx-swipe" aria-label="Price tags, regular and offer">
         <div class="tag"><div class="in"><span class="ojal"></span><div class="hd"><span class="wm" role="img" aria-label="Benotto"></span><span class="mono">Temporada 2026</span></div><p class="mono cat">Monta&ntilde;a &middot; Rodada 29</p><p class="model">FS-950</p><p class="desc">Para terreno mixto: de la sierra a la ciudad.</p><dl><div><dt>Cuadro</dt><dd>Aluminio</dd></div><div><dt>Rodada</dt><dd>29"</dd></div><div><dt>Velocidades</dt><dd>21</dd></div><div><dt>Frenos</dt><dd>Disco mec&aacute;nico</dd></div><div><dt>Talla</dt><dd>M &middot; 1.65&ndash;1.80 m</dd></div></dl><div class="pb"><p class="price"><span>$</span><b>7,499</b></p><p class="legal">MXN &middot; Precio total con IVA incluido</p></div><div class="ft"><div><p class="sku">SKU&nbsp; BEN-FS950-M29</p><p class="tl">Rueda con orgullo.</p></div><span class="qr" aria-hidden="true"></span></div></div></div>
         <div class="tag"><div class="in"><span class="ojal"></span><div class="hd"><span class="wm" role="img" aria-label="Benotto"></span><span class="mono">Temporada 2026</span></div><p class="mono cat">Monta&ntilde;a &middot; Rodada 29</p><p class="model">FS-950</p><p class="desc">Para terreno mixto: de la sierra a la ciudad.</p><dl><div><dt>Cuadro</dt><dd>Aluminio</dd></div><div><dt>Rodada</dt><dd>29"</dd></div><div><dt>Velocidades</dt><dd>21</dd></div><div><dt>Frenos</dt><dd>Disco mec&aacute;nico</dd></div><div><dt>Talla</dt><dd>M &middot; 1.65&ndash;1.80 m</dd></div></dl><div class="pb"><div class="strip"><b>Oferta</b><span>Ahorras $1,500</span></div><p class="was">Antes $7,499</p><p class="price"><span>$</span><b>5,999</b></p><p class="legal">MXN &middot; Precio total con IVA incluido</p></div><div class="ft"><div><p class="sku">SKU&nbsp; BEN-FS950-M29</p><p class="tl">Rueda con orgullo.</p></div><span class="qr" aria-hidden="true"></span></div></div></div>
         <span class="bx-tags-note">Prices illustrative</span>
