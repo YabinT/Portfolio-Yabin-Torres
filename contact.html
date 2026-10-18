@@ -62,29 +62,8 @@ bodyClass: "contact-page"
       margin-bottom: var(--space-2xl);
     }
 
-    /* Proof and expectation-setting, between the lede and the channels.
+    /* Expectation-setting, between the lede and the channels.
        Class 07 rule: answer the visitor's doubts next to the moment of doubt. */
-    .contact-proof {
-      font-size: var(--text-h4);
-      line-height: 1.6;
-      color: rgba(255, 255, 255, 0.55);
-      max-width: 46ch;
-      padding-top: var(--space-lg);
-      border-top: 1px solid var(--color-border);
-      margin-bottom: var(--space-lg);
-    }
-
-    .contact-proof strong {
-      font-weight: 500;
-      color: rgba(255, 255, 255, 0.85);
-    }
-
-    .contact-proof a {
-      color: var(--color-mint);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-
     .contact-next {
       list-style: none;
       display: flex;
@@ -270,7 +249,6 @@ bodyClass: "contact-page"
     .contact-label    { animation-delay: 0.10s; }
     .contact-title    { animation-delay: 0.20s; }
     .contact-lede     { animation-delay: 0.30s; }
-    .contact-proof    { animation-delay: 0.36s; }
     .contact-next     { animation-delay: 0.42s; }
     .contact-channels { animation-delay: 0.48s; }
     .contact-form     { animation-delay: 0.35s; }
@@ -343,14 +321,6 @@ bodyClass: "contact-page"
       <p class="contact-lede" id="contact-lede">
         Tell me what you&rsquo;re building &mdash; product, research or interface.
         I read every message and usually reply within a day.
-      </p>
-
-      <!-- Trust signals. Only names already published as case studies on this
-           site appear here; nothing pending client authorisation. -->
-      <p class="contact-proof">
-        Design delivered for <strong>The UPS Foundation</strong> and <strong>CENACED</strong>.
-        Every claim on this site is documented in a
-        <a href="/#work">case study</a> &mdash; including the parts that didn&rsquo;t work.
       </p>
 
       <!-- Sets expectations before the form, not after it. -->
