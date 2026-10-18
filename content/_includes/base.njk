@@ -15,6 +15,53 @@
       than /index.html, so Google doesn't count the variants as separate pages. #}
   {%- set pageUrl = "https://www.yabintorres.com" + (page.url | replace("/index.html", "/")) %}
   <link rel="canonical" href="{{ pageUrl }}" />
+  {#- Who this site is about, in Schema.org terms, so Google and AI search tie
+      the name to the role, the city and the LinkedIn/Behance profiles. Every
+      page carries the same #person; the bio also declares itself his profile.
+      Only facts already public on bio.html go here. #}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://www.yabintorres.com/#person",
+        "name": "Yabin Torres",
+        "jobTitle": "Product Designer",
+        "description": "Product designer in Barcelona working with social-impact and disaster-resilience organisations.",
+        "url": "https://www.yabintorres.com/",
+        "address": { "@type": "PostalAddress", "addressLocality": "Barcelona", "addressCountry": "ES" },
+        "alumniOf": [
+          { "@type": "CollegeOrUniversity", "name": "Harbour.Space University" },
+          { "@type": "CollegeOrUniversity", "name": "CENTRO" }
+        ],
+        "knowsAbout": ["Product design", "UX design", "Interaction design", "Brand identity"],
+        "sameAs": [
+          "https://www.linkedin.com/in/yabintorres/",
+          "https://www.behance.net/YabinTorres"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.yabintorres.com/#website",
+        "url": "https://www.yabintorres.com/",
+        "name": "Yabin Torres",
+        "inLanguage": "en",
+        "publisher": { "@id": "https://www.yabintorres.com/#person" }
+      }
+      {%- if page.url == "/bio.html" %},
+      {
+        "@type": "ProfilePage",
+        "@id": "{{ pageUrl }}#profile",
+        "url": "{{ pageUrl }}",
+        "name": "{{ title }}",
+        "isPartOf": { "@id": "https://www.yabintorres.com/#website" },
+        "mainEntity": { "@id": "https://www.yabintorres.com/#person" }
+      }
+      {%- endif %}
+    ]
+  }
+  </script>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
