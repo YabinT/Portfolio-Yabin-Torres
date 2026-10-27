@@ -1,0 +1,261 @@
+{#- One page per service (services/*.html). Each page is only front matter:
+    the copy lives in `service`, this layout draws it, and the same data feeds
+    the Service and FAQPage JSON-LD so what search engines and AI assistants
+    read can never drift from what the visitor reads. Links are root-relative
+    because these pages sit one folder down. -#}
+{% extends "base.njk" %}
+
+{% block head %}
+  {%- set pageUrl = "https://www.yabintorres.com" + page.url %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": {{ (pageUrl + "#service") | dump | safe }},
+        "name": {{ service.name | dump | safe }},
+        "serviceType": {{ service.serviceType | dump | safe }},
+        "description": {{ description | dump | safe }},
+        "url": {{ pageUrl | dump | safe }},
+        "provider": { "@id": "https://www.yabintorres.com/#person" },
+        "areaServed": "Worldwide",
+        "audience": { "@type": "Audience", "audienceType": {{ service.audience | dump | safe }} }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": {{ (pageUrl + "#faq") | dump | safe }},
+        "url": {{ pageUrl | dump | safe }},
+        "mainEntity": [
+          {%- for item in service.faq %}
+          {
+            "@type": "Question",
+            "name": {{ item.q | dump | safe }},
+            "acceptedAnswer": { "@type": "Answer", "text": {{ item.a | striptags | dump | safe }} }
+          }{% if not loop.last %},{% endif %}
+          {%- endfor %}
+        ]
+      }
+    ]
+  }
+  </script>
+{% endblock %}
+
+{% block body %}
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">
+      <span>Yabin Torres</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/services.html" aria-current="page">Services</a></li>
+      <li><a href="/#work">Work</a></li>
+      <li><a href="/bio.html">Bio</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO — who it is for, and the one action -->
+  <header class="svc-hero">
+    <div class="svc-inner svc-hero-inner">
+      <div>
+        <a class="page-kicker svc-kicker" href="/services.html">Services &middot; {{ service.name }}</a>
+        <h1 class="svc-title">{{ service.h1 | safe }}</h1>
+        <p class="svc-lede">{{ service.lede | safe }}</p>
+        <div class="svc-actions">
+          <a class="btn-primary btn-primary--lg" href="/contact.html?intent={{ service.intent }}">{{ service.cta }}</a>
+          {%- if service.ctaAlt %}
+          <a class="service-link" href="{{ service.ctaAlt.href }}">{{ service.ctaAlt.label }}</a>
+          {%- endif %}
+        </div>
+      </div>
+
+      {%- set ex = service.example %}
+      {%- if ex %}
+      {#- An example from real work, drawn in HTML rather than pasted as a
+          screenshot: a picture for the visitor, and text a crawler can read.
+          It always says where it comes from. -#}
+      <figure class="svc-example">
+        <figcaption>
+          <span class="svc-example-kicker">{{ ex.caption }}</span>
+          <span class="svc-example-context">{{ ex.context }}</span>
+        </figcaption>
+
+        {%- if ex.logo %}
+        <div class="svc-example-logo" style="background: {{ ex.logo.bg }}">
+          <img src="/assets/{{ ex.logo.src }}" alt="{{ ex.logo.alt }}" width="{{ ex.logo.width }}" height="{{ ex.logo.height }}" />
+        </div>
+        {%- endif %}
+
+        {%- if ex.rows %}
+        <ul class="svc-score-rows">
+          {%- for row in ex.rows %}
+          <li>
+            <span class="svc-score-label">{{ row.label }}</span>
+            <span class="svc-score-bar"><i style="width: {{ row.score * 10 }}%"></i></span>
+            <b>{{ row.score }}<small>/10</small></b>
+          </li>
+          {%- endfor %}
+        </ul>
+        {%- endif %}
+
+        {%- if ex.stats %}
+        <dl class="svc-stats">
+          {%- for stat in ex.stats %}
+          <div>
+            <dt>{{ stat.value }}</dt>
+            <dd>{{ stat.label }}</dd>
+          </div>
+          {%- endfor %}
+        </dl>
+        {%- endif %}
+
+        {%- if ex.swatches %}
+        <ul class="svc-swatches">
+          {%- for swatch in ex.swatches %}
+          <li>
+            <span style="background: {{ swatch.hex }}"></span>
+            {%- if swatch.name %}<b>{{ swatch.name }}</b>{% endif %}
+            <code>{{ swatch.hex }}</code>
+          </li>
+          {%- endfor %}
+        </ul>
+        {%- endif %}
+
+        {%- if ex.specs %}
+        <ul class="service-includes svc-specs">
+          {%- for spec in ex.specs %}
+          <li>{{ spec }}</li>
+          {%- endfor %}
+        </ul>
+        {%- endif %}
+
+        <p>{{ ex.note }}</p>
+        <a class="service-link" href="{{ ex.link.href }}">{{ ex.link.label }}</a>
+      </figure>
+      {%- endif %}
+    </div>
+  </header>
+
+  <!-- SIGNS — the visitor recognises their own situation -->
+  <section class="svc-section" aria-labelledby="svc-signs">
+    <div class="svc-inner">
+      <h2 class="svc-h2" id="svc-signs">{{ service.signsTitle or "This is for you if" }}</h2>
+      <ol class="svc-signs">
+        {%- for sign in service.signs %}
+        <li>{{ sign | safe }}</li>
+        {%- endfor %}
+      </ol>
+    </div>
+  </section>
+
+  <!-- DELIVERABLES -->
+  <section class="svc-section" aria-labelledby="svc-get">
+    <div class="svc-inner">
+      <h2 class="svc-h2" id="svc-get">What you get</h2>
+      <ul class="svc-deliverables">
+        {%- for item in service.deliverables %}
+        <li>
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.text | safe }}</p>
+        </li>
+        {%- endfor %}
+      </ul>
+    </div>
+  </section>
+
+  <!-- PROOF — the work this service has already done, image first -->
+  <section class="svc-section" aria-labelledby="svc-proof">
+    <div class="svc-inner">
+      <h2 class="svc-h2" id="svc-proof">{{ service.proofTitle or "Where it has worked" }}</h2>
+      <div class="svc-proof">
+        {%- for item in service.proof %}
+        <a class="svc-proof-item" href="{{ item.href }}">
+          <span class="svc-proof-media">
+            <img src="/assets/thumbnails/{{ item.thumb }}" alt="{{ item.alt }}" loading="lazy" width="900" height="675" />
+          </span>
+          <span class="svc-proof-text">
+            <span class="svc-proof-kicker">{{ item.kicker }}</span>
+            <b class="svc-proof-metric">{{ item.metric }}</b>
+            <span class="svc-proof-label">{{ item.metricLabel }}</span>
+            <span class="svc-proof-desc">{{ item.text | safe }}</span>
+            <span class="feed-link">Read the case</span>
+          </span>
+        </a>
+        {%- endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="svc-section" aria-labelledby="svc-how">
+    <div class="svc-inner">
+      <h2 class="svc-h2" id="svc-how">How it works</h2>
+      <ol class="svc-steps">
+        {%- for step in service.steps %}
+        <li>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.text | safe }}</p>
+        </li>
+        {%- endfor %}
+      </ol>
+    </div>
+  </section>
+
+  <!-- FAQ — written as the questions people ask an assistant -->
+  <section class="svc-section" aria-labelledby="svc-faq">
+    <div class="svc-inner svc-faq-inner">
+      <h2 class="svc-h2" id="svc-faq">Questions</h2>
+      <div class="svc-faq">
+        {%- for item in service.faq %}
+        <details{% if loop.first %} open{% endif %}>
+          <summary>{{ item.q }}</summary>
+          <p>{{ item.a | safe }}</p>
+        </details>
+        {%- endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- OTHER SERVICES -->
+  <section class="svc-section" aria-labelledby="svc-more">
+    <div class="svc-inner">
+      <h2 class="svc-h2" id="svc-more">Other services</h2>
+      <div class="svc-more">
+        {%- for other in serviceIndex %}{% if other.url != page.url %}
+        <a class="svc-more-card" href="{{ other.url }}">
+          <span class="svc-more-icon">{% set iconSlug = other.slug %}{% include "service-icon.njk" %}</span>
+          <b>{{ other.name }}</b>
+          <span>{{ other.line }}</span>
+        </a>
+        {%- endif %}{% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSE -->
+  <section class="svc-section svc-section--close">
+    <aside class="feed-cta">
+      <div class="feed-cta-text">
+        <h2 class="feed-cta-title">{{ service.closeTitle }}</h2>
+        <p class="feed-desc">{{ service.closeText | safe }}</p>
+      </div>
+      <a class="btn-primary btn-primary--lg" href="/contact.html?intent={{ service.intent }}">{{ service.cta }}</a>
+    </aside>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <span class="footer-name">Yabin Torres — 2026</span>
+      <span class="footer-links">
+        <a href="https://www.linkedin.com/in/yabintorres/" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp;·&nbsp;
+        <a href="https://www.behance.net/YabinTorres" target="_blank" rel="noopener noreferrer">Behance</a> &nbsp;·&nbsp;
+        <a href="/contact.html">Contact</a> &nbsp;·&nbsp;
+        <a href="/privacy.html">Privacy</a>
+      </span>
+    </div>
+  </footer>
+
+{% endblock %}

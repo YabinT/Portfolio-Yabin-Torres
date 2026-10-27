@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "ux-audit",
+    "name": "Diagnosis & Audit",
+    "url": "/services/ux-audit.html",
+    "line": "For teams who know something is wrong, but not what."
+  },
+  {
+    "slug": "website-redesign",
+    "name": "Redesign & Interface",
+    "url": "/services/website-redesign.html",
+    "line": "For products that need rebuilding, not repainting."
+  },
+  {
+    "slug": "design-systems",
+    "name": "Design Systems",
+    "url": "/services/design-systems.html",
+    "line": "For teams where every screen starts from zero."
+  },
+  {
+    "slug": "brand-identity",
+    "name": "Brand Identity",
+    "url": "/services/brand-identity.html",
+    "line": "For platforms with no visual language of their own."
+  }
+]

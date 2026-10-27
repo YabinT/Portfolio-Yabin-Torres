@@ -538,18 +538,17 @@ nav {
   gap: var(--space-xl);
 }
 
-/* No thumbnail here: the title carries the column on its own, so it is set
-   large and sits under a rule that gives the four of them their rhythm. */
+/* Each column opens on the service's line icon, the same tile the service
+   pages use (.svc-more-icon), so the four share one rhythm without a rule. */
 .service-card {
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
-  border-top: 1px solid var(--color-border);
-  padding-top: var(--space-lg);
-  transition: border-color 0.25s ease;
 }
 
-.service-card:hover { border-top-color: var(--color-mint); }
+.service-card .svc-more-icon { margin-bottom: var(--space-sm); }
+.service-card:hover .svc-more-icon { border-color: rgba(37, 196, 126, 0.5); }
+.service-card:hover .svc-icon { transform: scale(1.06); }
 
 .service-card-title {
   font-size: clamp(30px, 3vw, 46px);
@@ -1005,11 +1004,24 @@ nav {
     align-items: center;
     justify-content: space-between;
     padding: var(--space-md) 0;
+    border-top: 1px solid var(--color-border);
   }
 
   .service-card:last-child { border-bottom: 1px solid var(--color-border); }
 
-  .service-card-title { font-size: 26px; }
+  /* In a row the icon drops its tile and sits beside the title. */
+  .service-card .svc-more-icon {
+    flex-shrink: 0;
+    width: 44px;
+    aspect-ratio: 1;
+    margin: 0;
+    background: none;
+    border: 0;
+  }
+
+  .service-card .svc-icon { width: 100%; }
+
+  .service-card-title { flex: 1; font-size: 26px; }
   .service-card-title br { display: none; }
 
   .service-card p { display: none; }
@@ -1260,4 +1272,485 @@ nav {
 
 @media (max-width: 900px) {
   .soft-cta-inner { grid-template-columns: 1fr; }
+}
+
+/* -- SERVICE PAGES (services/*.html) --------------------------
+   One page per service, drawn by content/_includes/service.njk. Every
+   section shares the inset width of the home grids, and each one leads
+   with something to look at — a scorecard, a case image, a number —
+   before the sentence that explains it. */
+.svc-inner {
+  max-width: var(--grid-max);
+  margin: 0 auto;
+}
+
+.svc-hero { padding: var(--space-3xl) var(--pad-x) var(--space-2xl); }
+
+.svc-hero-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+}
+
+.svc-kicker { transition: color 0.2s ease; }
+.svc-kicker:hover { color: var(--color-text); }
+
+.svc-title {
+  font-size: clamp(36px, 4.2vw, 60px);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+}
+
+.svc-lede {
+  margin-top: var(--space-lg);
+  max-width: 54ch;
+  font-size: var(--text-h3);
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.svc-actions {
+  margin-top: var(--space-xl);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+}
+
+/* Example from real work, beside the hero. One frame — where it comes
+   from, the evidence, one line of reading, a link to the case — and a body
+   that changes with the service: bars, numbers, swatches or a logo. */
+.svc-example {
+  padding: var(--space-xl);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.svc-example figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);
+}
+
+.svc-example-kicker {
+  font-size: var(--text-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mint);
+}
+
+.svc-example-context {
+  font-size: var(--text-body);
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.svc-example > p {
+  margin-top: var(--space-lg);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--text-body);
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.svc-example .service-link {
+  display: inline-block;
+  margin-top: var(--space-md);
+}
+
+/* Bars: the bars carry the reading, the numbers confirm it. */
+.svc-score-rows {
+  list-style: none;
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.svc-score-rows li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-sm) var(--space-md);
+  align-items: end;
+}
+
+.svc-score-label { grid-column: 1; grid-row: 1; font-size: var(--text-body); }
+
+.svc-score-rows b {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  font-size: clamp(32px, 3vw, 44px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.svc-score-rows small {
+  font-size: 0.45em;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.svc-score-bar {
+  grid-column: 1;
+  grid-row: 2;
+  height: 10px;
+  background: var(--color-border);
+}
+
+.svc-score-bar i {
+  display: block;
+  height: 100%;
+  background: var(--color-mint);
+}
+
+/* Numbers: two by two, the figure first. */
+.svc-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-lg) var(--space-md);
+}
+
+.svc-stats dt {
+  font-size: clamp(36px, 3.6vw, 52px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.svc-stats dd {
+  margin-top: var(--space-xs);
+  font-size: var(--text-body);
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* Swatches: the palette as it was specified, hex under each chip. */
+.svc-swatches {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(44px, 1fr));
+  gap: var(--space-sm);
+}
+
+.svc-swatches span {
+  display: block;
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: var(--space-sm);
+}
+
+.svc-swatches b {
+  display: block;
+  font-size: var(--text-label);
+  font-weight: 500;
+}
+
+.svc-swatches code {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: var(--text-micro);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.svc-specs { margin-top: var(--space-lg); padding-top: 0; }
+
+.svc-example-logo {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 7;
+  margin-bottom: var(--space-md);
+}
+
+.svc-example-logo img {
+  width: 62%;
+  height: auto;
+}
+
+.svc-section {
+  padding: var(--space-3xl) var(--pad-x);
+  border-top: 1px solid var(--color-border);
+}
+
+.svc-h2 {
+  font-size: clamp(30px, 3.2vw, 48px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-2xl);
+}
+
+/* Signs: four situations a visitor recognises, set large and numbered. */
+.svc-signs {
+  list-style: none;
+  counter-reset: sign;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-xl) var(--space-2xl);
+}
+
+.svc-signs li {
+  counter-increment: sign;
+  font-size: clamp(20px, 1.8vw, 26px);
+  line-height: 1.3;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border);
+}
+
+.svc-signs li::before {
+  content: counter(sign, decimal-leading-zero);
+  display: block;
+  font-size: var(--text-label);
+  letter-spacing: 0.08em;
+  color: var(--color-mint);
+  margin-bottom: var(--space-sm);
+}
+
+.svc-deliverables {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-md);
+}
+
+.svc-deliverables li {
+  padding: var(--space-lg);
+  background: var(--color-surface);
+  border-top: 2px solid var(--color-mint);
+}
+
+.svc-deliverables h3,
+.svc-steps h3 {
+  font-size: clamp(20px, 1.6vw, 24px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: var(--space-sm);
+}
+
+.svc-deliverables p,
+.svc-steps p {
+  font-size: var(--text-body);
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* Proof: the image carries the row, the number is the headline. */
+.svc-proof {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.svc-proof-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 64px);
+  align-items: center;
+}
+
+.svc-proof-media { overflow: hidden; }
+
+.svc-proof-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.svc-proof-item:hover .svc-proof-media img { transform: scale(1.03); }
+
+.svc-proof-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.svc-proof-kicker {
+  font-size: var(--text-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mint);
+}
+
+.svc-proof-metric {
+  font-size: clamp(56px, 6vw, 96px);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.svc-proof-label { font-size: var(--text-h3); }
+
+.svc-proof-desc {
+  font-size: var(--text-body);
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 46ch;
+  margin-bottom: var(--space-sm);
+}
+
+.svc-proof-item:hover .feed-link { color: var(--color-mint); }
+
+/* Steps: a numbered line across the page, like a timeline. */
+.svc-steps {
+  list-style: none;
+  counter-reset: step;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-lg);
+}
+
+.svc-steps li {
+  counter-increment: step;
+  position: relative;
+  padding-top: 64px;
+}
+
+.svc-steps li::before {
+  content: counter(step);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--color-mint);
+  color: var(--color-mint);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  background: var(--color-bg);
+  z-index: 1;
+}
+
+.svc-steps li::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: calc(var(--space-lg) * -1);
+  border-top: 1px solid var(--color-border);
+}
+
+.svc-steps li:last-child::after { right: 0; }
+
+.svc-steps a,
+.svc-faq a {
+  border-bottom: 1px solid var(--color-mint);
+  transition: color 0.2s ease;
+}
+
+.svc-steps a:hover,
+.svc-faq a:hover { color: var(--color-mint); }
+
+.svc-faq-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: var(--space-xl);
+}
+
+.svc-faq details { border-top: 1px solid var(--color-border); }
+.svc-faq details:last-child { border-bottom: 1px solid var(--color-border); }
+
+.svc-faq summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  padding: var(--space-lg) 0;
+  font-size: clamp(18px, 1.5vw, 22px);
+  font-weight: 700;
+  line-height: 1.25;
+  transition: color 0.2s ease;
+}
+
+.svc-faq summary::-webkit-details-marker { display: none; }
+
+.svc-faq summary::after {
+  content: '+';
+  flex-shrink: 0;
+  font-weight: 400;
+  color: var(--color-mint);
+  transition: transform 0.2s ease;
+}
+
+.svc-faq details[open] summary::after { transform: rotate(45deg); }
+.svc-faq summary:hover { color: var(--color-mint); }
+
+.svc-faq p {
+  padding-bottom: var(--space-lg);
+  max-width: 64ch;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.svc-more {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-xl);
+}
+
+.svc-more-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* Each service is drawn as its own line icon on a quiet tile: photos of
+   cases here made a service look like a single project. */
+.svc-more-icon {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  margin-bottom: var(--space-sm);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  transition: border-color 0.25s ease;
+}
+
+.svc-icon {
+  width: 34%;
+  height: auto;
+  overflow: visible;
+  transition: transform 0.4s ease;
+}
+
+.svc-icon-accent { stroke: var(--color-mint); }
+
+.svc-more-card b {
+  font-size: clamp(22px, 2vw, 30px);
+  line-height: 1.1;
+  transition: color 0.2s ease;
+}
+
+.svc-more-card span { color: rgba(255, 255, 255, 0.72); }
+.svc-more-card:hover b { color: var(--color-mint); }
+.svc-more-card:hover .svc-more-icon { border-color: rgba(37, 196, 126, 0.5); }
+.svc-more-card:hover .svc-icon { transform: scale(1.06); }
+
+.svc-section--close { padding-top: var(--space-2xl); }
+.svc-section--close .feed-cta { margin-top: 0; }
+
+@media (max-width: 1100px) {
+  .svc-deliverables { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .svc-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--space-xl); }
+  .svc-steps li::after { display: none; }
+}
+
+@media (max-width: 900px) {
+  .svc-hero { padding: var(--space-2xl) var(--pad-x); }
+  .svc-hero-inner,
+  .svc-proof-item,
+  .svc-faq-inner { grid-template-columns: 1fr; }
+  .svc-section { padding: var(--space-2xl) var(--pad-x); }
+  .svc-h2 { margin-bottom: var(--space-xl); }
+  .svc-signs { grid-template-columns: 1fr; gap: var(--space-lg); }
+  .svc-proof { gap: var(--space-2xl); }
+  .svc-proof-item { gap: var(--space-lg); }
+  .svc-more { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .svc-deliverables,
+  .svc-steps { grid-template-columns: 1fr; }
+  .svc-example { padding: var(--space-lg); }
+  .svc-actions { flex-direction: column; align-items: flex-start; }
+  .svc-swatches { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }

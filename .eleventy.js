@@ -7,6 +7,11 @@ const casePages = fs
   .readdirSync("cases")
   .filter((file) => file.endsWith(".html") && !file.includes("mockup"));
 
+// One page per service (services/*.html), listed the same way.
+const servicePages = fs
+  .readdirSync("services")
+  .filter((file) => file.endsWith(".html"));
+
 module.exports = function (eleventyConfig) {
   // Every page (the root .html files and cases/*.html) extends
   // content/_includes/base.njk, which holds the shared <head>. Pages keep the
@@ -26,6 +31,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addGlobalData("sitemapUrls", [
     "/",
     "/services.html",
+    ...servicePages.map((file) => `/services/${file}`),
     "/audit.html",
     "/bio.html",
     "/contact.html",

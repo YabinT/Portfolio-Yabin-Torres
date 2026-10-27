@@ -1,0 +1,36 @@
+{#- Line icon for one service, picked by `iconSlug`. One 64-unit grid and one
+    stroke for all four, white with a single mint accent, so they read as a
+    set. Decorative: the service name always sits next to it. -#}
+<svg class="svc-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+{%- if iconSlug == "ux-audit" %}
+  {#- A funnel, and a magnifier reading the data it leaks. #}
+  <path d="M6 10H42L28 28V42L20 46V28Z" />
+  <g class="svc-icon-accent">
+    <circle cx="44" cy="40" r="10" />
+    <path d="M51 47L58 54" />
+    <path d="M40 44V40M44 44V35M48 44V38" />
+  </g>
+{%- elif iconSlug == "website-redesign" %}
+  {#- A browser window being rebuilt, and the cursor doing it. #}
+  <rect x="6" y="8" width="46" height="38" rx="2" />
+  <path d="M6 16H52" />
+  <path d="M11 12H11.01M15 12H15.01" />
+  <rect x="12" y="22" width="14" height="16" />
+  <path d="M31 24H46M31 30H43M31 36H38" />
+  <path class="svc-icon-accent" d="M42 34V56L47.5 50.5L51.5 58.5L55 56.8L51 49H58.5Z" fill="var(--color-bg)" />
+{%- elif iconSlug == "design-systems" %}
+  {#- Four components from one kit, one of them in use. #}
+  <rect x="8" y="8" width="20" height="20" rx="2" />
+  <circle cx="46" cy="18" r="10" />
+  <path d="M18 36L28 56H8Z" />
+  <rect class="svc-icon-accent" x="36" y="36" width="20" height="20" rx="2" />
+{%- elif iconSlug == "brand-identity" %}
+  {#- A drawing nib: the mark made by hand before it is a file. #}
+  <path d="M22 8H42V20L50 34L32 58L14 34L22 20Z" />
+  <path d="M22 20H42" />
+  <g class="svc-icon-accent">
+    <circle cx="32" cy="34" r="4" />
+    <path d="M32 38V58" />
+  </g>
+{%- endif %}
+</svg>

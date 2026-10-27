@@ -72,42 +72,6 @@ description: "Product designer in Barcelona working with social-impact organizat
     </div>
   </section>
 
-  <!-- SERVICES — intro only; the full offer lives on services.html -->
-  <section class="services" id="services">
-    <div class="services-inner">
-      <h2 class="services-heading">Understanding how people <br />behave online, and designing <br />for what they actually do.</h2>
-      <p class="services-lede">Every screen asks someone to decide whether to keep going. Understanding that decision — what they look for, what they ignore, where they give up — is the work. These are the four ways I put it into practice.</p>
-
-      <div class="services-cards">
-
-        <article class="service-card">
-          <h3 class="service-card-title">Diagnosis <br />&amp; Audit</h3>
-          <p>I audit the product end to end — funnel, architecture, interface and the data you already have — and come back with what is actually broken and the order to fix it.</p>
-          <a class="service-card-link" href="services.html#audit">Diagnosis &amp; audit</a>
-        </article>
-
-        <article class="service-card">
-          <h3 class="service-card-title">Redesign <br />&amp; Interface</h3>
-          <p>Wireframes with real copy first, approved before any visual design touches them. Then the interface, then the build — on the platform you already have.</p>
-          <a class="service-card-link" href="services.html#redesign">Redesign &amp; interface</a>
-        </article>
-
-        <article class="service-card">
-          <h3 class="service-card-title">Design <br />Systems</h3>
-          <p>Tokens, components and templates that hold up once somebody else is using them — including the ones authored in a CMS instead of written in code.</p>
-          <a class="service-card-link" href="services.html#systems">Design systems</a>
-        </article>
-
-        <article class="service-card">
-          <h3 class="service-card-title">Brand <br />Identity</h3>
-          <p>Logo, palette, typography and the manual that keeps them consistent once I’m not in the room. Built from zero, for platforms with no visual language of their own.</p>
-          <a class="service-card-link" href="services.html#brand">Brand identity</a>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
   <!-- WORK / FEED -->
   <section class="feed" id="work">
     <div class="feed-header">
@@ -228,6 +192,45 @@ description: "Product designer in Barcelona working with social-impact organizat
         </a>
       </article>
 
+    </div>
+  </section>
+
+  <!-- SERVICES — intro only; the full offer lives on services.html -->
+  <section class="services" id="services">
+    <div class="services-inner">
+      <h2 class="feed-heading">Services</h2>
+
+      <div class="services-cards">
+
+        <article class="service-card">
+          <span class="svc-more-icon">{% set iconSlug = "ux-audit" %}{% include "service-icon.njk" %}</span>
+          <h3 class="service-card-title">Diagnosis <br />&amp; Audit</h3>
+          <p>I audit the product end to end — funnel, architecture, interface and the data you already have — and come back with what is actually broken and the order to fix it.</p>
+          <a class="service-card-link" href="services/ux-audit.html">Diagnosis &amp; audit</a>
+        </article>
+
+        <article class="service-card">
+          <span class="svc-more-icon">{% set iconSlug = "website-redesign" %}{% include "service-icon.njk" %}</span>
+          <h3 class="service-card-title">Redesign <br />&amp; Interface</h3>
+          <p>Wireframes with real copy first, approved before any visual design touches them. Then the interface, then the build — on the platform you already have.</p>
+          <a class="service-card-link" href="services/website-redesign.html">Redesign &amp; interface</a>
+        </article>
+
+        <article class="service-card">
+          <span class="svc-more-icon">{% set iconSlug = "design-systems" %}{% include "service-icon.njk" %}</span>
+          <h3 class="service-card-title">Design <br />Systems</h3>
+          <p>Tokens, components and templates that hold up once somebody else is using them — including the ones authored in a CMS instead of written in code.</p>
+          <a class="service-card-link" href="services/design-systems.html">Design systems</a>
+        </article>
+
+        <article class="service-card">
+          <span class="svc-more-icon">{% set iconSlug = "brand-identity" %}{% include "service-icon.njk" %}</span>
+          <h3 class="service-card-title">Brand <br />Identity</h3>
+          <p>Logo, palette, typography and the manual that keeps them consistent once I’m not in the room. Built from zero, for platforms with no visual language of their own.</p>
+          <a class="service-card-link" href="services/brand-identity.html">Brand identity</a>
+        </article>
+
+      </div>
     </div>
 
     <!-- Availability banner -->
